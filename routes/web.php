@@ -28,7 +28,14 @@ Route::get('/product', function () {
         ],
     );
 });
-Route::get('/test', function () {
-    return view('test');
+
+Route::get('/loop1_triangle', function () {
+    return view('loop1_triangle');
 });
+
+
+Route::get('/loop2_table', function () {
+    return view('loop2_table');
+});
+
 
