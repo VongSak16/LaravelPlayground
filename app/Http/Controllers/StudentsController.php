@@ -2,30 +2,30 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
+use App\Models\Student;
 use Illuminate\Http\Request;
 
-class CategorysController extends Controller
+class StudentsController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $title = "Welcome to Category";
-        $name = "Drinks";
-        $qty = 5;
-        $price = 120;
-        $total = $qty * $price;
+        $title = "Welcome to Student";
+        $name = "Hout Vongsak";
+        $birth = "15/04/2004";
+        $sex = "Male";
+        $field = "MIS";
         
         $data =  [
             'title'=>$title,
             'name'=>$name,
-            'qty'=>$qty,
-            'price'=>$price,
-            'total'=>$total
+            'birth'=>$birth,
+            'sex'=>$sex,
+            'field'=>$field
         ];
-        return view("category", $data);
+        return view("student", $data);
     }
 
     /**
@@ -47,7 +47,7 @@ class CategorysController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Category $category)
+    public function show(Student $student)
     {
         //
     }
@@ -55,7 +55,7 @@ class CategorysController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Category $category)
+    public function edit(Student $student)
     {
         //
     }
@@ -63,7 +63,7 @@ class CategorysController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, Student $student)
     {
         //
     }
@@ -71,7 +71,7 @@ class CategorysController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Category $category)
+    public function destroy(Student $student)
     {
         //
     }
