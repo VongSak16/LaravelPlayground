@@ -1,4 +1,4 @@
-Output: <br>
-<!-- q * a - (q * a * d / 100) -->
-{{ $product }}({{ $dis }}%) {{ $qty }} x {{ $amount }}$ =
-{{ $qty * $amount - ($qty * $amount * $dis) / 100 }}
+@extends('layout.main')
+@section('content')
+    {{ $hello }}
+@endsection

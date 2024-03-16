@@ -26,6 +26,8 @@ class StudentsController extends Controller
             'field'=>$field
         ];
         return view("student", $data);
+
+        // return view('student');
     }
 
     /**
