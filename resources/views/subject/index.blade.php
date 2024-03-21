@@ -24,13 +24,17 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Responsive Hover Table</h3>
-
                             <div class="card-tools">
                                 <div class="input-group input-group-sm" style="width: 150px;">
+                                    <div class="float-left">
+                                        <a class="btn btn-success btn-sm" href="#">
+                                            <i class="fas fa-plus">
+                                            </i>
+                                        </a>
+                                    </div>
+
                                     <input type="text" name="table_search" class="form-control float-right"
                                         placeholder="Search">
-
                                     <div class="input-group-append">
                                         <button type="submit" class="btn btn-default">
                                             <i class="fas fa-search"></i>
@@ -60,20 +64,21 @@
                                         <td><span class="tag tag-success">Riel</span></td>
                                         <td>$$</td>
                                         <td>
-                                            <div class="btn-group">
-                                                <button type="button" class="btn btn-info">Action</button>
-                                                <button type="button" class="btn btn-info dropdown-toggle dropdown-icon"
-                                                    data-toggle="dropdown" aria-expanded="false">
-                                                    <span class="sr-only">Toggle Dropdown</span>
-                                                </button>
-                                                <div class="dropdown-menu" role="menu" style="">
-                                                    <a class="dropdown-item" href="#">Action</a>
-                                                    <a class="dropdown-item" href="#">Another action</a>
-                                                    <a class="dropdown-item" href="#">Something else here</a>
-                                                    <div class="dropdown-divider"></div>
-                                                    <a class="dropdown-item" href="#">Separated link</a>
-                                                </div>
-                                            </div>
+                                            <a class="btn btn-primary btn-sm" href="#">
+                                                <i class="fas fa-folder">
+                                                </i>
+                                                View
+                                            </a>
+                                            <a class="btn btn-info btn-sm" href="#">
+                                                <i class="fas fa-pencil-alt">
+                                                </i>
+                                                Edit
+                                            </a>
+                                            <a class="btn btn-danger btn-sm" href="#">
+                                                <i class="fas fa-trash">
+                                                </i>
+                                                Delete
+                                            </a>
                                         </td>
                                     </tr>
                                 </tbody>
