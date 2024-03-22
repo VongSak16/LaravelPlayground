@@ -4,15 +4,27 @@ namespace App\Http\Controllers;
 
 use App\Models\SubjectModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SubjectController extends Controller
 {
     /**
      * Display a listing of the resource.
+     * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        return view('subject.index');
+        // try {
+        //     $tbl = DB::select('select * from tblsubject;');
+        //     return view('subject​.index', ['tbl' => $tbl]);
+        // } catch (\Exception $e) {
+        //     print($e);
+        // }
+
+
+        $tbl = DB::select('select * from tblsubject;');
+        
+        return view('subject.index', ['tbl' => $tbl]);
     }
 
     /**
