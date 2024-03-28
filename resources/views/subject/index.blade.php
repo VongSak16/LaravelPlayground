@@ -46,7 +46,7 @@
                                             <td>{{ $item->subjectid }}</td>
                                             <td>{{ $item->subjectname }}</td>
                                             <td>{{date('Y-m-d', strtotime($item->postdate))}}</td>
-                                            <td>{{ $item->price }}</td>
+                                            <td>{{ $item->price }} $</td>
                                             <td>{{ $item->photo }}</td>
                                             <td>{{date('Y-m-d', strtotime($item->create_at))}}</td>
                                             <td>{{date('Y-m-d', strtotime($item->update_at))}}</td>
@@ -60,9 +60,9 @@
                                                 <a style="margin-right: 5px" class="btn btn-info btn-sm" href="#">
                                                     <i class="fas fa-pencil-alt">
                                                     </i>
-                                                    Edit
+                                                    Edi
                                                 </a>
-                                                <a style="margin-right: 5px" class="btn btn-danger btn-sm" href="subject-delete/{{ $item->subjectid }}">
+                                                <a style="margin-right: 5px" class="btn btn-danger btn-sm" href="/subject-delete/{{ $item->subjectid }}">
                                                     <i class="fas fa-trash">
                                                     </i>
                                                     Delete

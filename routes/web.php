@@ -54,4 +54,6 @@ Route::get('/expense ', [ExspenseController::class, 'index']);
 
 Route::get('/subject', [SubjectController::class, 'index']);
 Route::get('/subject-create', [SubjectController::class, 'create']);
-Route::get('/subject-delete/{id}', [SubjectController::class, 'destory']);
+
+Route::get('/subject-delete/{id}', [SubjectController::class, 'delete']);
+Route::post('/subject-delete/{id}', [SubjectController::class, 'destroy']);

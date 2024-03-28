@@ -69,9 +69,13 @@ class SubjectController extends Controller
     /**
      * Remove the specified resource from storage.
      */
+    public function delete($id)
+    {
+        return view("subject.delete",["id"=>$id]);
+    }
     public function destroy($id)
     {
-        $tbl = DB::delete('DELETE FROM tblsubject WHERE subjectid ='.$id.';');
-        return redirect('subject');
+        $tbl = DB::delete('DELETE from tblsubject where subjectid = '.$id.';');
+        return redirect('/subject');
     }
-}
+} 
