@@ -26,8 +26,6 @@
                         <div class="card-header">
                             <h3 class="card-title">Quick Example</h3>
                         </div>
-
-
                         <form>
                             <div class="card-body">
                                 <div class="form-group">

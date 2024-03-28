@@ -23,7 +23,6 @@ class SubjectController extends Controller
 
 
         $tbl = DB::select('select * from tblsubject;');
-        
         return view('subject.index', ['tbl' => $tbl]);
     }
 
@@ -70,8 +69,9 @@ class SubjectController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(SubjectModel $subjectModel)
+    public function destroy($id)
     {
-        //
+        $tbl = DB::delete('DELETE FROM tblsubject WHERE subjectid ='.$id.';');
+        return redirect('subject');
     }
 }

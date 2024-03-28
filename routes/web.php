@@ -40,11 +40,9 @@ Route::get('/loop1_triangle', function () {
     return view('loop1_triangle');
 });
 
-
 Route::get('/loop2_table', function () {
     return view('loop2_table');
 });
-
 
 Route::get('/category',  [CategorysController::class, 'index']);
 Route::get('/student',  [StudentsController::class, 'index']);
@@ -54,6 +52,6 @@ Route::get('/product', [productsController::class, 'index']);
 Route::get('/admin ', [AdminController::class, 'index']);
 Route::get('/expense ', [ExspenseController::class, 'index']);
 
-
 Route::get('/subject', [SubjectController::class, 'index']);
 Route::get('/subject-create', [SubjectController::class, 'create']);
+Route::get('/subject-delete/{id}', [SubjectController::class, 'destory']);

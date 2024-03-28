@@ -18,7 +18,7 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-header">
-                            <a class="btn btn-success btn-bg" href="#">
+                            <a class="btn btn-success btn-bg" href="subject-create">
                                 <i class="fas fa-plus">
                                 </i>
 
@@ -62,7 +62,7 @@
                                                     </i>
                                                     Edit
                                                 </a>
-                                                <a style="margin-right: 5px" class="btn btn-danger btn-sm" href="#">
+                                                <a style="margin-right: 5px" class="btn btn-danger btn-sm" href="subject-delete/{{ $item->subjectid }}">
                                                     <i class="fas fa-trash">
                                                     </i>
                                                     Delete
