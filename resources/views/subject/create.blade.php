@@ -30,14 +30,14 @@
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
-                <form class="form-horizontal" method="Post" action="/subject/create"
+                <form class="form-horizontal" method="Post" action="/subject-create"
                   enctype = "multipart/form-data" >
                   @csrf
                   
                     <div class="card-body">
                     <div class="form-group">
                         <label for="exampleInputEmail1">Subject</label>
-                        <input type="text" id="txtSubject" name="txtSubject" class="form-control" id="exampleInputEmail1" >
+                        <input type="text" id="txtsubject" name="txtsubject" class="form-control" id="exampleInputEmail1" >
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Price</label>
@@ -45,7 +45,7 @@
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Duration</label>
-                        <input type="txt" name="txtduration" class="form-control" id="exampleInputEmail1" >
+                        <input type="text" name="txtduration" class="form-control" id="exampleInputEmail1" >
                     </div>
                     
                     <div class="form-group">

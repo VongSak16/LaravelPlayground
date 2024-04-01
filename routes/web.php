@@ -6,7 +6,6 @@ use App\Http\Controllers\ExspenseController;
 use App\Http\Controllers\StudentsController;
 use App\Http\Controllers\productsController;
 use App\Http\Controllers\SubjectController;
-use App\Models\SubjectModel;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -53,7 +52,9 @@ Route::get('/admin ', [AdminController::class, 'index']);
 Route::get('/expense ', [ExspenseController::class, 'index']);
 
 Route::get('/subject', [SubjectController::class, 'index']);
+
 Route::get('/subject-create', [SubjectController::class, 'create']);
+Route::post('/subject-create', [SubjectController::class, 'store']);
 
 Route::get('/subject-delete/{id}', [SubjectController::class, 'delete']);
 Route::post('/subject-delete/{id}', [SubjectController::class, 'destroy']);

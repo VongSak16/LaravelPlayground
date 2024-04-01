@@ -41,15 +41,29 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <style>
+                                        .table>tbody>tr>td {
+                                            vertical-align: middle;
+                                        }
+
+                                        img {
+                                            width: 50px;
+                                            height: 50px;
+                                            object-fit: cover;
+                                        }
+                                    </style>
                                     @foreach ($tbl as $item)
                                         <tr>
                                             <td>{{ $item->subjectid }}</td>
                                             <td>{{ $item->subjectname }}</td>
-                                            <td>{{date('Y-m-d', strtotime($item->postdate))}}</td>
+                                            <td>{{ date('Y-m-d', strtotime($item->postdate)) }}</td>
                                             <td>{{ $item->price }} $</td>
-                                            <td>{{ $item->photo }}</td>
-                                            <td>{{date('Y-m-d', strtotime($item->create_at))}}</td>
-                                            <td>{{date('Y-m-d', strtotime($item->update_at))}}</td>
+                                            <td><img class="img-bordered-sm img-circle"
+                                                    src="/assets/imgprd/{{ $item->photo }}"
+                                                    alt="User Image">
+                                            </td>
+                                            <td>{{ date('Y-m-d', strtotime($item->create_at)) }}</td>
+                                            <td>{{ date('Y-m-d', strtotime($item->update_at)) }}</td>
                                             <td>{{ $item->duration }}</td>
                                             <td>
                                                 <a style="margin-right: 5px" class="btn btn-primary btn-sm" href="#">
@@ -62,7 +76,8 @@
                                                     </i>
                                                     Edi
                                                 </a>
-                                                <a style="margin-right: 5px" class="btn btn-danger btn-sm" href="/subject-delete/{{ $item->subjectid }}">
+                                                <a style="margin-right: 5px" class="btn btn-danger btn-sm"
+                                                    href="/subject-delete/{{ $item->subjectid }}">
                                                     <i class="fas fa-trash">
                                                     </i>
                                                     Delete
