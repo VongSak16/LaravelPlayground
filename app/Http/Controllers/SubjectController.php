@@ -21,7 +21,6 @@ class SubjectController extends Controller
         //     print($e);
         // }
 
-
         $tbl = DB::select('select * from tblsubject;');
         return view('subject.index', ['tbl' => $tbl]);
     }
@@ -39,37 +38,38 @@ class SubjectController extends Controller
      */
     public function store(Request $request)
     {
-
-        if($request->hasFile('file')){ 
+        if ($request->hasFile('file')) {
             $request->validate([
                 'file' => 'required|mimes:pdf,xlx,csv,gif,png,jpg,jpeg|max:20480',
-            ]);    
-            $file = time().'.'.$request->file->extension();  
+            ]);
+            $file = time() . '.' . $request->file->extension();
             $request->file->move(public_path('assets/imgprd'), $file);
-        }
-        else{
-            $file = 'no-img.png';
+        } else {
+            $file = 'no-img.jpg';
         }
 
-        function generateSubjectID() {
+        function generateSubjectID()
+        {
             // Get the current timestamp (in seconds)
             $timestamp = time();
-        
+
             // Generate a random number (you can adjust the range as needed)
             $randomNumber = mt_rand(1000, 9999);
-        
+
             // Combine the timestamp and random number to create the subject ID
             $subjectID = $timestamp . $randomNumber;
-        
+
             return $subjectID;
         }
-        
+
+        $date = date("Y-m-d H:i:s");
+
         $txtsubjectid = generateSubjectID();
         $txtsubject = request("txtsubject");
         $txtprice = request("txtprice");
         $txtduration = request("txtduration");
 
-        DB::insert("INSERT INTO tblsubject (subjectid, subjectname, price, duration, photo) VALUES ($txtsubjectid, '$txtsubject', $txtprice, $txtduration, '$file')");
+        DB::insert("INSERT INTO tblsubject (subjectid, subjectname, create_at ,price, duration, photo) VALUES ($txtsubjectid, '$txtsubject', '$date', $txtprice, $txtduration, '$file')");
         return redirect('/subject');
 
         // DB::insert("INSERT INTO tblsubject(subjectid, subjectname, postdate,price, photo,create_at, update_at,duration) VALUES ('".$idSubject."','".$txtSubject."', ".$txtPrice.",".$txtduration.")");
@@ -87,17 +87,41 @@ class SubjectController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(SubjectModel $subjectModel)
+    public function edit($id)
     {
-        //
+        $tbl = DB::select('SELECT * FROM tblsubject WHERE subjectid = ?', [$id]);
+        return view('subject.edit', ['tbl' => $tbl], ["id" => $id]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, SubjectModel $subjectModel)
+    public function update(Request $request, $id)
     {
-        //
+        if ($request->hasFile('file')) {
+            $request->validate([
+                'file' => 'required|mimes:pdf,xlx,csv,gif,png,jpg,jpeg|max:20480',
+            ]);
+            $file = time() . '.' . $request->file->extension();
+            $request->file->move(public_path('assets/imgprd'), $file);
+        } else {
+            $file = 'no-img.jpg';
+        }
+
+        $date = date("Y-m-d H:i:s");
+
+        $txtsubject = request("txtsubject");
+        $txtprice = request("txtprice");
+        $txtduration = request("txtduration");
+
+        DB::insert("UPDATE tblsubject SET 
+            subjectname= '$txtsubject', 
+            price= $txtprice, 
+            duration = $txtduration, 
+            photo= '$file',
+            update_at='$date'
+            WHERE subjectid=$id");
+        return redirect('/subject');
     }
 
     /**

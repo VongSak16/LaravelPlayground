@@ -47,23 +47,31 @@
                                         }
 
                                         img {
-                                            width: 50px;
-                                            height: 50px;
+                                            width: 80px;
+                                            height: 80px;
                                             object-fit: cover;
                                         }
                                     </style>
+                                    @php
+                                        $total = 0;
+                                    @endphp
                                     @foreach ($tbl as $item)
+                                        @php
+                                            $total++;
+                                        @endphp
                                         <tr>
                                             <td>{{ $item->subjectid }}</td>
                                             <td>{{ $item->subjectname }}</td>
-                                            <td>{{ date('Y-m-d', strtotime($item->postdate)) }}</td>
+                                            <td>{{ isset($item->postdate) ? date('Y-m-d', strtotime($item->postdate)) : 'No Date' }}
+                                            </td>
                                             <td>{{ $item->price }} $</td>
                                             <td><img class="img-bordered-sm img-circle"
-                                                    src="/assets/imgprd/{{ $item->photo }}"
-                                                    alt="User Image">
+                                                    src="/assets/imgprd/{{ $item->photo }}" alt="User Image">
                                             </td>
-                                            <td>{{ date('Y-m-d', strtotime($item->create_at)) }}</td>
-                                            <td>{{ date('Y-m-d', strtotime($item->update_at)) }}</td>
+                                            <td>{{ isset($item->create_at) ? date('Y-m-d', strtotime($item->create_at)) : 'No Date' }}
+                                            </td>
+                                            <td>{{ isset($item->update_at) ? date('Y-m-d', strtotime($item->update_at)) : 'No Date' }}
+                                            </td>
                                             <td>{{ $item->duration }}</td>
                                             <td>
                                                 <a style="margin-right: 5px" class="btn btn-primary btn-sm" href="#">
@@ -71,10 +79,11 @@
                                                     </i>
                                                     View
                                                 </a>
-                                                <a style="margin-right: 5px" class="btn btn-info btn-sm" href="#">
+                                                <a style="margin-right: 5px" class="btn btn-info btn-sm" 
+                                                    href="/subject-edit/{{ $item->subjectid }}">
                                                     <i class="fas fa-pencil-alt">
                                                     </i>
-                                                    Edi
+                                                    Edit
                                                 </a>
                                                 <a style="margin-right: 5px" class="btn btn-danger btn-sm"
                                                     href="/subject-delete/{{ $item->subjectid }}">
@@ -87,6 +96,12 @@
                                     @endforeach
                                 </tbody>
                             </table>
+                        </div>
+                        <div class="card-footer">
+                            <div class="col-sm-12 col-md-5">
+                                <div class="dataTables_info" id="example2_info" role="status" aria-live="polite">
+                                    Total: {{ $total }}</div>
+                            </div>
                         </div>
                         <!-- /.card-body -->
                     </div>

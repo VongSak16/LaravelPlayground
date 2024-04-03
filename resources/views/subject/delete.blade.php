@@ -17,11 +17,11 @@
             <div class="row">
                 <div class="col-lg-12">
                     Do you want to delete?
-                    <form class="form-horizontal" method="Post" action="/subject-delete/{{$id}}">
+                    <form class="form-horizontal" method="Post" action="/subject-delete/{{ $id }}">
                         @csrf
-                    
-                        <button type="submit" class="btn btn-primary float-right"> 
-                          <i class='fas fa-trash'></i> Delete
+
+                        <button type="submit" class="btn btn-primary float-right">
+                            <i class='fas fa-trash'></i> Delete
                         </button>
                     </form>
                 </div>

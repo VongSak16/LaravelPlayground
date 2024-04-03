@@ -58,3 +58,6 @@ Route::post('/subject-create', [SubjectController::class, 'store']);
 
 Route::get('/subject-delete/{id}', [SubjectController::class, 'delete']);
 Route::post('/subject-delete/{id}', [SubjectController::class, 'destroy']);
+
+Route::get('/subject-edit/{id}', [SubjectController::class, 'edit']);
+Route::post('/subject-edit/{id}', [SubjectController::class, 'update']);
