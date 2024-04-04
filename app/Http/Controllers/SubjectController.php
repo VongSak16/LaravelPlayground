@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\SubjectModel;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -38,16 +39,6 @@ class SubjectController extends Controller
      */
     public function store(Request $request)
     {
-        if ($request->hasFile('file')) {
-            $request->validate([
-                'file' => 'required|mimes:pdf,xlx,csv,gif,png,jpg,jpeg|max:20480',
-            ]);
-            $file = time() . '.' . $request->file->extension();
-            $request->file->move(public_path('assets/imgprd'), $file);
-        } else {
-            $file = 'no-img.jpg';
-        }
-
         function generateSubjectID()
         {
             // Get the current timestamp (in seconds)
@@ -62,14 +53,23 @@ class SubjectController extends Controller
             return $subjectID;
         }
 
-        $date = date("Y-m-d H:i:s");
-
         $txtsubjectid = generateSubjectID();
         $txtsubject = request("txtsubject");
         $txtprice = request("txtprice");
         $txtduration = request("txtduration");
+        $create_at = date("Y-m-d H:i:s");
 
-        DB::insert("INSERT INTO tblsubject (subjectid, subjectname, create_at ,price, duration, photo) VALUES ($txtsubjectid, '$txtsubject', '$date', $txtprice, $txtduration, '$file')");
+        if ($request->hasFile('file')) {
+            $request->validate([
+                'file' => 'required|mimes:pdf,xlx,csv,gif,png,jpg,jpeg|max:20480',
+            ]);
+            $file = $txtsubjectid . '.' . $request->file->extension();
+            $request->file->move(public_path('assets/imgprd'), $file);
+        } else {
+            $file = 'no-img.jpg';
+        }
+
+        DB::insert("INSERT INTO tblsubject (subjectid, subjectname, create_at ,price, duration, photo) VALUES ($txtsubjectid, '$txtsubject', '$create_at', $txtprice, $txtduration, '$file')");
         return redirect('/subject');
 
         // DB::insert("INSERT INTO tblsubject(subjectid, subjectname, postdate,price, photo,create_at, update_at,duration) VALUES ('".$idSubject."','".$txtSubject."', ".$txtPrice.",".$txtduration.")");
@@ -98,11 +98,20 @@ class SubjectController extends Controller
      */
     public function update(Request $request, $id)
     {
+        try{
+            $file_pattern = "assets/imgprd/$id.*";
+            $file_path = glob($file_pattern)[0];
+            unlink(public_path("$file_path"));
+
+        }catch(Exception $e){
+
+        }
+
         if ($request->hasFile('file')) {
             $request->validate([
                 'file' => 'required|mimes:pdf,xlx,csv,gif,png,jpg,jpeg|max:20480',
             ]);
-            $file = time() . '.' . $request->file->extension();
+            $file = $id . '.' . $request->file->extension();
             $request->file->move(public_path('assets/imgprd'), $file);
         } else {
             $file = 'no-img.jpg';
@@ -133,6 +142,15 @@ class SubjectController extends Controller
     }
     public function destroy($id)
     {
+        try{
+            $file_pattern = "assets/imgprd/$id.*";
+            $file_path = glob($file_pattern)[0];
+            unlink(public_path("$file_path"));
+
+        }catch(Exception $e){
+
+        }
+
         $tbl = DB::delete('DELETE from tblsubject where subjectid = ' . $id . ';');
         return redirect('/subject');
     }

@@ -9,3 +9,6 @@
 /.github export-ignore
 CHANGELOG.md export-ignore
 .styleci.yml export-ignore
+
+.env export-ignore
+public/assets/imgprd/* export-ignore
