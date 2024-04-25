@@ -6,6 +6,7 @@ use App\Http\Controllers\ExspenseController;
 use App\Http\Controllers\StudentsController;
 use App\Http\Controllers\productsController;
 use App\Http\Controllers\SubjectController;
+use App\Http\Controllers\UserAccountController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -61,3 +62,15 @@ Route::post('/subject-delete/{id}', [SubjectController::class, 'destroy']);
 
 Route::get('/subject-edit/{id}', [SubjectController::class, 'edit']);
 Route::post('/subject-edit/{id}', [SubjectController::class, 'update']);
+
+//USERACCOUNT
+Route::get('/useraccount',  [UserAccountController::class, 'index']);
+
+Route::get('/useraccount-create', [UserAccountController::class, 'create']);
+Route::post('/useraccount-create', [UserAccountController::class, 'store']);
+
+Route::get('/useraccount-delete/{id}', [UserAccountController::class, 'delete']);
+Route::post('/useraccount-delete/{id}', [UserAccountController::class, 'destroy']);
+
+Route::get('/useraccount-edit/{id}', [UserAccountController::class, 'edit']);
+Route::post('/useraccount-edit/{id}', [UserAccountController::class, 'update']);
