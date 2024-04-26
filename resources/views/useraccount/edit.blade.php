@@ -38,12 +38,12 @@
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">UserAccount Name</label>
                                         <input type="text" id="txtusername" name="txtusername" class="form-control"
-                                            id="exampleInputEmail1" value="{{ $tbl[0]->username }}">
+                                            id="exampleInputEmail1" value="{{ $tbl['username'] }}">
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">UserAccount Name</label>
                                         <input type="text" id="txtuserpassword" name="txtuserpassword" class="form-control"
-                                            id="exampleInputEmail1" value="{{ $tbl[0]->userpassword }}">
+                                            id="exampleInputEmail1" value="{{ $tbl['userpassword'] }}">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -70,7 +70,7 @@
                     </div>
                     <!-- /.col-md-6 -->
                     <div class="col-lg-6">
-                        <img src="/assets/imguser/{{ $tbl[0]->photo }}" id="imgshow" width="220" />
+                        <img src="/assets/imguser/{{ $tbl['photo'] }}" id="imgshow" width="220" />
                     </div>
                     <!-- /.col-md-6 -->
                 </div>

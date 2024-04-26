@@ -65,12 +65,12 @@
                                             <td>{{ $item['userid'] }}</td>
                                             <td>{{ $item['username'] }}</td>
                                             <td><img class="img-bordered-sm img-circle"
-                                                    src="/assets/imguser/{{ $item->photo }}" alt="User Image">
+                                                    src="/assets/imguser/{{  $item['photo'] }}" alt="User Image">
                                             </td>
                                             <td>{{ $item['userpassword'] }}</td>
-                                            <td>{{ isset($item['create_at']) ? date('Y-m-d', strtotime($item->create_at)) : 'No Date' }}
+                                            <td>{{ isset($item['create_at']) ? date('Y-m-d', strtotime($item['create_at'])) : 'No Date' }}
                                             </td>
-                                            <td>{{ isset($item['update_at']) ? date('Y-m-d', strtotime($item->update_at)) : 'No Date' }}
+                                            <td>{{ isset($item['update_at']) ? date('Y-m-d', strtotime($item['create_at'])) : 'No Date' }}
                                             </td>
                                             <td>
                                                 <a style="margin-right: 5px" class="btn btn-primary btn-sm" href="#">

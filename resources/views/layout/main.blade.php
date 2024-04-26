@@ -89,6 +89,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 <p>Subject</p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="../useraccount" class="nav-link">
+                                <i class="nav-icon far fa-calendar-alt"></i>
+                                <p>UserAccount</p>
+                            </a>
+                        </li>
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->
