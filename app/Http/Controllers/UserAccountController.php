@@ -84,7 +84,6 @@ class UserAccountController extends Controller
      */
     public function edit($id)
     {
-
         $tbl = UserAccountModel::where('userid', $id)->first();
         return view('useraccount.edit', ['tbl' => $tbl], ['id' => $id]);
     }
@@ -95,21 +94,23 @@ class UserAccountController extends Controller
     public function update(Request $request, $id)
     {
 
-        try {
-            $file_pattern = "assets/imguser/$id.*";
-            $file_path = glob($file_pattern)[0];
-            unlink(public_path("$file_path"));
-        } catch (Exception $e) {
-        }
-
         if ($request->hasFile('file')) {
+            
+            try {
+                $file_pattern = "assets/imguser/$id.*";
+                $file_path = glob($file_pattern)[0];
+                unlink(public_path("$file_path"));
+            } catch (Exception $e) {
+            }
+
             $request->validate([
-                'file' => 'required|mimes:pdf,xlx,csv,gifjpeg,webp,png,jpg,jpeg,|max:20480',
+                'file' => 'required|mimes:pdf,xlx,csv,gif,jpeg,webp,png,jpg,jpeg,|max:20480',
             ]);
             $file = $id . '.' . $request->file->extension();
+
             $request->file->move(public_path('assets/imguser'), $file);
         } else {
-            $file = 'no-img.jpg';
+            $file = UserAccountModel::where('userid', $id)->first()->photo;
         }
 
         $date = date("Y-m-d H:i:s");
@@ -121,6 +122,14 @@ class UserAccountController extends Controller
                 'update_at' => $date,
                 'photo' => $file,
             ]);
+
+        //WHY MY PROJECT WONT WORK
+        // $tbl = UserAccountModel::where('userid', $id)->first();
+        // $tbl->username = request("txtusername");
+        // $tbl->userpassword = request("txtuserpassword");
+        // $tbl->update_at = $date;
+        // $tbl->photo=$file;
+        // $tbl->save();
 
         return redirect('/useraccount');
     }

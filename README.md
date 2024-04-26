@@ -9,8 +9,7 @@ DB_PASSWORD= (your mysql database password)
 ```
 ## Info:
 
-##### laravel version: 10.46.0
-
+##### laravel version:  11.5.0
 how to chekc laravel version
 ```shell
 php artisan --version

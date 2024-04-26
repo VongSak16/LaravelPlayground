@@ -76,7 +76,7 @@
                     </div>
                     <!-- /.col-md-6 -->
                     <div class="col-lg-6">
-                        <img src="/assets/no-img.jpg" id="imgshow" width="220" />
+                        <img src="/assets/no-img.jpg" id="imgshow" name="imgshow" width="220" />
                     </div>
                     <!-- /.col-md-6 -->
                 </div>

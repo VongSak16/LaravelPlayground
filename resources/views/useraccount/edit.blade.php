@@ -42,8 +42,8 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">UserAccount Name</label>
-                                        <input type="text" id="txtuserpassword" name="txtuserpassword" class="form-control"
-                                            id="exampleInputEmail1" value="{{ $tbl['userpassword'] }}">
+                                        <input type="text" id="txtuserpassword" name="txtuserpassword"
+                                            class="form-control" id="exampleInputEmail1" value="{{ $tbl['userpassword'] }}">
                                     </div>
                                 </div>
                                 <div class="form-group">
