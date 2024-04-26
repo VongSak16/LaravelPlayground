@@ -9,5 +9,6 @@ class UserAccountModel extends Model
 {
     protected $table = "tbluser";
     protected $primarykey = "userid";
+
     use HasFactory;
 }

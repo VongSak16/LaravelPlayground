@@ -9,13 +9,25 @@ use Illuminate\Support\Facades\DB;
 
 class UserAccountController extends Controller
 {
+
+    public function GET()
+    {
+        //return 'Hello'; 
+        return response()->json(UserAccountModel::all(),200);
+    }
+    
+    //Get All
+    //Get detail
+    //Post
+    //
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
         $tbl = UserAccountModel::all();
-        return view('useraccount.index',['tbl'=>$tbl]);
+        return view('useraccount.index', ['tbl' => $tbl]);
     }
 
     /**
@@ -50,8 +62,18 @@ class UserAccountController extends Controller
         $txtuserpassword = request("txtuserpassword");
         $create_at = date("Y-m-d H:i:s");
 
-        DB::insert("INSERT INTO tbluser (userid, username, userpassword, create_at) VALUES (?, ?, ?, ?)", [$txtuserid, $txtusername, $txtuserpassword, $create_at]);
+        if ($request->hasFile('file')) {
+            $request->validate([
+                'file' => 'required|mimes:pdf,xlx,csv,gif,png,jpg,jpeg|max:20480',
+            ]);
+            $file = $txtuserid . '.' . $request->file->extension();
+            $request->file->move(public_path('assets/imguser'), $file);
+        } else {
+            $file = 'no-img.jpg';
+        }
         
+        DB::insert("INSERT INTO tbluser (userid, username, photo, userpassword, create_at) VALUES (?, ?, ?, ?, ?)", [$txtuserid, $txtusername, $file, $txtuserpassword, $create_at]);
+
         return redirect('/useraccount');
     }
 
@@ -77,6 +99,26 @@ class UserAccountController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+        try{
+            $file_pattern = "assets/imguser/$id.*";
+            $file_path = glob($file_pattern)[0];
+            unlink(public_path("$file_path"));
+
+        }catch(Exception $e){
+
+        }
+
+        if ($request->hasFile('file')) {
+            $request->validate([
+                'file' => 'required|mimes:pdf,xlx,csv,gif,png,jpg,jpeg,|max:20480',
+            ]);
+            $file = $id . '.' . $request->file->extension();
+            $request->file->move(public_path('assets/imguser'), $file);
+        } else {
+            $file = 'no-img.jpg';
+        }
+
         $date = date("Y-m-d H:i:s");
 
         $txtusername = request("txtusername");
@@ -85,8 +127,9 @@ class UserAccountController extends Controller
         DB::insert("UPDATE tbluser SET 
             username= '$txtusername',
             userpassword= '$txtuserpassword', 
-            update_at='$date'
-            WHERE userid=$id");
+            update_at ='$date',
+            photo = '$file'
+            WHERE userid = $id");
         return redirect('/useraccount');
     }
     /**
@@ -96,9 +139,18 @@ class UserAccountController extends Controller
     {
         return view("useraccount.delete", ["id" => $id]);
     }
-    
+
     public function destroy($id)
     {
+        try{
+            $file_pattern = "assets/imguser/$id.*";
+            $file_path = glob($file_pattern)[0];
+            unlink(public_path("$file_path"));
+
+        }catch(Exception $e){
+
+        }
+
         $tbl = DB::delete('DELETE from tbluser where userid = ' . $id . ';');
         return redirect('/useraccount');
     }

@@ -46,6 +46,20 @@
                                             id="exampleInputEmail1">
                                     </div>
                                 </div>
+
+                                <div class="form-group">
+                                    <label for="exampleInputFile">File input</label>
+                                    <div class="input-group">
+                                        <div class="custom-file">
+                                            <input onchange="previewFile()" type="file" name="file"
+                                                class="custom-file-input" id="exampleInputFile">
+                                            <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                                        </div>
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">Upload</span>
+                                        </div>
+                                    </div>
+                                </div>
                                 <!-- /.card-body -->
 
                                 <div class="card-footer">
@@ -56,9 +70,9 @@
 
                     </div>
                     <!-- /.col-md-6 -->
-                    {{-- <div class="col-lg-6">
+                    <div class="col-lg-6">
                         <img src="/assets/no-img.jpg" id="imgshow" width="220" />
-                    </div> --}}
+                    </div>
                     <!-- /.col-md-6 -->
                 </div>
 

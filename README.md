@@ -7,12 +7,14 @@ DB_DATABASE= (your database name)
 DB_USERNAME=root
 DB_PASSWORD= (your mysql database password)
 ```
-## Link To:
+## Info:
 
-[<h2> Views </h2>](/resources/views/)
-[<h2> Controller </h2>](/app/Http/Controllers/)
-[<h2> Model </h2>](/app/Models/)
-[<h2> Routes </h2>](/routes/)
+##### laravel version: 10.46.0
+
+how to chekc laravel version
+```shell
+php artisan --version
+```
 
 ## License
 

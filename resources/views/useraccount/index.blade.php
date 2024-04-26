@@ -35,6 +35,7 @@
                                     <tr>
                                         <th>ID</th>
                                         <th>User Name</th>
+                                        <th>Photo</th>
                                         <th>Password</th>
                                         <th>Create</th>
                                         <th>Update</th>
@@ -63,6 +64,9 @@
                                         <tr>
                                             <td>{{ $item['userid'] }}</td>
                                             <td>{{ $item['username'] }}</td>
+                                            <td><img class="img-bordered-sm img-circle"
+                                                    src="/assets/imguser/{{ $item->photo }}" alt="User Image">
+                                            </td>
                                             <td>{{ $item['userpassword'] }}</td>
                                             <td>{{ isset($item['create_at']) ? date('Y-m-d', strtotime($item->create_at)) : 'No Date' }}
                                             </td>
