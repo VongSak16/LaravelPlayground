@@ -28,7 +28,7 @@ class UserController extends Controller
         }
 
         $tbl = new UserModel;
-        $tbl->userid =  date('YmdHis');
+        $tbl->userid = date('YmdHis');
         $tbl->username = request("username");
         $tbl->userpassword = request("userpassword");
         $tbl->photo = $fileName;
@@ -100,7 +100,7 @@ class UserController extends Controller
     public function store(Request $request)
     {
         //Save DATA using Raw SQL
-        // DB::insert("INSERT INTO tblsubject(subjectname, price, duration,photo) 
+        // DB::insert("INSERT INTO tblsubject(subjectname, price, duration,photo)
         //             VALUES ('".$txtSubject."',".$txtPrice."
         //             ,".$txtduration.", '".$fileName."')"
         //             );

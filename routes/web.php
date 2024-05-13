@@ -20,26 +20,6 @@ Route::get('/user', [UserController::class, 'index']);
 //Route::get('/category', [CategorysController::class, 'index']);
 Route::get('/product', [productController::class, 'index']);
 
-Route::get('/subject', [SubjectController::class, 'index']);
-
-Route::get('/subject-create', [SubjectController::class, 'create']);
-Route::post('/subject-create', [SubjectController::class, 'store']);
-
-
-Route::get('/subject-delete/{id}', [SubjectController::class, 'GET']);
-Route::post('/subject-delete/{id}', [SubjectController::class, 'POST']);
-Route::put('/subject-delete/{id}', [SubjectController::class, 'PUT']);
-Route::delete('/subject-delete/{id}', [SubjectController::class, 'DELETE']);
-
-
-
-
-
-
-
-
-
-
 
 Route::get('/setec', function () {
     return view('setec');
