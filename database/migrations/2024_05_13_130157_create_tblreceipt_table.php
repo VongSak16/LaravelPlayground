@@ -17,11 +17,14 @@ return new class extends Migration
             $table->integer('WaitingNumber')->nullable();
             $table->date('DateOrder');
             $table->float('Vat')->nullable();
-            $table->foreignId('ShopID');
-            $table->foreignId('UserID');
-            $table->foreignId('CustomerID');
-            $table->foreignId('WifiID')->nullable();
-            $table->foreignId('ExchangeID')->nullable();
+            $table->bigInteger('ShopID');
+            $table->bigInteger('UserID');
+            $table->unsignedBigInteger('CustomerID');
+            $table->foreign('CustomerID')->nullable()->references('CustomerID')->on('tblcustomer')->onUpdate('cascade')->onDelete('cascade');
+            $table->unsignedBigInteger('WifiID');
+            $table->foreign('WifiID')->nullable()->references('WifiID')->on('tblwifi')->onUpdate('cascade')->onDelete('cascade');
+            $table->unsignedBigInteger('ExchangeID')->nullable();
+            $table->foreign('ExchangeID')->nullable()->references('ExchangeID')->on('tblexchangerate')->onUpdate('cascade')->onDelete('cascade');
             //$table->timestamps();
         });
     }

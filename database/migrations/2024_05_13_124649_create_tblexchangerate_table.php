@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('tblexchangerate', function (Blueprint $table) {
-            $table->increments('ExchangeID');
+            $table->id('ExchangeID');
             $table->integer('KhmerRiel');
             //$table->timestamps();
         });

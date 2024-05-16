@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('tblwifi', function (Blueprint $table) {
-            $table->increments('WifiID');
+            $table->id('WifiID');
             $table->string('WifiName');
             $table->string('WifiPassword');
             //$table->timestamps();
