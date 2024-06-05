@@ -77,7 +77,7 @@
                                             <td>{{ $item['productprice'] }}</td>
                                             <td>{{ $item['interest'] }}</td>
                                             <td>{{ $item['duration'] }}</td>
-                                            <td>{{ $item['userid'] }}</td>
+                                            <td>{{ $item->userid  }}</td>
                                             <td>
                                                 <a style="margin-right: 5px" class="btn btn-primary btn-sm"
                                                     href="/depreciationdetail/{{ $item['cusid'] }}">

@@ -5,41 +5,51 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\UserModel;
 use Exception;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules;
 
 class UserController extends Controller
 {
     //GET
     public function GET()
     {
-        return response()->json(UserModel::all(), 200);
+        return response()->json(User::all(), 200);
     }
 
     //POST
     public function POST(Request $request)
     {
-
-        $tbl = new UserModel;
-        $tbl->userid = date('YmdHis');
-        $tbl->username = request('username');
-        $tbl->userpassword = request("userpassword");
-        $tbl->created_at = date("Y-m-d H:i:s");
-        $tbl->updated_at = null;
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
+            'username' => ['required', 'string', 'max:255', 'unique:' . User::class],
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        ]);
 
         if ($request->hasFile('file')) {
             $request->validate([
                 'file' => 'required|mimes:pdf,xlx,csv,gif,png,jpg,jpeg|max:20480',
             ]);
-            $file = $tbl->userid . '.' . $request->file->extension();
+            $file = $request->username . '.' . $request->file->extension();
             $request->file->move(public_path('assets/imguser'), $file);
         } else {
             $file = 'no-img.jpg';
         }
 
-        $tbl->photo = $file;
+        $user = User::create([
+            'name' => $request->name,
+            'username' => $request->username,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'photo' => $file
+        ]);
 
-        $tbl->save();
-        return response()->json($tbl, 201);
+        event(new Registered($user));
+
+        return response()->json('Users Added');
     }
 
     //PUT
@@ -108,16 +118,19 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
-    // public function index()
-    // {
-    //     $tbl = UserModel::all();
-    //     return view('user.index', ['tbl' => $tbl]);
-    // }
 
     public function index()
     {
         $users = User::all();
-        return view('users.index', compact('users'));
+
+        if (Auth::id()) {
+            $username = Auth()->user()->username;
+            if ($username == 'Admin') {
+                return view('users.admin-index', compact('users'));
+            } else {
+                return view('users.index', compact('users'));
+            }
+        }
     }
 
     /**
@@ -125,7 +138,14 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('user.create');
+        if (Auth::id()) {
+            $username = Auth()->user()->username;
+            if ($username == 'Admin') {
+                return view('auth.admin-register');
+            } else {
+                abort(404);
+            }
+        }
     }
 
     /**
@@ -133,29 +153,40 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $tbl = new UserModel;
+        if (Auth::id()) {
+            $username = Auth()->user()->username;
+            if ($username == 'Admin') {
+                $request->validate([
+                    'name' => ['required', 'string', 'max:255'],
+                    'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
+                    'username' => ['required', 'string', 'max:255', 'unique:' . User::class],
+                    'password' => ['required', 'confirmed', Rules\Password::defaults()],
+                ]);
 
-        $tbl->userid = date('YmdHis');
-        $tbl->username = request("txtusername");
-        $tbl->userpassword = request("txtuserpassword");
-        $tbl->created_at = date("Y-m-d H:i:s");
-        $tbl->updated_at = null;
+                if ($request->hasFile('file')) {
+                    $request->validate([
+                        'file' => 'required|mimes:pdf,xlx,csv,gif,png,jpg,jpeg|max:20480',
+                    ]);
+                    $file = $request->username . '.' . $request->file->extension();
+                    $request->file->move(public_path('assets/imguser'), $file);
+                } else {
+                    $file = 'no-img.jpg';
+                }
 
-        if ($request->hasFile('file')) {
-            $request->validate([
-                'file' => 'required|mimes:pdf,xlx,csv,gif,png,jpg,jpeg|max:20480',
-            ]);
-            $file = $tbl->userid . '.' . $request->file->extension();
-            $request->file->move(public_path('assets/imguser'), $file);
-        } else {
-            $file = 'no-img.jpg';
+                $user = User::create([
+                    'name' => $request->name,
+                    'username' => $request->username,
+                    'email' => $request->email,
+                    'password' => Hash::make($request->password),
+                    'photo' => $file
+                ]);
+
+                event(new Registered($user));
+                return redirect('/user');
+            } else {
+                abort(404);
+            }
         }
-
-        $tbl->photo = $file;
-
-        $tbl->save();
-
-        return redirect('/user');
     }
 
     /**
@@ -171,11 +202,15 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //$tbl = UserModel::where('userid', $id)->first();
-
-        // $tbl = User::find($id);
-        // return view('users.edit', ['tbl' => $tbl], ['id' => $id]);
-        return view('users.login');
+        if (Auth::id()) {
+            $username = Auth()->user()->username;
+            if ($username == 'Admin') {
+                $tbl = User::find($id);
+                return view('users.edit', ['tbl' => $tbl], ['id' => $id]);
+            } else {
+                abort(404);
+            }
+        }
     }
 
     /**
@@ -183,63 +218,79 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // $tbl = UserModel::find($id);
-        // $date = date("Y-m-d H:i:s");
+        if (Auth::id()) {
+            $username = Auth()->user()->username;
+            if ($username == 'Admin') {
+                $tbl = UserModel::find($id);
+                $date = date("Y-m-d H:i:s");
 
-        // if ($request->hasFile('file')) {
+                if ($request->hasFile('file')) {
 
-        //     try {
-        //         $file_pattern = "assets/imguser/$id.*";
-        //         $file_path = glob($file_pattern)[0];
-        //         unlink(public_path("$file_path"));
-        //     } catch (Exception $e) {
-        //     }
+                    try {
+                        $file_pattern = "assets/imguser/$request->usernam.*";
+                        $file_path = glob($file_pattern)[0];
+                        unlink(public_path("$file_path"));
+                    } catch (Exception $e) {
+                    }
 
-        //     $request->validate([
-        //         'file' => 'required|mimes:pdf,xlx,csv,gif,jpeg,webp,png,jpg,jpeg,|max:20480',
-        //     ]);
-        //     $file = $id . '.' . $request->file->extension();
+                    $request->validate([
+                        'file' => 'required|mimes:pdf,xlx,csv,gif,jpeg,webp,png,jpg,jpeg,|max:20480',
+                    ]);
+                    $file = $request->usernam . '.' . $request->file->extension();
 
-        //     $request->file->move(public_path('assets/imguser'), $file);
-        // } else {
-        //     $file = $tbl->photo;
-        // }
+                    $request->file->move(public_path('assets/imguser'), $file);
+                } else {
+                    $file = $tbl->photo;
+                }
 
-        // $tbl->username = request("txtusername");
-        // $tbl->userpassword = request("txtuserpassword");
-        // $tbl->updated_at = $date;
-        // $tbl->photo = $file;
-        // $tbl->save();
+                User::where('id', $id)
+                    ->update([
+                        'name' => $request->name,
+                        'username' => $request->username,
+                        'email' => $request->email,
+                        'password' => Hash::make($request->password),
+                        'photo' => $file
+                    ]);
 
-        // // UserModel::where('userid', $id)
-        // //     ->update([
-        // //         'username' => request('txtusername'),
-        // //         'userpassword' => request('txtuserpassword'),
-        // //         'updated_at' => $date,
-        // //         'photo' => $file,
-        // //     ]);
-
-        // return redirect('/user');
+                return redirect('/user');
+            } else {
+                abort(404);
+            }
+        }
     }
     /**
      * Update the specified resource in storage.
      */
     public function deletes($id)
     {
-        return view("user.delete", ["id" => $id]);
+        if (Auth::id()) {
+            $username = Auth()->user()->username;
+            if ($username == 'Admin') {
+                return view("users.delete", ["id" => $id]);
+            } else {
+                abort(404);
+            }
+        }
     }
 
     public function destroy($id)
     {
-        try {
-            $file_pattern = "assets/imguser/$id.*";
-            $file_path = glob($file_pattern)[0];
-            unlink(public_path("$file_path"));
-        } catch (Exception $e) {
+        if (Auth::id()) {
+            $username = Auth()->user()->username;
+            if ($username == 'Admin') {
+                try {
+                    $file_pattern = "assets/imguser/$id.*";
+                    $file_path = glob($file_pattern)[0];
+                    unlink(public_path("$file_path"));
+                } catch (Exception $e) {
+                }
+
+                $tbl = User::find($id);
+                $tbl->delete();
+                return redirect('/user');
+            } else {
+                abort(404);
+            }
         }
-        //UserModel::where('userid', $id)->delete();
-        $tbl = UserModel::find($id);
-        $tbl->delete();
-        return redirect('/user');
     }
 }

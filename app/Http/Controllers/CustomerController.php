@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\CustomerModel;
+use App\Models\ViewCustomer;
 use App\Models\DepreciationDetailModel;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CustomerController extends Controller
 {
@@ -236,6 +238,7 @@ class CustomerController extends Controller
         $tbl->interest = request("txtinterest");
         $tbl->duration = request("txtduration");
         $tbl->taked_at = $taked_at->format('Y-m-d');
+        $tbl->userid = Auth::user()->id;
         $tbl->created_at = date("Y-m-d H:i:s");
         $tbl->updated_at = null;
 

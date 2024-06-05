@@ -1,5 +1,5 @@
-{{-- @foreach ($tbl as $item)
-    User: {{ $item['username'] }}-Password: {{ $item['userpassword'] }} <Br>
+{{-- @foreach ($tbl as $user)
+    User: {{ $user['username'] }}-Password: {{ $user['userpassword'] }} <Br>
 @endforeach --}}
 
 @extends('layout.main')
@@ -8,7 +8,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">User Page</h1>
+                    <h1 class="m-0">Admin Page</h1>
                 </div><!-- /.col -->
             </div><!-- /.row -->
         </div><!-- /.container-fluid -->
@@ -34,9 +34,10 @@
                                 <thead>
                                     <tr>
                                         <th>ID</th>
-                                        <th>User Name</th>
+                                        <th>Name</th>
+                                        <th>Username</th>
                                         <th>Photo</th>
-                                        <th>Password</th>
+                                        <th>Email</th>
                                         <th>Create</th>
                                         <th>Update</th>
                                         <th>Action</th>
@@ -57,35 +58,38 @@
                                     @php
                                         $total = 0;
                                     @endphp
-                                    @foreach ($tbl as $item)
+                                    @foreach ($users as $user)
                                         @php
                                             $total++;
+                                            $pfp;
+                                            if($user->photo == null){
+                                                $pfp = 'no-img.jpg';
+                                            }else {
+                                                $pfp = $user->photo;
+                                            }
+
                                         @endphp
                                         <tr>
-                                            <td>{{ $item['userid'] }}</td>
-                                            <td>{{ $item['username'] }}</td>
+                                            <td>{{ $user->id }}</td>
+                                            <td>{{ $user->name }}</td>
+                                            <td>{{ $user->username }}</td>
                                             <td><img class="img-bordered-sm img-circle"
-                                                    src="/assets/imguser/{{  $item['photo'] }}" alt="User Image">
+                                                    src="/assets/imguser/{{ $pfp }}" alt="User Image">
                                             </td>
-                                            <td>{{ $item['userpassword'] }}</td>
-                                            <td>{{ isset($item['created_at']) ? date('Y-m-d', strtotime($item['created_at'])) : 'No Date' }}
+                                            <td>{{ $user->email }}</td>
+                                            <td>{{ isset($user->created_at) ? date('Y-m-d', strtotime($user->created_at)) : 'No Date' }}
                                             </td>
-                                            <td>{{ isset($item['updated_at']) ? date('Y-m-d', strtotime($item['updated_at'])) : 'No Date' }}
+                                            <td>{{ isset($user->updated_at) ? date('Y-m-d', strtotime($user->updated_at)) : 'No Date' }}
                                             </td>
                                             <td>
-                                                <a style="margin-right: 5px" class="btn btn-primary btn-sm" href="#">
-                                                    <i class="fas fa-folder">
-                                                    </i>
-                                                    View
-                                                </a>
                                                 <a style="margin-right: 5px" class="btn btn-info btn-sm"
-                                                    href="/user-edit/{{ $item['userid'] }}">
+                                                    href="/user-edit/{{ $user->id }}">
                                                     <i class="fas fa-pencil-alt">
                                                     </i>
                                                     Edit
                                                 </a>
                                                 <a style="margin-right: 5px" class="btn btn-danger btn-sm"
-                                                    href="/user-delete/{{ $item['userid'] }}">
+                                                    href="/user-delete/{{ $user->id }}">
                                                     <i class="fas fa-trash">
                                                     </i>
                                                     Delete

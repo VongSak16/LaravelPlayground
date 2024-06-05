@@ -22,11 +22,11 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-header">
-                            <a class="btn btn-success btn-bg" href="user-create">
+                            {{-- <a class="btn btn-success btn-bg" href="user-create">
                                 <i class="fas fa-plus">
                                 </i>
 
-                            </a>
+                            </a> --}}
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body table-responsive p-0">

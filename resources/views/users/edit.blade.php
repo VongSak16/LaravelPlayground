@@ -37,13 +37,23 @@
                                 <div class="card-body">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">User Name</label>
-                                        <input type="text" id="txtusername" name="txtusername" class="form-control"
+                                        <input type="text" id="name" name="name" class="form-control"
+                                            id="exampleInputEmail1" value="{{ $tbl['name'] }}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">User Name</label>
+                                        <input type="text" id="username" name="username" class="form-control"
                                             id="exampleInputEmail1" value="{{ $tbl['username'] }}">
                                     </div>
                                     <div class="form-group">
+                                        <label for="exampleInputEmail1">User Name</label>
+                                        <input type="text" id="email" name="email" class="form-control"
+                                            id="exampleInputEmail1" value="{{ $tbl['email'] }}">
+                                    </div>
+                                    <div class="form-group">
                                         <label for="exampleInputEmail1">Password</label>
-                                        <input type="text" id="txtuserpassword" name="txtuserpassword"
-                                            class="form-control" id="exampleInputEmail1" value="{{ $tbl['userpassword'] }}">
+                                        <input type="text" id="password" name="password"
+                                            class="form-control" id="exampleInputEmail1">
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputFile">File input</label>

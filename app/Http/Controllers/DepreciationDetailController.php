@@ -6,6 +6,7 @@ use App\Models\CustomerModel;
 use App\Models\DepreciationDetailModel;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DepreciationDetailController extends Controller
 {
@@ -46,6 +47,7 @@ class DepreciationDetailController extends Controller
     {
         $tbl = DepreciationDetailModel::find($id);
         $tbl->clear_date = date("Y-m-d H:i:s");
+        $tbl->clear_by_userid = Auth::user()->id;
         $tbl->save();
 
         $cusid = $tbl->cusid;

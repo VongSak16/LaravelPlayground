@@ -13,7 +13,7 @@
         @csrf
     </form>
 
-    <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6">
+    <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6" enctype="multipart/form-data">
         @csrf
         @method('patch')
 
@@ -71,6 +71,22 @@
             @endif
         </div>
 
+        <!-- Profile Picture -->
+        <div class="mt-4 block font-medium text-sm text-gray-700 dark:text-gray-300">
+            <x-input-label for="file" :value="__('Profile Picture')" />
+            <input id="file"
+                class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full"
+                type="file" name="file" onchange="previewImage(event)" />
+            <x-input-error :messages="$errors->get('file')" class="mt-2" />
+        </div>
+
+        <!-- Image Preview -->
+        <div class="mt-4">
+            {{-- <img id="image_preview" class="w-32 h-32 object-cover" /> --}}
+            <img class="rounded w-36 h-36" id="image_preview" src="/assets/imguser/{{ $user->photo }}" alt="Extra large avatar"
+                width="200px"​>
+        </div>
+
         <div class="flex items-center gap-4">
             <x-primary-button>{{ __('Save') }}</x-primary-button>
 
@@ -85,4 +101,17 @@
             @endif
         </div>
     </form>
+    <script>
+        function previewImage(event) {
+            const input = event.target;
+            const reader = new FileReader();
+            reader.onload = function() {
+                const preview = document.getElementById('image_preview');
+                preview.src = reader.result;
+            }
+            if (input.files && input.files[0]) {
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
 </section>

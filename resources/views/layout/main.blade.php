@@ -139,34 +139,33 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             class="fas fa-bars"></i></a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="index3.html" class="nav-link">Home</a>
+                    <a href="/dashboard" class="nav-link">Home</a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
                     <a href="#" class="nav-link">Contact</a>
                 </li>
             </ul>
-            <ul class="navbar-nav ml-auto" style="margin-right: 100px">
-                <li class="nav-item dropdown show">
-                    <a class="nav-link dropdown-toggle" href="profile" id="navbarDropdown" role="button"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         {{ Auth::user()->name }}
                     </a>
-                    <div class="dropdown-menu show" aria-labelledby="navbarDropdown" style="left: 0px; right: inherit;">
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="left: 0px; right: inherit;">
                         <a class="dropdown-item" href="/profile">Profile</a>
                         <div class="dropdown-divider"></div>
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
 
-                            <x-responsive-nav-link :href="route('logout')" class="dropdown-item"
+                            <a class="dropdown-item" href="/logout"
                                 onclick="event.preventDefault();
                                                 this.closest('form').submit();">
                                 {{ __('Log Out') }}
-                            </x-responsive-nav-link>
+                            </a>
                         </form>
                     </div>
                 </li>
                 <li class="nav-item">
-
                 </li>
             </ul>
 
@@ -180,7 +179,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <a href="/dashboard" class="brand-link">
                 <img src="/adminlte/dist/img/AdminLTELogo.png" alt="AdminLTE Logo"
                     class="brand-image img-circle elevation-3" style="opacity: .8">
-                <span class="brand-text font-weight-light">AdminLTE 3</span>
+                <span class="brand-text font-weight-light">Z4K ...</span>
             </a>
 
             <!-- Sidebar -->
@@ -188,7 +187,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <!-- Sidebar user panel (optional) -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
-                        <img src="/assets/pfp.jpg" class="img-circle elevation-2" alt="User Image">
+                        <img src="/assets/imguser/{{ Auth::user()->photo }}" class="img-circle elevation-2"
+                            alt="User Image">
                     </div>
                     <div class="info">
                         <a href="/profile" class="d-block">{{ Auth::user()->name }}</a>

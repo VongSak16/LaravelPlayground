@@ -26,9 +26,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     //USER
-    Route::get('/users', [UserController::class, 'index'])->name('users.index');
-    Route::get('/users-edit{id}', [UserController::class, 'edit'])->name('users.edit');
-
     Route::get('/user',  [UserController::class, 'index']);
 
     Route::get('/user-create', [UserController::class, 'create']);

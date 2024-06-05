@@ -24,7 +24,7 @@ class ReportController extends Controller
         $start_date =  Carbon::parse($request->start_date);
         $end_date = Carbon::parse($request->end_date);
 
-        $tbl = ReportModel::whereBetween('pay_date', [$start_date->format('Y-m-d'), $end_date->format('Y-m-d')])->get();
+        $tbl = ReportModel::whereBetween('pay_date', [$start_date, $end_date])->get();
         return view('report.date2date', ['tbl' => $tbl]);
     }
 }
