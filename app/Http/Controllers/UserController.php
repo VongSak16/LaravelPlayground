@@ -22,12 +22,12 @@ class UserController extends Controller
     //POST
     public function POST(Request $request)
     {
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
-            'username' => ['required', 'string', 'max:255', 'unique:' . User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        ]);
+        // $request->validate([
+        //     'name' => ['required', 'string', 'max:255'],
+        //     'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
+        //     'username' => ['required', 'string', 'max:255', 'unique:' . User::class],
+        //     'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        // ]);
 
         if ($request->hasFile('file')) {
             $request->validate([
@@ -49,22 +49,20 @@ class UserController extends Controller
 
         event(new Registered($user));
 
-        return response()->json('Users Added');
+        return response()->json(['message' => 'User Added'], 201);
     }
 
     //PUT
     public function PUT(Request $request)
     {
-        $id = request("id");
-        $tbl = UserModel::find($id);
-        $tbl->username = request('username');
-        $tbl->userpassword = request("userpassword");
-        $tbl->updated_at = date("Y-m-d H:i:s");
+
+        //$tbl = UserModel::find(request("id"));
+        $date = date("Y-m-d H:i:s");
 
         if ($request->hasFile('file')) {
 
             try {
-                $file_pattern = "assets/imguser/$id.*";
+                $file_pattern = "assets/imguser/$request->username.*";
                 $file_path = glob($file_pattern)[0];
                 unlink(public_path("$file_path"));
             } catch (Exception $e) {
@@ -73,27 +71,43 @@ class UserController extends Controller
             $request->validate([
                 'file' => 'required|mimes:pdf,xlx,csv,gif,jpeg,webp,png,jpg,jpeg,|max:20480',
             ]);
-            $file = $id . '.' . $request->file->extension();
+            $file = $request->username . '.' . $request->file->extension();
 
             $request->file->move(public_path('assets/imguser'), $file);
-        } else {
-            $file = $tbl->photo;
+        }else{
+            $file = User::where('id',$request->id)->value('photo');
         }
 
-        $tbl->photo = $file;
-        $tbl->save();
-
-        return response()->json($tbl, 202);
+        User::where('id', request("id"))
+            ->update([
+                'name' => $request->name,
+                'username' => $request->username,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'photo' => $file
+            ]);
+        // $tbl->name = request("name");
+        // $tbl->username = $request->username;
+        // $tbl->email = $request->email;
+        // $tbl->password = Hash::make($request->password);
+    //     $tbl->name = "test";
+    //     $tbl->username = "test";
+    //     $tbl->email = "test@gmail.com";
+    //     $tbl->password = Hash::make("12345678");
+    //    // $tbl->photo = $file;
+        
+    //     $tbl->save();
+        return response()->json(['message' => 'User Added'], 201);
     }
 
     //DELETE
     public function DELETE(Request $request)
     {
         $id = request("id");
-        $tbl = UserModel::find($id);
+        $tbl = User::find($id);
         $tbl->delete();
         try {
-            $file_pattern = "assets/imguser/$id.*";
+            $file_pattern = "assets/imguser/$tbl->username.*";
             $file_path = glob($file_pattern)[0];
             unlink(public_path("$file_path"));
         } catch (Exception $e) {
@@ -106,7 +120,7 @@ class UserController extends Controller
     public function GETDetail()
     {
         $id = request("id"); //declare id to get id from parameter
-        $tbl = UserModel::find($id);
+        $tbl = User::find($id);
         if ($tbl == null) {
             return response()->json('No Data Found!', 400);
         } else {
@@ -227,7 +241,7 @@ class UserController extends Controller
                 if ($request->hasFile('file')) {
 
                     try {
-                        $file_pattern = "assets/imguser/$request->usernam.*";
+                        $file_pattern = "assets/imguser/$request->username.*";
                         $file_path = glob($file_pattern)[0];
                         unlink(public_path("$file_path"));
                     } catch (Exception $e) {
@@ -236,7 +250,7 @@ class UserController extends Controller
                     $request->validate([
                         'file' => 'required|mimes:pdf,xlx,csv,gif,jpeg,webp,png,jpg,jpeg,|max:20480',
                     ]);
-                    $file = $request->usernam . '.' . $request->file->extension();
+                    $file = $request->username . '.' . $request->file->extension();
 
                     $request->file->move(public_path('assets/imguser'), $file);
                 } else {
@@ -278,14 +292,14 @@ class UserController extends Controller
         if (Auth::id()) {
             $username = Auth()->user()->username;
             if ($username == 'Admin') {
+
+                $tbl = User::find($id);
                 try {
-                    $file_pattern = "assets/imguser/$id.*";
+                    $file_pattern = "assets/imguser/$tbl->username.*";
                     $file_path = glob($file_pattern)[0];
                     unlink(public_path("$file_path"));
                 } catch (Exception $e) {
                 }
-
-                $tbl = User::find($id);
                 $tbl->delete();
                 return redirect('/user');
             } else {

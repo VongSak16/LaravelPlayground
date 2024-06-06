@@ -39,6 +39,10 @@ class CustomerController extends Controller
         $tbl->created_at = date("Y-m-d H:i:s");
         $tbl->updated_at = null;
 
+
+        $tbl->userid = request('userid');
+
+
         if ($request->hasFile('file')) {
             $request->validate([
                 'file' => 'required|mimes:pdf,xlx,csv,gif,png,jpg,jpeg|max:20480',
@@ -55,11 +59,11 @@ class CustomerController extends Controller
 
         //CREATE DEPRECIATION DETAIL
 
-        $duration = $request->input("txtduration"); // months = 6
-        $prepayment = $request->input("txtprepayment"); // = 250
-        $interest = $request->input("txtinterest"); // 1.2
-        $productprice = $request->input('txtproductprice'); // 750
-        $mortgageType = $request->input('txtmortgage'); // annuity...
+        $duration = $request->input("duration"); // months = 6
+        $prepayment = $request->input("prepayment"); // = 250
+        $interest = $request->input("interest"); // 1.2
+        $productprice = $request->input('productprice'); // 750
+        $mortgageType = $request->input('mortgage'); // annuity...
 
 
         $principal = $productprice - $prepayment;
@@ -88,7 +92,7 @@ class CustomerController extends Controller
 
                 $new_date = $taked_at->copy()->addMonths($i);
                 $tblDepre->pay_date = $new_date->format('Y-m-d');
-                
+
                 $tblDepre->created_at = date("Y-m-d H:i:s");
                 $tblDepre->updated_at = null;
 
@@ -127,14 +131,12 @@ class CustomerController extends Controller
 
 
         return response()->json($tbl, 201);
-
-        
     }
 
     //PUT
     public function PUT(Request $request)
     {
-        $id = request("cusid");
+        $id = request("id");
         $tbl = CustomerModel::find($id);
         $tbl->cusname = request("cusname");
         $tbl->custel = request("custel");
@@ -184,6 +186,8 @@ class CustomerController extends Controller
             unlink(public_path("$file_path"));
         } catch (Exception $e) {
         }
+
+        DepreciationDetailModel::where('cusid', $id)->delete();
 
         return response()->json($tbl, 202);
     }
@@ -294,7 +298,7 @@ class CustomerController extends Controller
 
                 $new_date = $taked_at->copy()->addMonths($i);
                 $tblDepre->pay_date = $new_date->format('Y-m-d');
-                
+
                 $tblDepre->created_at = date("Y-m-d H:i:s");
                 $tblDepre->updated_at = null;
 
