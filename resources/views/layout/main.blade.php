@@ -14,6 +14,9 @@
     <link rel="stylesheet" href="/adminlte/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="/adminlte/dist/css/adminlte.min.css">
+
+    @yield('more-links')
+
     <style type="text/css">
         .custom-img-size {
             width: 34px;
@@ -112,7 +115,7 @@
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
-            <a href="/dashboard" class="brand-link">
+            <a href="/dashboard" class="brand-link ml-2">
                 {{-- <img src="#" alt="AdminLTE Logo"
                     class="brand-image img-circle elevation-3" style="opacity: .8"> --}}
                 <span class="brand-text font-weight-light">Hotel</span>
@@ -144,6 +147,12 @@
                             <a href="../dashboard" class="nav-link">
                                 <i class="nav-icon far fa-calendar-alt"></i>
                                 <p>Dashboard</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="../hotels" class="nav-link">
+                                <i class="nav-icon far fa-calendar-alt"></i>
+                                <p>Hotels</p>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -217,6 +226,7 @@
         });
     </script>
 
+    @yield('more-scripts')
 </body>
 
 </html>
