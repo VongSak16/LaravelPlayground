@@ -3,18 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\Hotels;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
 
 class HotelsController extends Controller
 {
-    /**
-     * Display a listing of the resource.ធ
-     */
     public function index()
     {
-        $table = Hotels::all();
-        return view('hotels.index', compact('table'));
+        $hotels = Hotels::all();
+        return view('hotels.index', compact('hotels'));
     }
 
     public function create()
@@ -22,193 +22,123 @@ class HotelsController extends Controller
         return view('hotels.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        $tbl = new Hotels;
-        $customerid = date('YmdHis');
-        //$taked_at = Carbon::parse(request('txttaked_at'));
+        $hotel = new Hotels;
+        $id = date('YmdHis');
 
-        $tbl->cusid = $customerid;
-        $tbl->cusname = request("txtcusname");
-        $tbl->custel = request("txtcustel");
-        $tbl->idcard = request("txtidcard");
-        $tbl->cusaddress = request("txtcusaddress");
-        $tbl->productname = request("txtproductname");
-        $tbl->productprice = request("txtproductprice");
-        $tbl->prepayment = request("txtprepayment");
-        $tbl->interest = request("txtinterest");
-        $tbl->duration = request("txtduration");
-        //$tbl->taked_at = $taked_at->format('Y-m-d');
-        $tbl->userid = Auth::user()->id;
-        $tbl->created_at = date("Y-m-d H:i:s");
-        $tbl->updated_at = null;
+        $hotel->id = $id;
+        $hotel->name = $request->name;
+        $hotel->address = $request->address;
+        $hotel->city = $request->city;
+        $hotel->user_id = Auth::user()->id;
+        $hotel->created_at = date("Y-m-d H:i:s");
+        $hotel->updated_at = null;
 
         if ($request->hasFile('file')) {
             $request->validate([
-                'file' => 'required|mimes:pdf,xlx,csv,gif,png,jpg,jpeg|max:20480',
+                'file' => 'required|mimes:xlx,csv,gif,png,jpg,jpeg|max:20480',
             ]);
-            $file = $tbl->cusid . '.' . $request->file->extension();
-            $request->file->move(public_path('assets/imgcustomer'), $file);
+            $file = $hotel->id . '.' . $request->file->extension();
+            $request->file->move(public_path('assets/imghotels'), $file);
         } else {
-            $file = 'no-img.jpg';
+            $file = null;
         }
 
-        $tbl->photo = $file;
+        $hotel->photo = $file;
 
-        $tbl->save();
+        $hotel->save();
 
         return redirect('/hotels');
-
-
-
-        //CREATE DEPRECIATION DETAIL
-
-        // $duration = $request->input("txtduration"); // months = 6
-        // $prepayment = $request->input("txtprepayment"); // = 250
-        // $interest = $request->input("txtinterest"); // 1.2
-        // $productprice = $request->input('txtproductprice'); // 750
-        // $mortgageType = $request->input('txtmortgage'); // annuity...
-
-
-        // $principal = $productprice - $prepayment;
-        // $monthly_interest_rate = $interest / 100;
-        // $monthly_payment = 0;
-
-        // if ($mortgageType == '1') {
-        //     // Anual mortgage calculation
-        //     $monthly_payment = ($principal * $monthly_interest_rate) / (1 - pow(1 + $monthly_interest_rate, -$duration));
-
-        //     $principal_remaining = $principal;
-
-        //     for ($i = 0; $i < $duration; $i++) {
-
-        //         $tblDepre = new DepreciationDetailModel;
-
-        //         $interest_payment = $principal_remaining * $monthly_interest_rate;
-        //         $principal_payment = $monthly_payment - $interest_payment;
-        //         $principal_remaining -= $principal_payment;
-
-        //         $tblDepre->depreid = ($i + 1) . date('YmdHis');
-        //         $tblDepre->cusid = $customerid;
-        //         $tblDepre->principal = round($principal_payment, 2);
-        //         $tblDepre->interest_month = round($interest_payment, 2);
-        //         $tblDepre->monthly_payment = round($monthly_payment, 2);
-
-        //         $new_date = $taked_at->copy()->addMonths($i);
-        //         $tblDepre->pay_date = $new_date->format('Y-m-d');
-
-        //         $tblDepre->created_at = date("Y-m-d H:i:s");
-        //         $tblDepre->updated_at = null;
-
-        //         $tblDepre->save();
-        //     }
-        // } elseif ($mortgageType == '2') {
-        //     // Linear mortgage calculation
-        //     $monthly_principal_payment = $principal / $duration;
-        //     $principal_remaining = $principal;
-
-        //     for ($i = 0; $i < $duration; $i++) {
-
-        //         $tblDepre = new DepreciationDetailModel;
-
-        //         $interest_payment = $principal_remaining * $monthly_interest_rate;
-        //         $total_payment = $monthly_principal_payment + $interest_payment;
-        //         $principal_remaining -= $monthly_principal_payment;
-
-        //         $tblDepre->depreid = ($i + 1) . date('YmdHis');
-        //         $tblDepre->cusid = $customerid;
-        //         $tblDepre->principal = round($monthly_principal_payment, 2);
-        //         $tblDepre->interest_month = round($interest_payment, 2);
-        //         $tblDepre->monthly_payment = round($total_payment, 2);
-
-        //         $new_date = $taked_at->copy()->addMonths($i);
-        //         $tblDepre->pay_date = $new_date->format('Y-m-d');
-
-        //         $tblDepre->created_at = date("Y-m-d H:i:s");
-        //         $tblDepre->updated_at = null;
-
-        //         $tblDepre->save();
-        //     }
-        // }
-
-        // return redirect('/customer');
     }
 
+    public function edit($id)
+    {
+        $hotel = Hotels::find($id);
+        return view('hotels.edit', compact('hotel'));
+    }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    // public function edit($id)
-    // {
-    //     //$tbl = Hotels::where('customerid', $id)->first();
-    //     $tbl = Hotels::find($id);
-    //     return view('customer.edit', ['tbl' => $tbl], ['id' => $id]);
-    // }
+    public function update(Request $request, $id)
+    {
+        $hotel = Hotels::find($id);
 
-    // /**
-    //  * Update the specified resource in storage.
-    //  */
-    // public function update(Request $request, $id)
-    // {
-    //     $tbl = Hotels::find($id);
+        if ($request->hasFile('file')) {
 
-    //     if ($request->hasFile('file')) {
+            try {
+                $file_pattern = substr(config('paths.image_hotels_path'), 1) . "$id.*";
+                $file_path = glob($file_pattern)[0];
+                unlink(public_path("$file_path"));
+            } catch (Exception $e) {
+            }
 
-    //         try {
-    //             $file_pattern = "assets/imgcustomer/$id.*";
-    //             $file_path = glob($file_pattern)[0];
-    //             unlink(public_path("$file_path"));
-    //         } catch (Exception $e) {
-    //         }
+            $request->validate([
+                'file' => 'required|mimes:pdf,xlx,csv,gif,jpeg,webp,png,jpg,jpeg,|max:20480',
+            ]);
+            $file = $id . '.' . $request->file->extension();
 
-    //         $request->validate([
-    //             'file' => 'required|mimes:pdf,xlx,csv,gif,jpeg,webp,png,jpg,jpeg,|max:20480',
-    //         ]);
-    //         $file = $id . '.' . $request->file->extension();
+            $request->file->move(public_path(substr(config('paths.image_hotels_path'), 1)), $file);
+        } else {
+            $file = $hotel->photo;
+        }
 
-    //         $request->file->move(public_path('assets/imgcustomer'), $file);
-    //     } else {
-    //         $file = $tbl->photo;
-    //     }
+        $hotel->name = $request->name;
+        $hotel->address = $request->address;
+        $hotel->city = $request->city;
+        $hotel->user_id = Auth::user()->id;
+        $hotel->updated_at = date("Y-m-d H:i:s");
+        $hotel->photo = $file;
+        $hotel->save();
 
-    //     $tbl->cusname = request("txtcusname");
-    //     $tbl->custel = request("txtcustel");
-    //     $tbl->idcard = request("txtidcard");
-    //     $tbl->cusaddress = request("txtcusaddress");
-    //     // $tbl->productname = request("txtproductname");
-    //     // $tbl->productprice = request("txtproductprice");
-    //     // $tbl->interest = request("txtinterest");
-    //     // $tbl->duration = request("txtduration");
-    //     $tbl->updated_at = date("Y-m-d H:i:s");
-    //     $tbl->photo = $file;
-    //     $tbl->save();
+        return redirect('/hotels');
+    }
 
-    //     return redirect('/customer');
-    // }
-    /**
-     * Update the specified resource in storage.
-     */
-    // public function deletes($id)
-    // {
-    //     return view("customer.delete", ["id" => $id]);
-    // }
+    public function destroy($id)
+    {
+        $validator = Validator::make(['id' => $id], [
+            'id' => 'required|numeric|exists:hotels,id'
+        ]);
 
-    // public function destroy($id)
-    // {
-    //     try {
-    //         $file_pattern = "assets/imgcustomer/$id.*";
-    //         $file_path = glob($file_pattern)[0];
-    //         unlink(public_path("$file_path"));
-    //     } catch (Exception $e) {
-    //     }
-    //     $tbl = Hotels::find($id);
-    //     $tbl->delete();
+        if ($validator->fails()) {
+            // Redirect back with an error message if validation fails
+            return redirect('/hotels')->withErrors($validator);
+        }
 
-    //     DepreciationDetailModel::where('cusid', $id)->delete();
+        try {
+            // Construct the file pattern to match the hotel's image based on its ID.
+            $file_pattern = substr(config('paths.image_hotels_path'), 1) . "$id.*";
 
-    //     return redirect('/customer');
-    // }
+            // Use glob to find files matching the pattern.
+            $file_paths = glob($file_pattern);
+
+            // Check if any files were found
+            if (!empty($file_paths)) {
+                // Delete the matched file using unlink.
+                foreach ($file_paths as $file_path) {
+                    if (file_exists(public_path($file_path))) {
+                        unlink(public_path($file_path));
+                    }
+                }
+            } else {
+                Log::warning("No files found for hotel ID $id with pattern $file_pattern.");
+            }
+        } catch (Exception $e) {
+            // Log the exception
+            Log::error("Error deleting file for hotel ID $id: " . $e->getMessage());
+        }
+        
+        try {
+            // Find the hotel by its ID and delete it from the database.
+            $hotel = Hotels::findOrFail($id);
+            $hotel->delete();
+
+            // Redirect back to the hotels list with a success message.
+            return redirect('/hotels')->with('success', 'Hotel deleted successfully.');
+        } catch (Exception $e) {
+            // Log the exception
+            Log::error("Error deleting hotel ID $id: " . $e->getMessage());
+
+            // Redirect back with an error message
+            return redirect('/hotels')->with('error', 'Error deleting hotel.');
+        }
+    }
 }

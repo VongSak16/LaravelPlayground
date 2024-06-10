@@ -3,92 +3,19 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>AdminLTE 3 | DataTables</title>
+    <title>AdminLTE 3 | Modals &amp; Alerts</title>
 
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&amp;display=fallback">
 
     <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
 
-    <link rel="stylesheet" href="../../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet" href="../../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
-    <link rel="stylesheet" href="../../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+    <link rel="stylesheet" href="../../plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
+
+    <link rel="stylesheet" href="../../plugins/toastr/toastr.min.css">
 
     <link rel="stylesheet" href="../../dist/css/adminlte.min.css?v=3.2.0">
-    <script defer="" referrerpolicy="origin"
-        src="/cdn-cgi/zaraz/s.js?z=JTdCJTIyZXhlY3V0ZWQlMjIlM0ElNUIlNUQlMkMlMjJ0JTIyJTNBJTIyQWRtaW5MVEUlMjAzJTIwJTdDJTIwRGF0YVRhYmxlcyUyMiUyQyUyMnglMjIlM0EwLjIzMzU4OTY1OTU2NDY2ODkzJTJDJTIydyUyMiUzQTE4OTklMkMlMjJoJTIyJTNBOTMyJTJDJTIyaiUyMiUzQTkyNCUyQyUyMmUlMjIlM0ExODk3JTJDJTIybCUyMiUzQSUyMmh0dHBzJTNBJTJGJTJGYWRtaW5sdGUuaW8lMkZ0aGVtZXMlMkZ2MyUyRnBhZ2VzJTJGdGFibGVzJTJGZGF0YS5odG1sJTIyJTJDJTIyciUyMiUzQSUyMmh0dHBzJTNBJTJGJTJGd3d3Lmdvb2dsZS5jb20lMkYlMjIlMkMlMjJrJTIyJTNBMjQlMkMlMjJuJTIyJTNBJTIyVVRGLTglMjIlMkMlMjJvJTIyJTNBLTQyMCUyQyUyMnElMjIlM0ElNUIlNUQlN0Q=">
-    </script>
-    <script nonce="8de81377-f9d7-4288-a2c4-982004667d41">
-        try {
-            (function(w, d) {
-                ! function(j, k, l, m) {
-                    j[l] = j[l] || {};
-                    j[l].executed = [];
-                    j.zaraz = {
-                        deferred: [],
-                        listeners: []
-                    };
-                    j.zaraz._v = "5671";
-                    j.zaraz.q = [];
-                    j.zaraz._f = function(n) {
-                        return async function() {
-                            var o = Array.prototype.slice.call(arguments);
-                            j.zaraz.q.push({
-                                m: n,
-                                a: o
-                            })
-                        }
-                    };
-                    for (const p of ["track", "set", "debug"]) j.zaraz[p] = j.zaraz._f(p);
-                    j.zaraz.init = () => {
-                        var q = k.getElementsByTagName(m)[0],
-                            r = k.createElement(m),
-                            s = k.getElementsByTagName("title")[0];
-                        s && (j[l].t = k.getElementsByTagName("title")[0].text);
-                        j[l].x = Math.random();
-                        j[l].w = j.screen.width;
-                        j[l].h = j.screen.height;
-                        j[l].j = j.innerHeight;
-                        j[l].e = j.innerWidth;
-                        j[l].l = j.location.href;
-                        j[l].r = k.referrer;
-                        j[l].k = j.screen.colorDepth;
-                        j[l].n = k.characterSet;
-                        j[l].o = (new Date).getTimezoneOffset();
-                        if (j.dataLayer)
-                            for (const w of Object.entries(Object.entries(dataLayer).reduce(((x, y) => ({
-                                    ...x[1],
-                                    ...y[1]
-                                })), {}))) zaraz.set(w[0], w[1], {
-                                scope: "page"
-                            });
-                        j[l].q = [];
-                        for (; j.zaraz.q.length;) {
-                            const z = j.zaraz.q.shift();
-                            j[l].q.push(z)
-                        }
-                        r.defer = !0;
-                        for (const A of [localStorage, sessionStorage]) Object.keys(A || {}).filter((C => C
-                            .startsWith("_zaraz_"))).forEach((B => {
-                            try {
-                                j[l]["z_" + B.slice(7)] = JSON.parse(A.getItem(B))
-                            } catch {
-                                j[l]["z_" + B.slice(7)] = A.getItem(B)
-                            }
-                        }));
-                        r.referrerPolicy = "origin";
-                        r.src = "/cdn-cgi/zaraz/s.js?z=" + btoa(encodeURIComponent(JSON.stringify(j[l])));
-                        q.parentNode.insertBefore(r, q)
-                    };
-                    ["complete", "interactive"].includes(k.readyState) ? zaraz.init() : j.addEventListener(
-                        "DOMContentLoaded", zaraz.init)
-                }(w, d, "zarazData", "script");
-            })(window, document)
-        } catch (e) {
-            throw fetch("/cdn-cgi/zaraz/t"), e;
-        };
-    </script>
-    <style nonce="8de81377-f9d7-4288-a2c4-982004667d41">
+    <style>
         .vt-augment {
             position: relative;
             display: flex;
@@ -489,8 +416,8 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
+                        <li class="nav-item menu-open">
+                            <a href="#" class="nav-link active">
                                 <i class="nav-icon fas fa-tree"></i>
                                 <p>
                                     UI Elements
@@ -523,7 +450,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="../UI/modals.html" class="nav-link">
+                                    <a href="../UI/modals.html" class="nav-link active">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Modals &amp; Alerts</p>
                                     </a>
@@ -583,8 +510,8 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="nav-item menu-open">
-                            <a href="#" class="nav-link active">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-table"></i>
                                 <p>
                                     Tables
@@ -599,7 +526,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="../tables/data.html" class="nav-link active">
+                                    <a href="../tables/data.html" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>DataTables</p>
                                     </a>
@@ -994,18 +921,21 @@
 
         </aside>
 
-        <div class="content-wrapper" style="min-height: 1301.91px;">
+        <div class="content-wrapper" style="min-height: 1517.73px;">
 
             <section class="content-header">
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>DataTables</h1>
+                            <h1>
+                                Modals &amp; Alerts
+                                <small>new</small>
+                            </h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active">DataTables</li>
+                                <li class="breadcrumb-item active">Modals &amp; Alerts</li>
                             </ol>
                         </div>
                     </div>
@@ -1015,506 +945,433 @@
             <section class="content">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-12">
-                            <div class="card">
+                        <div class="col-md-12">
+                            <div class="card card-primary card-outline">
                                 <div class="card-header">
-                                    <h3 class="card-title">DataTable with minimal features &amp; hover style</h3>
+                                    <h3 class="card-title">
+                                        <i class="fas fa-edit"></i>
+                                        Modal Examples
+                                    </h3>
                                 </div>
-
                                 <div class="card-body">
-                                    <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4">
-                                        <div class="row">
-                                            <div class="col-sm-12 col-md-6"></div>
-                                            <div class="col-sm-12 col-md-6"></div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-sm-12">
-                                                <table id="example2"
-                                                    class="table table-bordered table-hover dataTable dtr-inline"
-                                                    aria-describedby="example2_info">
-                                                    <thead>
-                                                        <tr>
-                                                            <th class="sorting sorting_asc" tabindex="0"
-                                                                aria-controls="example2" rowspan="1"
-                                                                colspan="1" aria-sort="ascending"
-                                                                aria-label="Rendering engine: activate to sort column descending">
-                                                                Rendering engine</th>
-                                                            <th class="sorting" tabindex="0"
-                                                                aria-controls="example2" rowspan="1"
-                                                                colspan="1"
-                                                                aria-label="Browser: activate to sort column ascending">
-                                                                Browser</th>
-                                                            <th class="sorting" tabindex="0"
-                                                                aria-controls="example2" rowspan="1"
-                                                                colspan="1"
-                                                                aria-label="Platform(s): activate to sort column ascending">
-                                                                Platform(s)</th>
-                                                            <th class="sorting" tabindex="0"
-                                                                aria-controls="example2" rowspan="1"
-                                                                colspan="1"
-                                                                aria-label="Engine version: activate to sort column ascending">
-                                                                Engine version</th>
-                                                            <th class="sorting" tabindex="0"
-                                                                aria-controls="example2" rowspan="1"
-                                                                colspan="1"
-                                                                aria-label="CSS grade: activate to sort column ascending">
-                                                                CSS grade</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                                                        <tr class="odd">
-                                                            <td class="dtr-control sorting_1" tabindex="0">Gecko
-                                                            </td>
-                                                            <td>Firefox 1.0</td>
-                                                            <td>Win 98+ / OSX.2+</td>
-                                                            <td>1.7</td>
-                                                            <td>A</td>
-                                                        </tr>
-                                                        <tr class="even">
-                                                            <td class="dtr-control sorting_1" tabindex="0">Gecko
-                                                            </td>
-                                                            <td>Firefox 1.5</td>
-                                                            <td>Win 98+ / OSX.2+</td>
-                                                            <td>1.8</td>
-                                                            <td>A</td>
-                                                        </tr>
-                                                        <tr class="odd">
-                                                            <td class="dtr-control sorting_1" tabindex="0">Gecko
-                                                            </td>
-                                                            <td>Firefox 2.0</td>
-                                                            <td>Win 98+ / OSX.2+</td>
-                                                            <td>1.8</td>
-                                                            <td>A</td>
-                                                        </tr>
-                                                        <tr class="even">
-                                                            <td class="dtr-control sorting_1" tabindex="0">Gecko
-                                                            </td>
-                                                            <td>Firefox 3.0</td>
-                                                            <td>Win 2k+ / OSX.3+</td>
-                                                            <td>1.9</td>
-                                                            <td>A</td>
-                                                        </tr>
-                                                        <tr class="odd">
-                                                            <td class="sorting_1 dtr-control">Gecko</td>
-                                                            <td>Camino 1.0</td>
-                                                            <td>OSX.2+</td>
-                                                            <td>1.8</td>
-                                                            <td>A</td>
-                                                        </tr>
-                                                        <tr class="even">
-                                                            <td class="sorting_1 dtr-control">Gecko</td>
-                                                            <td>Camino 1.5</td>
-                                                            <td>OSX.3+</td>
-                                                            <td>1.8</td>
-                                                            <td>A</td>
-                                                        </tr>
-                                                        <tr class="odd">
-                                                            <td class="sorting_1 dtr-control">Gecko</td>
-                                                            <td>Netscape 7.2</td>
-                                                            <td>Win 95+ / Mac OS 8.6-9.2</td>
-                                                            <td>1.7</td>
-                                                            <td>A</td>
-                                                        </tr>
-                                                        <tr class="even">
-                                                            <td class="sorting_1 dtr-control">Gecko</td>
-                                                            <td>Netscape Browser 8</td>
-                                                            <td>Win 98SE+</td>
-                                                            <td>1.7</td>
-                                                            <td>A</td>
-                                                        </tr>
-                                                        <tr class="odd">
-                                                            <td class="sorting_1 dtr-control">Gecko</td>
-                                                            <td>Netscape Navigator 9</td>
-                                                            <td>Win 98+ / OSX.2+</td>
-                                                            <td>1.8</td>
-                                                            <td>A</td>
-                                                        </tr>
-                                                        <tr class="even">
-                                                            <td class="sorting_1 dtr-control">Gecko</td>
-                                                            <td>Mozilla 1.0</td>
-                                                            <td>Win 95+ / OSX.1+</td>
-                                                            <td>1</td>
-                                                            <td>A</td>
-                                                        </tr>
-                                                    </tbody>
-                                                    <tfoot>
-                                                        <tr>
-                                                            <th rowspan="1" colspan="1">Rendering engine</th>
-                                                            <th rowspan="1" colspan="1">Browser</th>
-                                                            <th rowspan="1" colspan="1">Platform(s)</th>
-                                                            <th rowspan="1" colspan="1">Engine version</th>
-                                                            <th rowspan="1" colspan="1">CSS grade</th>
-                                                        </tr>
-                                                    </tfoot>
-                                                </table>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-sm-12 col-md-5">
-                                                <div class="dataTables_info" id="example2_info" role="status"
-                                                    aria-live="polite">Showing 1 to 10 of 57 entries</div>
-                                            </div>
-                                            <div class="col-sm-12 col-md-7">
-                                                <div class="dataTables_paginate paging_simple_numbers"
-                                                    id="example2_paginate">
-                                                    <ul class="pagination">
-                                                        <li class="paginate_button page-item previous disabled"
-                                                            id="example2_previous"><a href="#"
-                                                                aria-controls="example2" data-dt-idx="0"
-                                                                tabindex="0" class="page-link">Previous</a></li>
-                                                        <li class="paginate_button page-item active"><a href="#"
-                                                                aria-controls="example2" data-dt-idx="1"
-                                                                tabindex="0" class="page-link">1</a></li>
-                                                        <li class="paginate_button page-item "><a href="#"
-                                                                aria-controls="example2" data-dt-idx="2"
-                                                                tabindex="0" class="page-link">2</a></li>
-                                                        <li class="paginate_button page-item "><a href="#"
-                                                                aria-controls="example2" data-dt-idx="3"
-                                                                tabindex="0" class="page-link">3</a></li>
-                                                        <li class="paginate_button page-item "><a href="#"
-                                                                aria-controls="example2" data-dt-idx="4"
-                                                                tabindex="0" class="page-link">4</a></li>
-                                                        <li class="paginate_button page-item "><a href="#"
-                                                                aria-controls="example2" data-dt-idx="5"
-                                                                tabindex="0" class="page-link">5</a></li>
-                                                        <li class="paginate_button page-item "><a href="#"
-                                                                aria-controls="example2" data-dt-idx="6"
-                                                                tabindex="0" class="page-link">6</a></li>
-                                                        <li class="paginate_button page-item next" id="example2_next">
-                                                            <a href="#" aria-controls="example2"
-                                                                data-dt-idx="7" tabindex="0"
-                                                                class="page-link">Next</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
+                                    <button type="button" class="btn btn-default" data-toggle="modal"
+                                        data-target="#modal-default">
+                                        Launch Default Modal
+                                    </button>
+                                    <button type="button" class="btn btn-primary" data-toggle="modal"
+                                        data-target="#modal-primary">
+                                        Launch Primary Modal
+                                    </button>
+                                    <button type="button" class="btn btn-secondary" data-toggle="modal"
+                                        data-target="#modal-secondary">
+                                        Launch Secondary Modal
+                                    </button>
+                                    <button type="button" class="btn btn-info" data-toggle="modal"
+                                        data-target="#modal-info">
+                                        Launch Info Modal
+                                    </button>
+                                    <button type="button" class="btn btn-danger" data-toggle="modal"
+                                        data-target="#modal-danger">
+                                        Launch Danger Modal
+                                    </button>
+                                    <button type="button" class="btn btn-warning" data-toggle="modal"
+                                        data-target="#modal-warning">
+                                        Launch Warning Modal
+                                    </button>
+                                    <button type="button" class="btn btn-success" data-toggle="modal"
+                                        data-target="#modal-success">
+                                        Launch Success Modal
+                                    </button>
+                                    <br>
+                                    <br>
+                                    <button type="button" class="btn btn-default" data-toggle="modal"
+                                        data-target="#modal-sm">
+                                        Launch Small Modal
+                                    </button>
+                                    <button type="button" class="btn btn-default" data-toggle="modal"
+                                        data-target="#modal-lg">
+                                        Launch Large Modal
+                                    </button>
+                                    <button type="button" class="btn btn-default" data-toggle="modal"
+                                        data-target="#modal-xl">
+                                        Launch Extra Large Modal
+                                    </button>
+                                    <br>
+                                    <br>
+                                    <button type="button" class="btn btn-default" data-toggle="modal"
+                                        data-target="#modal-overlay">
+                                        Launch Modal with Overlay
+                                    </button>
+                                    <div class="text-muted mt-3">
+                                        Instructions for how to use modals are available on the
+                                        <a href="https://getbootstrap.com/docs/4.4/components/modal/">Bootstrap
+                                            documentation</a>
                                     </div>
                                 </div>
 
                             </div>
-
-                            <div class="card">
+                            <div class="card card-info card-outline">
                                 <div class="card-header">
-                                    <h3 class="card-title">DataTable with default features</h3>
+                                    <h3 class="card-title">
+                                        <i class="fas fa-edit"></i>
+                                        Toasts Examples <small>built in AdminLTE</small>
+                                    </h3>
                                 </div>
-
                                 <div class="card-body">
-                                    <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
-                                        <div class="row">
-                                            <div class="col-sm-12 col-md-6">
-                                                <div class="dt-buttons btn-group flex-wrap"> <button
-                                                        class="btn btn-secondary buttons-copy buttons-html5"
-                                                        tabindex="0" aria-controls="example1"
-                                                        type="button"><span>Copy</span></button> <button
-                                                        class="btn btn-secondary buttons-csv buttons-html5"
-                                                        tabindex="0" aria-controls="example1"
-                                                        type="button"><span>CSV</span></button> <button
-                                                        class="btn btn-secondary buttons-excel buttons-html5"
-                                                        tabindex="0" aria-controls="example1"
-                                                        type="button"><span>Excel</span></button> <button
-                                                        class="btn btn-secondary buttons-pdf buttons-html5"
-                                                        tabindex="0" aria-controls="example1"
-                                                        type="button"><span>PDF</span></button> <button
-                                                        class="btn btn-secondary buttons-print" tabindex="0"
-                                                        aria-controls="example1"
-                                                        type="button"><span>Print</span></button>
-                                                    <div class="btn-group"><button
-                                                            class="btn btn-secondary buttons-collection dropdown-toggle buttons-colvis"
-                                                            tabindex="0" aria-controls="example1" type="button"
-                                                            aria-haspopup="true"><span>Column visibility</span><span
-                                                                class="dt-down-arrow"></span></button></div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-12 col-md-6">
-                                                <div id="example1_filter" class="dataTables_filter">
-                                                    <label>Search:<input type="search"
-                                                            class="form-control form-control-sm" placeholder=""
-                                                            aria-controls="example1"></label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-sm-12">
-                                                <table id="example1"
-                                                    class="table table-bordered table-striped dataTable dtr-inline"
-                                                    aria-describedby="example1_info">
-                                                    <thead>
-                                                        <tr>
-                                                            <th class="sorting sorting_asc" tabindex="0"
-                                                                aria-controls="example1" rowspan="1"
-                                                                colspan="1" aria-sort="ascending"
-                                                                aria-label="Rendering engine: activate to sort column descending">
-                                                                Rendering engine</th>
-                                                            <th class="sorting" tabindex="0"
-                                                                aria-controls="example1" rowspan="1"
-                                                                colspan="1"
-                                                                aria-label="Browser: activate to sort column ascending">
-                                                                Browser</th>
-                                                            <th class="sorting" tabindex="0"
-                                                                aria-controls="example1" rowspan="1"
-                                                                colspan="1"
-                                                                aria-label="Platform(s): activate to sort column ascending">
-                                                                Platform(s)</th>
-                                                            <th class="sorting" tabindex="0"
-                                                                aria-controls="example1" rowspan="1"
-                                                                colspan="1"
-                                                                aria-label="Engine version: activate to sort column ascending">
-                                                                Engine version</th>
-                                                            <th class="sorting" tabindex="0"
-                                                                aria-controls="example1" rowspan="1"
-                                                                colspan="1"
-                                                                aria-label="CSS grade: activate to sort column ascending">
-                                                                CSS grade</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                                                        <tr class="odd">
-                                                            <td class="dtr-control sorting_1" tabindex="0">Gecko
-                                                            </td>
-                                                            <td>Firefox 1.0</td>
-                                                            <td>Win 98+ / OSX.2+</td>
-                                                            <td>1.7</td>
-                                                            <td>A</td>
-                                                        </tr>
-                                                        <tr class="even">
-                                                            <td class="dtr-control sorting_1" tabindex="0">Gecko
-                                                            </td>
-                                                            <td>Firefox 1.5</td>
-                                                            <td>Win 98+ / OSX.2+</td>
-                                                            <td>1.8</td>
-                                                            <td>A</td>
-                                                        </tr>
-                                                        <tr class="odd">
-                                                            <td class="dtr-control sorting_1" tabindex="0">Gecko
-                                                            </td>
-                                                            <td>Firefox 2.0</td>
-                                                            <td>Win 98+ / OSX.2+</td>
-                                                            <td>1.8</td>
-                                                            <td>A</td>
-                                                        </tr>
-                                                        <tr class="even">
-                                                            <td class="dtr-control sorting_1" tabindex="0">Gecko
-                                                            </td>
-                                                            <td>Firefox 3.0</td>
-                                                            <td>Win 2k+ / OSX.3+</td>
-                                                            <td>1.9</td>
-                                                            <td>A</td>
-                                                        </tr>
-                                                        <tr class="odd">
-                                                            <td class="sorting_1 dtr-control">Gecko</td>
-                                                            <td>Camino 1.0</td>
-                                                            <td>OSX.2+</td>
-                                                            <td>1.8</td>
-                                                            <td>A</td>
-                                                        </tr>
-                                                        <tr class="even">
-                                                            <td class="sorting_1 dtr-control">Gecko</td>
-                                                            <td>Camino 1.5</td>
-                                                            <td>OSX.3+</td>
-                                                            <td>1.8</td>
-                                                            <td>A</td>
-                                                        </tr>
-                                                        <tr class="odd">
-                                                            <td class="sorting_1 dtr-control">Gecko</td>
-                                                            <td>Netscape 7.2</td>
-                                                            <td>Win 95+ / Mac OS 8.6-9.2</td>
-                                                            <td>1.7</td>
-                                                            <td>A</td>
-                                                        </tr>
-                                                        <tr class="even">
-                                                            <td class="sorting_1 dtr-control">Gecko</td>
-                                                            <td>Netscape Browser 8</td>
-                                                            <td>Win 98SE+</td>
-                                                            <td>1.7</td>
-                                                            <td>A</td>
-                                                        </tr>
-                                                        <tr class="odd">
-                                                            <td class="sorting_1 dtr-control">Gecko</td>
-                                                            <td>Netscape Navigator 9</td>
-                                                            <td>Win 98+ / OSX.2+</td>
-                                                            <td>1.8</td>
-                                                            <td>A</td>
-                                                        </tr>
-                                                        <tr class="even">
-                                                            <td class="sorting_1 dtr-control">Gecko</td>
-                                                            <td>Mozilla 1.0</td>
-                                                            <td>Win 95+ / OSX.1+</td>
-                                                            <td>1</td>
-                                                            <td>A</td>
-                                                        </tr>
-                                                    </tbody>
-                                                    <tfoot>
-                                                        <tr>
-                                                            <th rowspan="1" colspan="1">Rendering engine</th>
-                                                            <th rowspan="1" colspan="1">Browser</th>
-                                                            <th rowspan="1" colspan="1">Platform(s)</th>
-                                                            <th rowspan="1" colspan="1">Engine version</th>
-                                                            <th rowspan="1" colspan="1">CSS grade</th>
-                                                        </tr>
-                                                    </tfoot>
-                                                </table>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-sm-12 col-md-5">
-                                                <div class="dataTables_info" id="example1_info" role="status"
-                                                    aria-live="polite">Showing 1 to 10 of 57 entries</div>
-                                            </div>
-                                            <div class="col-sm-12 col-md-7">
-                                                <div class="dataTables_paginate paging_simple_numbers"
-                                                    id="example1_paginate">
-                                                    <ul class="pagination">
-                                                        <li class="paginate_button page-item previous disabled"
-                                                            id="example1_previous"><a href="#"
-                                                                aria-controls="example1" data-dt-idx="0"
-                                                                tabindex="0" class="page-link">Previous</a></li>
-                                                        <li class="paginate_button page-item active"><a href="#"
-                                                                aria-controls="example1" data-dt-idx="1"
-                                                                tabindex="0" class="page-link">1</a></li>
-                                                        <li class="paginate_button page-item "><a href="#"
-                                                                aria-controls="example1" data-dt-idx="2"
-                                                                tabindex="0" class="page-link">2</a></li>
-                                                        <li class="paginate_button page-item "><a href="#"
-                                                                aria-controls="example1" data-dt-idx="3"
-                                                                tabindex="0" class="page-link">3</a></li>
-                                                        <li class="paginate_button page-item "><a href="#"
-                                                                aria-controls="example1" data-dt-idx="4"
-                                                                tabindex="0" class="page-link">4</a></li>
-                                                        <li class="paginate_button page-item "><a href="#"
-                                                                aria-controls="example1" data-dt-idx="5"
-                                                                tabindex="0" class="page-link">5</a></li>
-                                                        <li class="paginate_button page-item "><a href="#"
-                                                                aria-controls="example1" data-dt-idx="6"
-                                                                tabindex="0" class="page-link">6</a></li>
-                                                        <li class="paginate_button page-item next" id="example1_next">
-                                                            <a href="#" aria-controls="example1"
-                                                                data-dt-idx="7" tabindex="0"
-                                                                class="page-link">Next</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
+                                    <button type="button" class="btn btn-default toastsDefaultDefault">
+                                        Launch Default Toast
+                                    </button>
+                                    <button type="button" class="btn btn-default toastsDefaultFull">
+                                        Launch Full Toast (with icon)
+                                    </button>
+                                    <button type="button" class="btn btn-default toastsDefaultFullImage">
+                                        Launch Full Toast (with image)
+                                    </button>
+                                    <button type="button" class="btn btn-default toastsDefaultAutohide">
+                                        Launch Default Toasts with autohide
+                                    </button>
+                                    <button type="button" class="btn btn-default toastsDefaultNotFixed">
+                                        Launch Default Toasts with not fixed
+                                    </button>
+                                    <br>
+                                    <br>
+                                    <button type="button" class="btn btn-default toastsDefaultTopLeft">
+                                        Launch Default Toast (topLeft)
+                                    </button>
+                                    <button type="button" class="btn btn-default toastsDefaultBottomRight">
+                                        Launch Default Toast (bottomRight)
+                                    </button>
+                                    <button type="button" class="btn btn-default toastsDefaultBottomLeft">
+                                        Launch Default Toast (bottomLeft)
+                                    </button>
+                                    <br>
+                                    <br>
+                                    <button type="button" class="btn btn-success toastsDefaultSuccess">
+                                        Launch Success Toast
+                                    </button>
+                                    <button type="button" class="btn btn-info toastsDefaultInfo">
+                                        Launch Info Toast
+                                    </button>
+                                    <button type="button" class="btn btn-warning toastsDefaultWarning">
+                                        Launch Warning Toast
+                                    </button>
+                                    <button type="button" class="btn btn-danger toastsDefaultDanger">
+                                        Launch Danger Toast
+                                    </button>
+                                    <button type="button" class="btn btn-default bg-maroon toastsDefaultMaroon">
+                                        Launch Maroon Toast
+                                    </button>
+                                    <div class="text-muted mt-3">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card card-success card-outline">
+                                <div class="card-header">
+                                    <h3 class="card-title">
+                                        <i class="fas fa-edit"></i>
+                                        SweetAlert2 Examples
+                                    </h3>
+                                </div>
+                                <div class="card-body">
+                                    <button type="button" class="btn btn-success swalDefaultSuccess">
+                                        Launch Success Toast
+                                    </button>
+                                    <button type="button" class="btn btn-info swalDefaultInfo">
+                                        Launch Info Toast
+                                    </button>
+                                    <button type="button" class="btn btn-danger swalDefaultError">
+                                        Launch Error Toast
+                                    </button>
+                                    <button type="button" class="btn btn-warning swalDefaultWarning">
+                                        Launch Warning Toast
+                                    </button>
+                                    <button type="button" class="btn btn-default swalDefaultQuestion">
+                                        Launch Question Toast
+                                    </button>
+                                    <div class="text-muted mt-3">
+                                        For more examples look at <a
+                                            href="https://sweetalert2.github.io/">https://sweetalert2.github.io/</a>
                                     </div>
                                 </div>
 
                             </div>
+                            <div class="card card-warning card-outline">
+                                <div class="card-header">
+                                    <h3 class="card-title">
+                                        <i class="fas fa-edit"></i>
+                                        Toastr Examples
+                                    </h3>
+                                </div>
+                                <div class="card-body">
+                                    <button type="button" class="btn btn-success toastrDefaultSuccess">
+                                        Launch Success Toast
+                                    </button>
+                                    <button type="button" class="btn btn-info toastrDefaultInfo">
+                                        Launch Info Toast
+                                    </button>
+                                    <button type="button" class="btn btn-danger toastrDefaultError">
+                                        Launch Error Toast
+                                    </button>
+                                    <button type="button" class="btn btn-warning toastrDefaultWarning">
+                                        Launch Warning Toast
+                                    </button>
+                                    <div class="text-muted mt-3">
+                                        For more examples look at <a
+                                            href="https://codeseven.github.io/toastr/">https://codeseven.github.io/toastr/</a>
+                                    </div>
+                                </div>
 
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="modal fade" id="modal-default" style="display: none;" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Default Modal</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p>One fine body…</p>
+                            </div>
+                            <div class="modal-footer justify-content-between">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="modal fade" id="modal-overlay" style="display: none;" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="overlay">
+                                <i class="fas fa-2x fa-sync fa-spin"></i>
+                            </div>
+                            <div class="modal-header">
+                                <h4 class="modal-title">Default Modal</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p>One fine body…</p>
+                            </div>
+                            <div class="modal-footer justify-content-between">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="modal fade" id="modal-primary">
+                    <div class="modal-dialog">
+                        <div class="modal-content bg-primary">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Primary Modal</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p>One fine body…</p>
+                            </div>
+                            <div class="modal-footer justify-content-between">
+                                <button type="button" class="btn btn-outline-light"
+                                    data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-outline-light">Save changes</button>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="modal fade" id="modal-secondary" style="display: none;" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content bg-secondary">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Secondary Modal</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p>One fine body…</p>
+                            </div>
+                            <div class="modal-footer justify-content-between">
+                                <button type="button" class="btn btn-outline-light"
+                                    data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-outline-light">Save changes</button>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="modal fade" id="modal-info" style="display: none;" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content bg-info">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Info Modal</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p>One fine body…</p>
+                            </div>
+                            <div class="modal-footer justify-content-between">
+                                <button type="button" class="btn btn-outline-light"
+                                    data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-outline-light">Save changes</button>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="modal fade" id="modal-warning" style="display: none;" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content bg-warning">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Warning Modal</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p>One fine body…</p>
+                            </div>
+                            <div class="modal-footer justify-content-between">
+                                <button type="button" class="btn btn-outline-dark"
+                                    data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-outline-dark">Save changes</button>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="modal fade" id="modal-success">
+                    <div class="modal-dialog">
+                        <div class="modal-content bg-success">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Success Modal</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p>One fine body…</p>
+                            </div>
+                            <div class="modal-footer justify-content-between">
+                                <button type="button" class="btn btn-outline-light"
+                                    data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-outline-light">Save changes</button>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="modal fade" id="modal-danger" style="display: none;" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content bg-danger">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Danger Modal</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p>One fine body…</p>
+                            </div>
+                            <div class="modal-footer justify-content-between">
+                                <button type="button" class="btn btn-outline-light"
+                                    data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-outline-light">Save changes</button>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="modal fade" id="modal-sm" style="display: none;" aria-hidden="true">
+                    <div class="modal-dialog modal-sm">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Small Modal</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p>One fine body…</p>
+                            </div>
+                            <div class="modal-footer justify-content-between">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="modal fade" id="modal-lg" style="display: none;" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Large Modal</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p>One fine body…</p>
+                            </div>
+                            <div class="modal-footer justify-content-between">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="modal fade" id="modal-xl" style="display: none;" aria-hidden="true">
+                    <div class="modal-dialog modal-xl">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Extra Large Modal</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p>One fine body…</p>
+                            </div>
+                            <div class="modal-footer justify-content-between">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save changes</button>
+                            </div>
                         </div>
 
                     </div>
@@ -1559,16 +1416,17 @@
                 </div>
                 <div class="mb-1"><input type="checkbox" value="1" class="mr-1"><span>Nav Legacy
                         Style</span></div>
-                <div class="mb-1"><input type="checkbox" value="1" class="mr-1"><span>Nav Compact</span>
-                </div>
+                <div class="mb-1"><input type="checkbox" value="1" class="mr-1"><span>Nav
+                        Compact</span></div>
                 <div class="mb-1"><input type="checkbox" value="1" class="mr-1"><span>Nav Child
                         Indent</span></div>
                 <div class="mb-1"><input type="checkbox" value="1" class="mr-1"><span>Nav Child Hide on
                         Collapse</span></div>
-                <div class="mb-4"><input type="checkbox" value="1" class="mr-1"><span>Disable Hover/Focus
-                        Auto-Expand</span></div>
+                <div class="mb-4"><input type="checkbox" value="1" class="mr-1"><span>Disable
+                        Hover/Focus Auto-Expand</span></div>
                 <h6>Footer Options</h6>
-                <div class="mb-4"><input type="checkbox" value="1" class="mr-1"><span>Fixed</span></div>
+                <div class="mb-4"><input type="checkbox" value="1" class="mr-1"><span>Fixed</span>
+                </div>
                 <h6>Small Text Options</h6>
                 <div class="mb-1"><input type="checkbox" value="1" class="mr-1"><span>Body</span></div>
                 <div class="mb-1"><input type="checkbox" value="1" class="mr-1"><span>Navbar</span>
@@ -1695,34 +1553,165 @@
 
     <script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-    <script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
-    <script src="../../plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-    <script src="../../plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-    <script src="../../plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-    <script src="../../plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
-    <script src="../../plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
-    <script src="../../plugins/jszip/jszip.min.js"></script>
-    <script src="../../plugins/pdfmake/pdfmake.min.js"></script>
-    <script src="../../plugins/pdfmake/vfs_fonts.js"></script>
-    <script src="../../plugins/datatables-buttons/js/buttons.html5.min.js"></script>
-    <script src="../../plugins/datatables-buttons/js/buttons.print.min.js"></script>
-    <script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+    <script src="../../plugins/sweetalert2/sweetalert2.min.js"></script>
+
+    <script src="../../plugins/toastr/toastr.min.js"></script>
+
+    <script src="../../dist/js/adminlte.min.js?v=3.2.0"></script>
+
+    <script src="../../dist/js/demo.js"></script>
+
     <script>
         $(function() {
-            $("#example1").DataTable({
-                "responsive": true,
-                "lengthChange": false,
-                "autoWidth": false,
-                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-            $('#example2').DataTable({
-                "paging": true,
-                "lengthChange": false,
-                "searching": false,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false,
-                "responsive": true,
+            var Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000
+            });
+
+            $('.swalDefaultSuccess').click(function() {
+                Toast.fire({
+                    icon: 'success',
+                    title: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+                })
+            });
+            $('.swalDefaultInfo').click(function() {
+                Toast.fire({
+                    icon: 'info',
+                    title: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+                })
+            });
+            $('.swalDefaultError').click(function() {
+                Toast.fire({
+                    icon: 'error',
+                    title: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+                })
+            });
+            $('.swalDefaultWarning').click(function() {
+                Toast.fire({
+                    icon: 'warning',
+                    title: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+                })
+            });
+            $('.swalDefaultQuestion').click(function() {
+                Toast.fire({
+                    icon: 'question',
+                    title: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+                })
+            });
+
+            $('.toastrDefaultSuccess').click(function() {
+                toastr.success('Lorem ipsum dolor sit amet, consetetur sadipscing elitr.')
+            });
+            $('.toastrDefaultInfo').click(function() {
+                toastr.info('Lorem ipsum dolor sit amet, consetetur sadipscing elitr.')
+            });
+            $('.toastrDefaultError').click(function() {
+                toastr.error('Lorem ipsum dolor sit amet, consetetur sadipscing elitr.')
+            });
+            $('.toastrDefaultWarning').click(function() {
+                toastr.warning('Lorem ipsum dolor sit amet, consetetur sadipscing elitr.')
+            });
+
+            $('.toastsDefaultDefault').click(function() {
+                $(document).Toasts('create', {
+                    title: 'Toast Title',
+                    body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+                })
+            });
+            $('.toastsDefaultTopLeft').click(function() {
+                $(document).Toasts('create', {
+                    title: 'Toast Title',
+                    position: 'topLeft',
+                    body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+                })
+            });
+            $('.toastsDefaultBottomRight').click(function() {
+                $(document).Toasts('create', {
+                    title: 'Toast Title',
+                    position: 'bottomRight',
+                    body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+                })
+            });
+            $('.toastsDefaultBottomLeft').click(function() {
+                $(document).Toasts('create', {
+                    title: 'Toast Title',
+                    position: 'bottomLeft',
+                    body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+                })
+            });
+            $('.toastsDefaultAutohide').click(function() {
+                $(document).Toasts('create', {
+                    title: 'Toast Title',
+                    autohide: true,
+                    delay: 750,
+                    body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+                })
+            });
+            $('.toastsDefaultNotFixed').click(function() {
+                $(document).Toasts('create', {
+                    title: 'Toast Title',
+                    fixed: false,
+                    body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+                })
+            });
+            $('.toastsDefaultFull').click(function() {
+                $(document).Toasts('create', {
+                    body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.',
+                    title: 'Toast Title',
+                    subtitle: 'Subtitle',
+                    icon: 'fas fa-envelope fa-lg',
+                })
+            });
+            $('.toastsDefaultFullImage').click(function() {
+                $(document).Toasts('create', {
+                    body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.',
+                    title: 'Toast Title',
+                    subtitle: 'Subtitle',
+                    image: '../../dist/img/user3-128x128.jpg',
+                    imageAlt: 'User Picture',
+                })
+            });
+            $('.toastsDefaultSuccess').click(function() {
+                $(document).Toasts('create', {
+                    class: 'bg-success',
+                    title: 'Toast Title',
+                    subtitle: 'Subtitle',
+                    body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+                })
+            });
+            $('.toastsDefaultInfo').click(function() {
+                $(document).Toasts('create', {
+                    class: 'bg-info',
+                    title: 'Toast Title',
+                    subtitle: 'Subtitle',
+                    body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+                })
+            });
+            $('.toastsDefaultWarning').click(function() {
+                $(document).Toasts('create', {
+                    class: 'bg-warning',
+                    title: 'Toast Title',
+                    subtitle: 'Subtitle',
+                    body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+                })
+            });
+            $('.toastsDefaultDanger').click(function() {
+                $(document).Toasts('create', {
+                    class: 'bg-danger',
+                    title: 'Toast Title',
+                    subtitle: 'Subtitle',
+                    body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+                })
+            });
+            $('.toastsDefaultMaroon').click(function() {
+                $(document).Toasts('create', {
+                    class: 'bg-maroon',
+                    title: 'Toast Title',
+                    subtitle: 'Subtitle',
+                    body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+                })
             });
         });
     </script>
@@ -1759,6 +1748,60 @@
         </div>
     </div><span class="vttooltiptext vthidden">&nbsp;Click to open VirusTotal report&nbsp;<br>with VT Augment</span>
     <style></style>
+    <div id="toastsContainerTopRight" class="toasts-top-right fixed">
+        <div class="toast bg-success fade show" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header"><strong class="mr-auto">Toast Title</strong><small>Subtitle</small><button
+                    data-dismiss="toast" type="button" class="ml-2 mb-1 close" aria-label="Close"><span
+                        aria-hidden="true">×</span></button></div>
+            <div class="toast-body">Lorem ipsum dolor sit amet, consetetur sadipscing elitr.</div>
+        </div>
+        <div class="toast fade show" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header"><strong class="mr-auto">Toast Title</strong><button data-dismiss="toast"
+                    type="button" class="ml-2 mb-1 close" aria-label="Close"><span
+                        aria-hidden="true">×</span></button></div>
+            <div class="toast-body">Lorem ipsum dolor sit amet, consetetur sadipscing elitr.</div>
+        </div>
+        <div class="toast fade show" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header"><i class="mr-2 fas fa-envelope fa-lg"></i><strong class="mr-auto">Toast
+                    Title</strong><small>Subtitle</small><button data-dismiss="toast" type="button"
+                    class="ml-2 mb-1 close" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+            <div class="toast-body">Lorem ipsum dolor sit amet, consetetur sadipscing elitr.</div>
+        </div>
+        <div class="toast bg-danger fade show" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header"><strong class="mr-auto">Toast Title</strong><small>Subtitle</small><button
+                    data-dismiss="toast" type="button" class="ml-2 mb-1 close" aria-label="Close"><span
+                        aria-hidden="true">×</span></button></div>
+            <div class="toast-body">Lorem ipsum dolor sit amet, consetetur sadipscing elitr.</div>
+        </div>
+    </div>
+    <div id="toastsContainerBottomRight" class="toasts-bottom-right fixed">
+        <div class="toast fade show" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header"><strong class="mr-auto">Toast Title</strong><button data-dismiss="toast"
+                    type="button" class="ml-2 mb-1 close" aria-label="Close"><span
+                        aria-hidden="true">×</span></button></div>
+            <div class="toast-body">Lorem ipsum dolor sit amet, consetetur sadipscing elitr.</div>
+        </div>
+        <div class="toast fade show" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header"><strong class="mr-auto">Toast Title</strong><button data-dismiss="toast"
+                    type="button" class="ml-2 mb-1 close" aria-label="Close"><span
+                        aria-hidden="true">×</span></button></div>
+            <div class="toast-body">Lorem ipsum dolor sit amet, consetetur sadipscing elitr.</div>
+        </div>
+    </div>
+    <div id="toastsContainerTopLeft" class="toasts-top-left fixed">
+        <div class="toast fade show" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header"><strong class="mr-auto">Toast Title</strong><button data-dismiss="toast"
+                    type="button" class="ml-2 mb-1 close" aria-label="Close"><span
+                        aria-hidden="true">×</span></button></div>
+            <div class="toast-body">Lorem ipsum dolor sit amet, consetetur sadipscing elitr.</div>
+        </div>
+        <div class="toast fade show" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header"><strong class="mr-auto">Toast Title</strong><button data-dismiss="toast"
+                    type="button" class="ml-2 mb-1 close" aria-label="Close"><span
+                        aria-hidden="true">×</span></button></div>
+            <div class="toast-body">Lorem ipsum dolor sit amet, consetetur sadipscing elitr.</div>
+        </div>
+    </div>
 </body>
 
 </html>

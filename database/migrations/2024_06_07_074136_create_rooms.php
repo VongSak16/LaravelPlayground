@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('rooms', function (Blueprint $table) {
 
             $table->id();
-            $table->text('details');
-            $table->foreignId('roomtype_id')->constrained()->onDelete('cascade');
+            $table->string('name');
+            $table->foreignId('roomtype_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->enum('status', ['available', 'occupied', 'under_maintenance'])->default('available');
-            $table->foreignId('book_id')->nullable()->constrained()->onDelete('cascade');
+            $table->foreignId('book_id')->nullable()->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
             
         });

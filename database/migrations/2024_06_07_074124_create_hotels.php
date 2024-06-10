@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('address');
             $table->string('city');
             $table->string('photo')->nullable();
+            $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

@@ -9,15 +9,23 @@
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&amp;display=fallback">
     <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="/adminlte/plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="{{ config('paths.adminlte_path') }}/plugins/fontawesome-free/css/all.min.css">
     <!-- overlayScrollbars -->
-    <link rel="stylesheet" href="/adminlte/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+    <link rel="stylesheet"
+        href="{{ config('paths.adminlte_path') }}/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
     <!-- Theme style -->
-    <link rel="stylesheet" href="/adminlte/dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="{{ config('paths.adminlte_path') }}/dist/css/adminlte.min.css">
 
-    @yield('more-links')
+    @yield('link')
 
     <style type="text/css">
+        .navbar-dark,
+        .content-wrapper,
+        .main-sidebar,
+        .brand-link {
+            background-color: #0f0f0f !important;
+        }
+
         .custom-img-size {
             width: 34px;
             height: 34px;
@@ -88,7 +96,7 @@
             <ul class="navbar-nav ml-auto mr-4">
                 <li class="nav-item dropdown">
                     <img class="custom-img-size rounded-circle"
-                        src="{{ App\Utilities\PathManager::IMG_USERS }}/{{ Auth::user()->photo }}"
+                        src="{{ config('paths.image_users_path') }}/{{ Auth::user()->photo }}"
                         class="border-top-0 nav-link" role="button" id="navbarDropdown" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown"
@@ -197,15 +205,15 @@
 
     <!-- REQUIRED SCRIPTS -->
     <!-- jQuery -->
-    <script src="/adminlte/plugins/jquery/jquery.min.js"></script>
+    <script src="{{ config('paths.adminlte_path') }}/plugins/jquery/jquery.min.js"></script>
     <!-- Bootstrap -->
-    <script src="/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ config('paths.adminlte_path') }}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- overlayScrollbars -->
-    <script src="/adminlte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+    <script src="{{ config('paths.adminlte_path') }}/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
     <!-- AdminLTE App -->
-    <script src="/adminlte/dist/js/adminlte.js?v=3.2.0"></script>
+    <script src="{{ config('paths.adminlte_path') }}/dist/js/adminlte.js?v=3.2.0"></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-    <script src="/adminlte/dist/js/pages/dashboard2.js"></script>
+    <script src="{{ config('paths.adminlte_path') }}/dist/js/pages/dashboard2.js"></script>
     <script>
         $(function() {
             var url = window.location;
@@ -226,7 +234,7 @@
         });
     </script>
 
-    @yield('more-scripts')
+    @yield('script')
 </body>
 
 </html>

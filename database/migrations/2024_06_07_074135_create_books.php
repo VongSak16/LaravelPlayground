@@ -16,7 +16,7 @@ return new class extends Migration
             $table->dateTime('arrived_at');
             $table->integer('duration'); // Duration in days
             $table->decimal('total_cost', 8, 2);
-            $table->foreignId('customer_id')->constrained()->onDelete('cascade');
+            $table->foreignId('customer_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }
