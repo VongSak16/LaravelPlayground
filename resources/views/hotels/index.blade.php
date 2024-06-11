@@ -15,13 +15,6 @@
     <!-- Main content -->
     <div class="content">
         <div class="container-fluid">
-            <style>
-                .card {
-                    background-color: #212121 !important;
-                    border: 1px solid rgba(255, 255, 255, 0.3) !important;
-                    border-radius: 10px !important;
-                }
-            </style>
             <div class="row ml-3">
                 <div class="card mb-3">
                     <a class="btn btn-success" href="hotels-create"><i class="fas fa-plus"></i></a>
@@ -31,7 +24,7 @@
                 @foreach ($hotels as $hotel)
                     <div class="card mb-3 border" style="width: 840px; overflow: hidden; height: 287px;" href="#">
                         <div class="row g-0">
-                            <div class="col-md-4">
+                            <a class="col-md-4" href="/roomtypes/{{ $hotel->id }}">
                                 @php
                                     $photo =
                                         $hotel->photo != null
@@ -40,8 +33,8 @@
                                 @endphp
                                 <img src="{{ $photo }}" class="img-fluid rounded-start m-2" alt="image"
                                     style="border-radius: 5px; object-fit: cover; width: 269px; height: 269px;">
-                            </div>
-                            <div class="col-md-6">
+                            </a>
+                            <a class="col-md-6" href="/roomtypes/{{ $hotel->id }}">
                                 <div class="card-body">
                                     <h4 class="card-title" style="font-size: 30px">{{ $hotel->name }}</h4>
                                     <p class="card-text">
@@ -50,7 +43,7 @@
                                         {{ 'City: ' }} {{ $hotel->city }} <br>
                                     </p>
                                 </div>
-                            </div>
+                            </a>
                             <div class="col-md-2">
                                 <div class="card-body bg-transparent text-start d-flex flex-column">
                                     <a class="btn btn-primary mb-3" href="/hotels-update/{{ $hotel->id }}">Edit</a>
@@ -89,7 +82,6 @@
         </div>
     </div>
 @endsection
-
 @section('link')
     {{-- For Alert Message --}}
     <link rel="stylesheet"
@@ -112,7 +104,11 @@
         .modal-footer {
             border: none;
         }
+        a, a:hover{
+            color: aliceblue !important;
+        }
     </style>
+    <link rel="stylesheet" href="{{ config('paths.css') }}/card.css">
 @endsection
 
 @section('script')

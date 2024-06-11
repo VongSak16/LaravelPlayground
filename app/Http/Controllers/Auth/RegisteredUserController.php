@@ -31,19 +31,19 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
             'username' => ['required', 'string', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
         if ($request->hasFile('file')) {
             $request->validate([
-                'file' => 'required|mimes:pdf,xlx,csv,gif,png,jpg,jpeg|max:20480',
+                'file' => 'required|mimes:gif,png,jpg,jpeg|max:20480',
             ]);
             $file = $request->username . '.' . $request->file->extension();
             $request->file->move(public_path('assets/imgusers'), $file);
         } else {
-            $file = 'no-img.jpg';
+            $file = null;
         }
 
         $user = User::create([

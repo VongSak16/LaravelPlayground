@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Hotels;
+use App\Models\RoomTypes;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -94,51 +95,28 @@ class HotelsController extends Controller
 
     public function destroy($id)
     {
-        $validator = Validator::make(['id' => $id], [
-            'id' => 'required|numeric|exists:hotels,id'
-        ]);
-
-        if ($validator->fails()) {
-            // Redirect back with an error message if validation fails
-            return redirect('/hotels')->withErrors($validator);
-        }
-
         try {
-            // Construct the file pattern to match the hotel's image based on its ID.
             $file_pattern = substr(config('paths.image_hotels_path'), 1) . "$id.*";
-
-            // Use glob to find files matching the pattern.
-            $file_paths = glob($file_pattern);
-
-            // Check if any files were found
-            if (!empty($file_paths)) {
-                // Delete the matched file using unlink.
-                foreach ($file_paths as $file_path) {
-                    if (file_exists(public_path($file_path))) {
-                        unlink(public_path($file_path));
-                    }
+            $file_path = glob($file_pattern)[0];
+            unlink(public_path("$file_path"));
+        } catch (Exception $e) {
+        }
+        try {
+            $roomTypes = RoomTypes::where('hotel_id', $id)->get();
+            foreach ($roomTypes as $roomType) {
+                $file_pattern_roomtype = config('paths.image_roomtypes_path') . "/$roomType->id.*";
+                $roomtype_image_files = glob(public_path($file_pattern_roomtype));
+                if (!empty($roomtype_image_files)) {
+                    unlink($roomtype_image_files[0]);
                 }
-            } else {
-                Log::warning("No files found for hotel ID $id with pattern $file_pattern.");
+                $roomType->delete();
             }
         } catch (Exception $e) {
-            // Log the exception
-            Log::error("Error deleting file for hotel ID $id: " . $e->getMessage());
         }
-        
-        try {
-            // Find the hotel by its ID and delete it from the database.
-            $hotel = Hotels::findOrFail($id);
-            $hotel->delete();
 
-            // Redirect back to the hotels list with a success message.
-            return redirect('/hotels')->with('success', 'Hotel deleted successfully.');
-        } catch (Exception $e) {
-            // Log the exception
-            Log::error("Error deleting hotel ID $id: " . $e->getMessage());
+        $hotel = Hotels::find($id);
+        $hotel->delete();
 
-            // Redirect back with an error message
-            return redirect('/hotels')->with('error', 'Error deleting hotel.');
-        }
+        return redirect('/hotels');
     }
 }

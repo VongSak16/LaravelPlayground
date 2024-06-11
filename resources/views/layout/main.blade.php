@@ -95,10 +95,15 @@
             </ul>
             <ul class="navbar-nav ml-auto mr-4">
                 <li class="nav-item dropdown">
-                    <img class="custom-img-size rounded-circle"
-                        src="{{ config('paths.image_users_path') }}/{{ Auth::user()->photo }}"
-                        class="border-top-0 nav-link" role="button" id="navbarDropdown" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
+                    @php
+                        $photo =
+                            Auth::user()->photo != null
+                                ? config('paths.image_users_path') . '/' . Auth::user()->photo
+                                : config('paths.no_image');
+                    @endphp
+                    <img class="custom-img-size rounded-circle" src="{{ $photo }}" class="border-top-0 nav-link"
+                        role="button" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown"
                         style="left: 0px; right: inherit; height: 100px;">
                         <a class="dropdown-item" href="/profile">Profile</a>
@@ -161,6 +166,12 @@
                             <a href="../hotels" class="nav-link">
                                 <i class="nav-icon far fa-calendar-alt"></i>
                                 <p>Hotels</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="../roomtypes" class="nav-link">
+                                <i class="nav-icon far fa-calendar-alt"></i>
+                                <p>RoomTypes</p>
                             </a>
                         </li>
                         <li class="nav-item">
