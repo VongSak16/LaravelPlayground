@@ -4,7 +4,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Roomtypes</h1>
+                    <h1 class="m-0">Books</h1>
                 </div><!-- /.col -->
             </div><!-- /.row -->
         </div>
@@ -24,7 +24,7 @@
             @endif --}}
             <div class="row ml-1">
                 <div class="card">
-                    <a class="btn btn-success" href="/roomtypes-create"><i class="fas fa-plus"></i></a>
+                    <a class="btn btn-success" href="/books-create"><i class="fas fa-plus"></i></a>
                 </div>
             </div>
             <div class="row">
@@ -45,27 +45,22 @@
                                                     <th class="sorting" tabindex="0" aria-controls="example"
                                                         rowspan="1" colspan="1"
                                                         aria-label="Browser: activate to sort column ascending">
-                                                        {{ 'Name' }}
+                                                        {{ 'Checked In' }}
                                                     </th>
                                                     <th class="sorting" tabindex="0" aria-controls="example"
                                                         rowspan="1" colspan="1"
                                                         aria-label="Platform(s): activate to sort column ascending">
-                                                        {{ 'Price' }}
+                                                        {{ 'Checked Out' }}
                                                     </th>
                                                     <th class="sorting" tabindex="0" aria-controls="example"
                                                         rowspan="1" colspan="1"
                                                         aria-label="Engine version: activate to sort column ascending">
-                                                        {{ 'Photo' }}
+                                                        {{ 'Total Cost' }}
                                                     </th>
                                                     <th class="sorting" tabindex="0" aria-controls="example"
                                                         rowspan="1" colspan="1"
-                                                        aria-label="CSS grade: activate to sort column ascending">
-                                                        {{ 'Hotel_ID' }}
-                                                    </th>
-                                                    <th class="sorting" tabindex="0" aria-controls="example"
-                                                        rowspan="1" colspan="1"
-                                                        aria-label="CSS grade: activate to sort column ascending">
-                                                        {{ 'Details' }}
+                                                        aria-label="Engine version: activate to sort column ascending">
+                                                        {{ 'Customer ID' }}
                                                     </th>
                                                     <th>
                                                         {{ 'Action' }}
@@ -73,40 +68,21 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach ($roomtypes as $item)
+                                                @foreach ($books as $item)
                                                     <tr class="odd">
-                                                        <td class="dtr-control sorting_1" tabindex="0">
-                                                            <a
-                                                                href="{{ route('rooms.indexId', $item->id) }}">{{ $item->id }}</a>
+                                                        <td class="dtr-control sorting_1" tabindex="0">{{ $item->id }}
                                                         </td>
-                                                        <td>
-                                                            <a
-                                                                href="{{ route('rooms.indexId', $item->id) }}">{{ $item->name }}</a>
-                                                        </td>
-                                                        <td>
-                                                            <a
-                                                                href="{{ route('rooms.indexId', $item->id) }}">{{ $item->price }}</a>
-                                                        </td>
-                                                        <td>
-                                                            <a href="{{ route('rooms.indexId', $item->id) }}"><img
-                                                                    src="{{ config('paths.image_roomtypes_path') }}/{{ $item->photo }}"
-                                                                    height="50px">
-                                                        </td></a>
-                                                        <td>
-                                                            <a
-                                                                href="{{ route('rooms.indexId', $item->id) }}">{{ $item->hotel_id }}</a>
-                                                        </td>
-                                                        <td>
-                                                            <a
-                                                                href="{{ route('rooms.indexId', $item->id) }}">{{ $item->details }}</a>
-                                                        </td>
+                                                        <td>{{ $item->checked_in }}</td>
+                                                        <td>{{ $item->checked_out }}</td>
+                                                        <td>{{ $item->total_cost }}</td>
+                                                        <td>{{ $item->customer_id }}</td>
                                                         <td class="project-actions text-right">
                                                             <a class="btn btn-info btn-sm" href="#">
                                                                 <i class="fas fa-pencil-alt">
                                                                 </i>
                                                                 Edit
                                                             </a>
-                                                            <button type="button" class="btn btn-info btn-sm btn-danger"
+                                                            <button type="button" class="btn btn-danger btn-info btn-sm"
                                                                 data-toggle="modal" data-target="#modal-sm"
                                                                 data-id="{{ $item->id }}">Delete</button>
                                                         </td>
@@ -369,7 +345,7 @@
             var modal = $(this);
 
             // Update the form action with the item ID
-            modal.find('form').attr('action', '/roomtypes-delete/' + itemId);
+            modal.find('form').attr('action', '/books-delete/' + itemId);
 
             // Set the value of the hidden input
             modal.find('input[name="item_id"]').val(itemId);

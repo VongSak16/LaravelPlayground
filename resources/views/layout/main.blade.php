@@ -3,8 +3,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/assets/logo.svg">
     <title>Hotel</title>
-
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&amp;display=fallback">
@@ -15,10 +15,18 @@
         href="{{ config('paths.adminlte_path') }}/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ config('paths.adminlte_path') }}/dist/css/adminlte.min.css">
+    {{-- Pace --}}
+    <link rel="stylesheet"
+        href="{{ config('paths.adminlte_path') }}/plugins/pace-progress/themes/black/pace-theme-flat-top.css">
 
     @yield('link')
 
     <style type="text/css">
+        .pace .pace-progress {
+            background: #0166ff;
+        }
+
+        /* ..... */
         .navbar-dark,
         .content-wrapper,
         .main-sidebar,
@@ -129,8 +137,8 @@
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
             <a href="/dashboard" class="brand-link ml-2">
-                {{-- <img src="#" alt="AdminLTE Logo"
-                    class="brand-image img-circle elevation-3" style="opacity: .8"> --}}
+                <img src="/assets/logobg.svg" alt="" class="brand-image"
+                        style="border-radius: 10px;">
                 <span class="brand-text font-weight-light">Hotel</span>
             </a>
 
@@ -163,27 +171,45 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="../hotels" class="nav-link">
+                            <a href="{{ route('hotels.index') }}" class="nav-link">
                                 <i class="nav-icon far fa-calendar-alt"></i>
                                 <p>Hotels</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="../roomtypes" class="nav-link">
+                            <a href="{{ route('roomtypes.index') }}" class="nav-link">
                                 <i class="nav-icon far fa-calendar-alt"></i>
                                 <p>RoomTypes</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="../customer" class="nav-link">
+                            <a href="{{ route('rooms.index') }}" class="nav-link">
+                                <i class="nav-icon far fa-calendar-alt"></i>
+                                <p>Rooms</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="../books" class="nav-link">
+                                <i class="nav-icon far fa-calendar-alt"></i>
+                                <p>Books</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('customers.index') }}" class="nav-link">
                                 <i class="nav-icon far fa-calendar-alt"></i>
                                 <p>Customers</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="../user" class="nav-link">
+                            <a href="{{ route('users.index') }}" class="nav-link">
                                 <i class="nav-icon far fa-calendar-alt"></i>
                                 <p>Users</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/test" class="nav-link">
+                                <i class="nav-icon far fa-calendar-alt"></i>
+                                <p>Test</p>
                             </a>
                         </li>
                     </ul>
@@ -220,11 +246,15 @@
     <!-- Bootstrap -->
     <script src="{{ config('paths.adminlte_path') }}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- overlayScrollbars -->
-    <script src="{{ config('paths.adminlte_path') }}/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+    <script src="{{ config('paths.adminlte_path') }}/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js">
+    </script>
     <!-- AdminLTE App -->
     <script src="{{ config('paths.adminlte_path') }}/dist/js/adminlte.js?v=3.2.0"></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="{{ config('paths.adminlte_path') }}/dist/js/pages/dashboard2.js"></script>
+    {{-- Pace --}}
+    <script src="{{ config('paths.adminlte_path') }}/plugins/pace-progress/pace.min.js"></script>
+
     <script>
         $(function() {
             var url = window.location;
@@ -243,8 +273,14 @@
                 .addClass('menu-open').prev('a')
                 .addClass('active');
         });
+
+        $(document).ajaxStart(function() {
+            Pace.restart();
+        });
     </script>
 
+
+    {{-- @yield('script') --}}
     @yield('script')
 </body>
 

@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('books', function (Blueprint $table) {
             $table->id();
-            $table->dateTime('arrived_at');
-            $table->integer('duration'); // Duration in days
+            $table->date('checked_in');
+            $table->date('checked_out');
             $table->decimal('total_cost', 8, 2);
             $table->foreignId('customer_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();

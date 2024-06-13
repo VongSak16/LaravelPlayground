@@ -4,7 +4,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Roomtypes</h1>
+                    <h1 class="m-0">Users</h1>
                 </div><!-- /.col -->
             </div><!-- /.row -->
         </div>
@@ -24,7 +24,7 @@
             @endif --}}
             <div class="row ml-1">
                 <div class="card">
-                    <a class="btn btn-success" href="/roomtypes-create"><i class="fas fa-plus"></i></a>
+                    <a class="btn btn-success" href="/users-create"><i class="fas fa-plus"></i></a>
                 </div>
             </div>
             <div class="row">
@@ -50,22 +50,17 @@
                                                     <th class="sorting" tabindex="0" aria-controls="example"
                                                         rowspan="1" colspan="1"
                                                         aria-label="Platform(s): activate to sort column ascending">
-                                                        {{ 'Price' }}
+                                                        {{ 'Username' }}
+                                                    </th>
+                                                    <th class="sorting" tabindex="0" aria-controls="example"
+                                                        rowspan="1" colspan="1"
+                                                        aria-label="Engine version: activate to sort column ascending">
+                                                        {{ 'Email' }}
                                                     </th>
                                                     <th class="sorting" tabindex="0" aria-controls="example"
                                                         rowspan="1" colspan="1"
                                                         aria-label="Engine version: activate to sort column ascending">
                                                         {{ 'Photo' }}
-                                                    </th>
-                                                    <th class="sorting" tabindex="0" aria-controls="example"
-                                                        rowspan="1" colspan="1"
-                                                        aria-label="CSS grade: activate to sort column ascending">
-                                                        {{ 'Hotel_ID' }}
-                                                    </th>
-                                                    <th class="sorting" tabindex="0" aria-controls="example"
-                                                        rowspan="1" colspan="1"
-                                                        aria-label="CSS grade: activate to sort column ascending">
-                                                        {{ 'Details' }}
                                                     </th>
                                                     <th>
                                                         {{ 'Action' }}
@@ -73,42 +68,25 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach ($roomtypes as $item)
+                                                @foreach ($users as $item)
                                                     <tr class="odd">
-                                                        <td class="dtr-control sorting_1" tabindex="0">
-                                                            <a
-                                                                href="{{ route('rooms.indexId', $item->id) }}">{{ $item->id }}</a>
+                                                        <td class="dtr-control sorting_1" tabindex="0">{{ $item->id }}
                                                         </td>
-                                                        <td>
-                                                            <a
-                                                                href="{{ route('rooms.indexId', $item->id) }}">{{ $item->name }}</a>
-                                                        </td>
-                                                        <td>
-                                                            <a
-                                                                href="{{ route('rooms.indexId', $item->id) }}">{{ $item->price }}</a>
-                                                        </td>
-                                                        <td>
-                                                            <a href="{{ route('rooms.indexId', $item->id) }}"><img
-                                                                    src="{{ config('paths.image_roomtypes_path') }}/{{ $item->photo }}"
-                                                                    height="50px">
-                                                        </td></a>
-                                                        <td>
-                                                            <a
-                                                                href="{{ route('rooms.indexId', $item->id) }}">{{ $item->hotel_id }}</a>
-                                                        </td>
-                                                        <td>
-                                                            <a
-                                                                href="{{ route('rooms.indexId', $item->id) }}">{{ $item->details }}</a>
-                                                        </td>
+                                                        <td>{{ $item->name }}</td>
+                                                        <td>{{ $item->username }}</td>
+                                                        <td>{{ $item->email }}</td>
+                                                        <td>{{ $item->photo }}</td>
                                                         <td class="project-actions text-right">
-                                                            <a class="btn btn-info btn-sm" href="#">
+                                                            <a class="btn btn-info btn-sm"
+                                                                href="/users-update/{{ $item->id }}">
                                                                 <i class="fas fa-pencil-alt">
                                                                 </i>
                                                                 Edit
                                                             </a>
-                                                            <button type="button" class="btn btn-info btn-sm btn-danger"
+                                                            <button type="button" class="btn btn-danger btn-info btn-sm"
                                                                 data-toggle="modal" data-target="#modal-sm"
-                                                                data-id="{{ $item->id }}">Delete</button>
+                                                                data-id="{{ $item->id }}">Delete
+                                                            </button>
                                                         </td>
                                                     </tr>
                                                 @endforeach
@@ -303,6 +281,7 @@
     </style>
     <link rel="stylesheet" href="{{ config('paths.css') }}/card.css">
 @endsection
+
 @section('script')
     @parent
     <script src="{{ config('paths.adminlte_path') }}/plugins/datatables/jquery.dataTables.min.js"></script>
@@ -313,7 +292,6 @@
     </script>
     <script src="{{ config('paths.adminlte_path') }}/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
     <script src="{{ config('paths.adminlte_path') }}/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
-
     <script>
         $(function() {
             $("#example").DataTable({
@@ -327,6 +305,8 @@
         });
     </script>
 @endsection
+
+
 @section('link')
     {{-- For Alert Message --}}
     <link rel="stylesheet"
@@ -355,9 +335,7 @@
             color: aliceblue !important;
         }
     </style>
-    <link rel="stylesheet" href="{{ config('paths.css') }}/card.css">
 @endsection
-
 @section('script')
     {{-- For Alert Message --}}
     <script src="{{ config('paths.adminlte_path') }}/plugins/sweetalert2/sweetalert2.min.js"></script>
@@ -369,7 +347,7 @@
             var modal = $(this);
 
             // Update the form action with the item ID
-            modal.find('form').attr('action', '/roomtypes-delete/' + itemId);
+            modal.find('form').attr('action', '/users-delete/' + itemId);
 
             // Set the value of the hidden input
             modal.find('input[name="item_id"]').val(itemId);

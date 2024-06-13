@@ -3,7 +3,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ config('appidentity.app_name')  }}</title>
+    <title>{{ config('appidentity.app_name') }}</title>
+    <link rel="icon" href="/assets/logo.svg">
 
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&amp;display=fallback">
@@ -177,10 +178,10 @@
             style="border-bottom: none;">
             <div class="container">
                 <a href="/home" class="navbar-brand">
-                    <img src="/adminlte/dist/img/AdminLTELogo.png" alt="AdminLTE Logo"
-                        class="brand-image img-circle elevation-3" style="opacity: .8">
+                    <img src="/assets/logobg.svg" alt="" class="brand-image"
+                        style="opacity: .8; border-radius: 10px;">
                     <span class="brand-text font-weight-light"
-                        style="font-weight: 700 !important;">{{ config('appidentity.app_name')  }}</span>
+                        style="font-weight: 700 !important;">{{ config('appidentity.app_name') }}</span>
                 </a>
                 <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
                     <li class="nav-item">

@@ -14,66 +14,45 @@
                 <div class="col-lg-6">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Create RoomTypes</h3>
+                            <h3 class="card-title">Create Rooms</h3>
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form class="form-horizontal" method="Post" action="/roomtypes-create"
-                            enctype = "multipart/form-data">
+                        <form class="form-horizontal" method="Post" action="/rooms-create" enctype = "multipart/form-data">
                             @csrf
 
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label for="this">Name</label>
-                                            <input type="text" id="name" name="name" class="form-control"
-                                                id="this">
-                                        </div>
-                                        <div class="form-group " data-select2-id="29">
-                                            <label>Hotel</label>
-                                            <select name="hotel_id"
-                                                class="form-control select2bs4 select2-hidden-accessible "
-                                                style="width: 100%;" data-select2-id="17" tabindex="-1" aria-hidden="true">
-                                                <option selected="selected" data-select2-id="19" disabled>Select a hotel
-                                                </option>
-                                                @foreach ($hotels as $hotel)
-                                                    <option data-select2-id="{{ $hotel->id }}"
-                                                        value="{{ $hotel->id }}">
-                                                        {{ $hotel->name }} ( ID: {{ $hotel->id }} )
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Details</label>
-                                            <textarea class="form-control" rows="3" placeholder="Enter ..." data-gramm="false" wt-ignore-input="true"
-                                                id="details" name="details"></textarea>
-                                        </div>
+                                    <div class="form-group col-sm-6">
+                                        <label for="this">{{ 'Number' }}</label>
+                                        <input type="text" id="number" name="number" class="form-control"
+                                            id="this">
                                     </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-group  ">
-                                            <label for="this">Price</label>
-                                            <input type="text" id="price" name="price" class="form-control"
-                                                id="this">
-                                        </div>
-                                        <div class="fom-group ">
-                                            <label for="file">Photo</label>
-                                            <div class="input-group">
-                                                <div class="custom-file">
-                                                    <input onchange="previewFile()" type="file" name="file"
-                                                        class="custom-file-input" id="file"
-                                                        accept="image/jpeg, image/png, image/gif, image/bmp, image/tiff, image/webp, image/svg+xml">
-                                                    <label class="custom-file-label" for="file">Choose
-                                                        file</label>
-                                                </div>
-                                                <div class="input-group-append">
-                                                    <span class="input-group-text">Upload</span>
-                                                </div>
-                                            </div>
-                                            <img src="{{ config('paths.no_image') }}" class="img-fluid mt-2" id="imgshow"
-                                                alt="image" style="border-radius: 5px; object-fit: cover !important;">
-                                        </div>
+                                    <div class="form-group col-sm-6">
+                                        <label>Hotel</label>
+                                        <select id="hotel-select" class="form-control select2bs4" style="width: 100%;">
+                                            <option selected="selected" disabled>Select a hotel</option>
+                                            @foreach ($hotels as $hotel)
+                                                <option value="{{ $hotel->id }}">{{ $hotel->name }} (ID:
+                                                    {{ $hotel->id }})</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group col-sm-6">
+                                        <label>RoomTypes</label>
+                                        <select name="roomtype_id" id="roomtype-select" class="form-control select2bs4"
+                                            style="width: 100%;">
+                                            <option selected="selected" disabled>Select a room type</option>
+                                            <!-- Room types will be dynamically loaded here -->
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-sm-6">
+                                        <label>Status</label>
+                                        <select class="form-control" name="status">
+                                            <option>available</option>
+                                            <option>under_maintenance</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -190,5 +169,36 @@
                 reader.readAsDataURL(file);
             }
         }
+    </script>
+    <script>
+        $(document).ready(function() {
+            // Initialize Select2
+            $('.select2bs4').select2({
+                theme: 'bootstrap4'
+            });
+
+            // Handle hotel selection change
+            $('#hotel-select').change(function() {
+                var hotelId = $(this).val();
+                if (hotelId) {
+                    $.ajax({
+                        url: '/getroomtypes/' + hotelId,
+                        type: 'GET',
+                        success: function(data) {
+                            var roomtypeSelect = $('#roomtype-select');
+                            roomtypeSelect.empty();
+                            roomtypeSelect.append(
+                                '<option selected="selected" disabled>Select a room type</option>'
+                            );
+                            $.each(data, function(index, roomtype) {
+                                roomtypeSelect.append('<option value="' + roomtype.id +
+                                    '">' + roomtype.name + ' (ID: ' + roomtype.id +
+                                    ')</option>');
+                            });
+                        }
+                    });
+                }
+            });
+        });
     </script>
 @endsection

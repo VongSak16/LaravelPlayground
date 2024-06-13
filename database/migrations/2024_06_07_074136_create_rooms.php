@@ -14,15 +14,13 @@ return new class extends Migration
         Schema::create('rooms', function (Blueprint $table) {
 
             $table->id();
-            $table->integer('number')->unique()->unsigned();
+            $table->integer('number')->unsigned();
             $table->foreignId('roomtype_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->enum('status', ['available', 'occupied', 'under_maintenance'])->default('available');
-            $table->foreignId('book_id')->nullable()->constrained()->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('book_id')->nullable()->constrained()->onDelete('set null')->onUpdate('cascade');
             $table->timestamps();
-            
         });
     }
-
     /**
      * Reverse the migrations.
      */

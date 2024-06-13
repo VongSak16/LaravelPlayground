@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Hotels;
-use App\Models\RoomTypes;
+use App\Models\Hotel;
+use App\Models\RoomType;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -16,13 +16,13 @@ class RoomTypesController extends Controller
      */
     public function index()
     {
-        $roomtypes = RoomTypes::all();
+        $roomtypes = RoomType::all();
         return view('roomtypes.index', compact('roomtypes'));
     }
 
     public function indexId($hotel_id)
     {
-        $roomtypes = RoomTypes::where('hotel_id', $hotel_id)->get();
+        $roomtypes = RoomType::where('hotel_id', $hotel_id)->get();
         return view('roomtypes.index', compact('roomtypes', 'hotel_id'));
     }
     /**
@@ -30,7 +30,7 @@ class RoomTypesController extends Controller
      */
     public function create()
     {
-        $hotels = Hotels::select('id', 'name')->get();
+        $hotels = Hotel::select('id', 'name')->get();
         return view('roomtypes.create', compact('hotels'));
     }
     // public function createId($hotel_id)
@@ -40,7 +40,7 @@ class RoomTypesController extends Controller
 
     public function store(Request $request)
     {
-        $roomtype = new RoomTypes;
+        $roomtype = new RoomType;
         $id = date('YmdHis');
 
         $roomtype->id = $id;
@@ -67,10 +67,16 @@ class RoomTypesController extends Controller
 
         return redirect('/roomtypes/' . $request->hotel_id);
     }
+
+    public function getRoomTypes($hotel_id)
+    {
+        $roomtypes = RoomType::where('hotel_id', $hotel_id)->get();
+        return response()->json($roomtypes);
+    }
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(RoomTypes $roomTypes)
+    public function edit(RoomType $roomTypes)
     {
         //
     }
@@ -78,7 +84,7 @@ class RoomTypesController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, RoomTypes $roomTypes)
+    public function update(Request $request, RoomType $roomTypes)
     {
         //
     }
@@ -94,7 +100,7 @@ class RoomTypesController extends Controller
             unlink(public_path("$file_path"));
         } catch (Exception $e) {
         }
-        $roometype = RoomTypes::find($id);
+        $roometype = RoomType::find($id);
         $roometype->delete();
 
         return redirect('/roomtypes');

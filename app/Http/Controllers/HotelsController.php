@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Hotels;
-use App\Models\RoomTypes;
+use App\Models\Hotel;
+use App\Models\RoomType;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -14,7 +14,7 @@ class HotelsController extends Controller
 {
     public function index()
     {
-        $hotels = Hotels::all();
+        $hotels = Hotel::all();
         return view('hotels.index', compact('hotels'));
     }
 
@@ -25,7 +25,7 @@ class HotelsController extends Controller
 
     public function store(Request $request)
     {
-        $hotel = new Hotels;
+        $hotel = new Hotel;
         $id = date('YmdHis');
 
         $hotel->id = $id;
@@ -55,13 +55,13 @@ class HotelsController extends Controller
 
     public function edit($id)
     {
-        $hotel = Hotels::find($id);
+        $hotel = Hotel::find($id);
         return view('hotels.edit', compact('hotel'));
     }
 
     public function update(Request $request, $id)
     {
-        $hotel = Hotels::find($id);
+        $hotel = Hotel::find($id);
 
         if ($request->hasFile('file')) {
 
@@ -102,9 +102,9 @@ class HotelsController extends Controller
         } catch (Exception $e) {
         }
         try {
-            $roomTypes = RoomTypes::where('hotel_id', $id)->get();
+            $roomTypes = RoomType::where('hotel_id', $id)->get();
             foreach ($roomTypes as $roomType) {
-                $file_pattern_roomtype = config('paths.image_roomtypes_path') . "/$roomType->id.*";
+                $file_pattern_roomtype = substr(config('paths.image_roomtypes_path'), 1) . "/$roomType->id.*";
                 $roomtype_image_files = glob(public_path($file_pattern_roomtype));
                 if (!empty($roomtype_image_files)) {
                     unlink($roomtype_image_files[0]);
@@ -114,7 +114,7 @@ class HotelsController extends Controller
         } catch (Exception $e) {
         }
 
-        $hotel = Hotels::find($id);
+        $hotel = Hotel::find($id);
         $hotel->delete();
 
         return redirect('/hotels');

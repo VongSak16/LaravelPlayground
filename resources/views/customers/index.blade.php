@@ -1,13 +1,13 @@
 @extends('layout.main')
 @section('content')
     <div class="content-header">
-        {{-- <div class="container-fluid">
+        <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Dashboard</h1>
+                    <h1 class="m-0">Customers</h1>
                 </div><!-- /.col -->
             </div><!-- /.row -->
-        </div> --}}
+        </div>
         <!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
@@ -15,6 +15,18 @@
     <!-- Main content -->
     <div class="content">
         <div class="container-fluid">
+            {{-- @if (isset($hotel_id))
+                <div class="row ml-1">
+                    <div class="card">
+                        <a class="btn btn-success" href="/roomtypes-create/{{ $hotel_id }}"><i class="fas fa-plus"></i></a>
+                    </div>
+                </div>
+            @endif --}}
+            <div class="row ml-1">
+                <div class="card">
+                    <a class="btn btn-success" href="/customers-create"><i class="fas fa-plus"></i></a>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-12">
                     <div class="card">
@@ -22,41 +34,58 @@
                             <div id="" class=" dt-bootstrap4">
                                 <div class="row">
                                     <div class="col-sm-12">
-                                        <table id="example"
-                                            class="table table-bordered table-striped dtr-inline">
+                                        <table id="example" class="table table-bordered table-striped dtr-inline">
                                             <thead>
                                                 <tr>
                                                     <th class="sorting sorting_asc" tabindex="0" aria-controls="example"
                                                         rowspan="1" colspan="1" aria-sort="ascending"
                                                         aria-label="Rendering engine: activate to sort column descending">
-                                                        Id</th>
+                                                        {{ 'ID' }}
+                                                    </th>
                                                     <th class="sorting" tabindex="0" aria-controls="example"
                                                         rowspan="1" colspan="1"
-                                                        aria-label="Browser: activate to sort column ascending">Name
+                                                        aria-label="Browser: activate to sort column ascending">
+                                                        {{ 'Name' }}
                                                     </th>
                                                     <th class="sorting" tabindex="0" aria-controls="example"
                                                         rowspan="1" colspan="1"
                                                         aria-label="Platform(s): activate to sort column ascending">
-                                                        Address</th>
+                                                        {{ 'Email' }}
+                                                    </th>
                                                     <th class="sorting" tabindex="0" aria-controls="example"
                                                         rowspan="1" colspan="1"
                                                         aria-label="Engine version: activate to sort column ascending">
-                                                        City</th>
+                                                        {{ 'Phone' }}
+                                                    </th>
                                                     <th class="sorting" tabindex="0" aria-controls="example"
                                                         rowspan="1" colspan="1"
-                                                        aria-label="CSS grade: activate to sort column ascending">Country
+                                                        aria-label="Engine version: activate to sort column ascending">
+                                                        {{ 'User ID' }}
+                                                    </th>
+                                                    <th>
+                                                        {{ 'Action' }}
                                                     </th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach ($table as $item)
+                                                @foreach ($customers as $item)
                                                     <tr class="odd">
                                                         <td class="dtr-control sorting_1" tabindex="0">{{ $item->id }}
                                                         </td>
                                                         <td>{{ $item->name }}</td>
-                                                        <td>{{ $item->address }}</td>
-                                                        <td>{{ $item->city }}</td>
-                                                        <td>{{ $item->country }}</td>
+                                                        <td>{{ $item->email }}</td>
+                                                        <td>{{ $item->phone }}</td>
+                                                        <td>{{ $item->user_id }}</td>
+                                                        <td class="project-actions text-right">
+                                                            <a class="btn btn-info btn-sm" href="#">
+                                                                <i class="fas fa-pencil-alt">
+                                                                </i>
+                                                                Edit
+                                                            </a>
+                                                            <button type="button" class="btn btn-danger btn-info btn-sm"
+                                                                data-toggle="modal" data-target="#modal-sm"
+                                                                data-id="{{ $item->id }}">Delete</button>
+                                                        </td>
                                                     </tr>
                                                 @endforeach
                                             </tbody>
@@ -65,22 +94,45 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
-
                 </div>
-
             </div>
-
             <!-- /.row -->
         </div><!-- /.container-fluid -->
+        <div class="modal fade" id="modal-sm" style="display: none;" aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Delete Report</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true"></span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Are you sure you want to delete this?</p>
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <form class="form-horizontal" method="POST" action="">
+                            @csrf
+                            <input type="hidden" name="item_id" value="">
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection
 
-@section('datatables-links')
-    <link rel="stylesheet" href="/adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet" href="/adminlte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
-    <link rel="stylesheet" href="/adminlte/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+@section('link')
+    @parent
+    <link rel="stylesheet"
+        href="{{ config('paths.adminlte_path') }}/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet"
+        href="{{ config('paths.adminlte_path') }}/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet"
+        href="{{ config('paths.adminlte_path') }}/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
     <script defer="" referrerpolicy="origin"
         src="/cdn-cgi/zaraz/s.js?z=JTdCJTIyZXhlY3V0ZWQlMjIlM0ElNUIlNUQlMkMlMjJ0JTIyJTNBJTIyQWRtaW5MVEUlMjAzJTIwJTdDJTIwRGF0YVRhYmxlcyUyMiUyQyUyMnglMjIlM0EwLjIzMzU4OTY1OTU2NDY2ODkzJTJDJTIydyUyMiUzQTE4OTklMkMlMjJoJTIyJTNBOTMyJTJDJTIyaiUyMiUzQTkyNCUyQyUyMmUlMjIlM0ExODk3JTJDJTIybCUyMiUzQSUyMmh0dHBzJTNBJTJGJTJGYWRtaW5sdGUuaW8lMkZ0aGVtZXMlMkZ2MyUyRnBhZ2VzJTJGdGFibGVzJTJGZGF0YS5odG1sJTIyJTJDJTIyciUyMiUzQSUyMmh0dHBzJTNBJTJGJTJGd3d3Lmdvb2dsZS5jb20lMkYlMjIlMkMlMjJrJTIyJTNBMjQlMkMlMjJuJTIyJTNBJTIyVVRGLTglMjIlMkMlMjJvJTIyJTNBLTQyMCUyQyUyMnElMjIlM0ElNUIlNUQlN0Q=">
     </script>
@@ -225,20 +277,19 @@
             }
         }
     </style>
+    <link rel="stylesheet" href="{{ config('paths.css') }}/card.css">
 @endsection
-@section('datatables-scripts')
-    <script src="/adminlte/plugins/datatables/jquery.dataTables.min.js"></script>
-    <script src="/adminlte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-    <script src="/adminlte/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-    <script src="/adminlte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-    <script src="/adminlte/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
-    <script src="/adminlte/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
-    <script src="/adminlte/plugins/jszip/jszip.min.js"></script>
-    <script src="/adminlte/plugins/pdfmake/pdfmake.min.js"></script>
-    <script src="/adminlte/plugins/pdfmake/vfs_fonts.js"></script>
-    <script src="/adminlte/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
-    <script src="/adminlte/plugins/datatables-buttons/js/buttons.print.min.js"></script>
-    <script src="/adminlte/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+@section('script')
+    @parent
+    <script src="{{ config('paths.adminlte_path') }}/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="{{ config('paths.adminlte_path') }}/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="{{ config('paths.adminlte_path') }}/plugins/datatables-responsive/js/dataTables.responsive.min.js">
+    </script>
+    <script src="{{ config('paths.adminlte_path') }}/plugins/datatables-responsive/js/responsive.bootstrap4.min.js">
+    </script>
+    <script src="{{ config('paths.adminlte_path') }}/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="{{ config('paths.adminlte_path') }}/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+
     <script>
         $(function() {
             $("#example").DataTable({
@@ -249,6 +300,55 @@
                 "info": false,
                 "searching": true,
             });
+        });
+    </script>
+@endsection
+@section('link')
+    {{-- For Alert Message --}}
+    <link rel="stylesheet"
+        href="{{ config('paths.adminlte_path') }}/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
+    <link rel="stylesheet" href="{{ config('paths.adminlte_path') }}/plugins/toastr/toastr.min.css">
+    <style>
+        .modal-dialog {
+            display: flex !important;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            margin-top: -10vh;
+        }
+
+        .modal-content {
+            background-color: #212121 !important;
+        }
+
+        .modal-header,
+        .modal-footer {
+            border: none;
+        }
+
+        a,
+        a:hover {
+            color: aliceblue !important;
+        }
+    </style>
+    <link rel="stylesheet" href="{{ config('paths.css') }}/card.css">
+@endsection
+
+@section('script')
+    {{-- For Alert Message --}}
+    <script src="{{ config('paths.adminlte_path') }}/plugins/sweetalert2/sweetalert2.min.js"></script>
+    <script src="{{ config('paths.adminlte_path') }}/plugins/toastr/toastr.min.js"></script>
+    <script>
+        $('#modal-sm').on('show.bs.modal', function(event) {
+            var button = $(event.relatedTarget); // Button that triggered the modal
+            var itemId = button.data('id'); // Extract info from data-* attributes
+            var modal = $(this);
+
+            // Update the form action with the item ID
+            modal.find('form').attr('action', '/customers-delete/' + itemId);
+
+            // Set the value of the hidden input
+            modal.find('input[name="item_id"]').val(itemId);
         });
     </script>
 @endsection

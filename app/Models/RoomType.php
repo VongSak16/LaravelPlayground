@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class RoomTypes extends Model
+class RoomType extends Model
 {
     protected $table = 'roomtypes';
     protected $primaryKey = 'id';

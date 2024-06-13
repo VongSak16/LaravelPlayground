@@ -8,4 +8,5 @@ return [
     'image_rooms_path' => '/assets/imgrooms/',
     'no_image' => '/assets/no-image.webp',
     'css' => '/css',
+    'js' => '/js',
 ];
