@@ -72,12 +72,23 @@
                                                     <tr class="odd">
                                                         <td class="dtr-control sorting_1" tabindex="0">{{ $item->id }}
                                                         </td>
-                                                        <td><a href="/roomtypes/{{ $item->id }}">{{ $item->name }}</a></td>
-                                                        <td><a href="/roomtypes/{{ $item->id }}">{{ $item->address }}</a></td>
-                                                        <td><a href="/roomtypes/{{ $item->id }}">{{ $item->city }}</a></td>
-
-                                                        <td><img src="{{ config('paths.image_hotels_path') }}/{{ $item->photo }}"
-                                                                height="50px"></td>
+                                                        <td><a href="/roomtypes/{{ $item->id }}">{{ $item->name }}</a>
+                                                        </td>
+                                                        <td><a
+                                                                href="/roomtypes/{{ $item->id }}">{{ $item->address }}</a>
+                                                        </td>
+                                                        <td><a
+                                                                href="/roomtypes/{{ $item->id }}">{{ $item->city }}</a>
+                                                        </td>
+                                                        @php
+                                                            $photo =
+                                                                $item->photo != null
+                                                                    ? config('paths.image_hotels_path') .
+                                                                        '/' .
+                                                                        $item->photo
+                                                                    : config('paths.no_image');
+                                                        @endphp
+                                                        <td><img src="{{ $photo }}" height="50px"></td>
                                                         <td class="project-actions text-right">
                                                             <a class="btn btn-info btn-sm"
                                                                 href="/hotels-update/{{ $item->id }}">

@@ -14,14 +14,24 @@ class RoomsController extends Controller
      */
     public function index()
     {
-        $rooms = Room::all();
+        //$rooms = Room::all();
+            $rooms = Room::select('rooms.*', 'roomtypes.name as roomtype_name', 'hotels.name as hotel_name', 'hotels.id as hotel_id')
+                ->join('roomtypes', 'rooms.roomtype_id', '=', 'roomtypes.id')
+                ->join('hotels', 'roomtypes.hotel_id', '=', 'hotels.id')
+                ->get();
         return view('rooms.index', compact('rooms'));
     }
 
     public function indexId($roomtype_id)
     {
-        $rooms = Room::where('roomtype_id', $roomtype_id)->get();
-        return view('rooms.index', compact('rooms', 'roomtype_id'));
+        $roomtype = RoomType::find($roomtype_id);
+        $hotel = Hotel::where('id', $roomtype->hotel_id)->select('id', 'name')->first();
+        $rooms = Room::select('rooms.*', 'roomtypes.name as roomtype_name', 'hotels.name as hotel_name', 'hotels.id as hotel_id')
+            ->join('roomtypes', 'rooms.roomtype_id', '=', 'roomtypes.id')
+            ->join('hotels', 'roomtypes.hotel_id', '=', 'hotels.id')
+            ->where('roomtypes.id', $roomtype_id)
+            ->get();
+        return view('rooms.index', compact('rooms', 'roomtype', 'hotel'));
     }
 
     public function getRooms($roomtype_id)
@@ -37,6 +47,13 @@ class RoomsController extends Controller
     {
         $hotels = Hotel::select('id', 'name')->get();
         return view('rooms.create', compact('hotels'));
+    }
+    public function createId($roomtype_id)
+    {
+        $roomtype = RoomType::find($roomtype_id);
+        $hotels = Hotel::where('id', $roomtype->hotel_id)->select('id', 'name')->get();
+        $roomtypes = RoomType::where('hotel_id', $hotels->first()->id)->get();
+        return view('rooms.create', compact('roomtype', 'hotels', 'roomtypes'));
     }
 
     /**

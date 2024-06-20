@@ -28,11 +28,17 @@
                                         style="width: 100%;" data-select2-id="17" tabindex="-1" aria-hidden="true">
                                         <option selected="selected" data-select2-id="19" disabled>Select a customer
                                         </option>
-                                        @foreach ($customers as $customer)
-                                            <option data-select2-id="{{ $customer->id }}" value="{{ $customer->id }}">
-                                                {{ $customer->name }} ( ID: {{ $customer->id }} )
+                                        @if (isset($customer))
+                                            <option value="{{ $customer->id }}" selected>
+                                                {{ $customer->name }} (ID: {{ $customer->id }})
                                             </option>
-                                        @endforeach
+                                        @else
+                                            @foreach ($customers as $item)
+                                                <option data-select2-id="{{ $item->id }}" value="{{ $item->id }}">
+                                                    {{ $item->name }} ( ID: {{ $item->id }} )
+                                                </option>
+                                            @endforeach
+                                        @endif
                                     </select>
                                 </div>
                                 <div class="form-group col-sm-6">
@@ -62,22 +68,38 @@
                                         <!-- Room types will be dynamically loaded here -->
                                     </select>
                                 </div>
-                            </div>
-                            <div class="row mb-0">
                                 <div class="form-group col-sm-6">
-                                    <label>{{ 'Checked In' }}</label>
-                                    <input type="text" id="checked_in" name="checked_in" class="form-control"
-                                        id="this" placeholder="{{ 'Checked_in' }}">
+                                    <label>Stay Date:</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="far fa-calendar-alt"></i>
+                                            </span>
+                                        </div>
+                                        <input type="text" class="form-control float-right" name="daterange"
+                                            id="reservation">
+                                    </div>
                                 </div>
                                 <div class="form-group col-sm-6">
-                                    <label>{{ 'Checked Out' }}</label>
-                                    <input type="text" id="checked_out" name="checked_out" class="form-control"
-                                        id="this" placeholder="{{ 'Checked_out' }}">
+                                    <label for="this">Amount Adults</label>
+                                    <input type="text" id="adults" name="adults" class="form-control" id="this">
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <label>Status</label>
+                                    <select class="form-control" name="status">
+                                        <option>not paid yet</option>
+                                        <option>paid</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
                         <div class="card-footer">
-                            <button type="submit" class="btn btn-light">Submit</button>
+                            @if (isset($customer))
+                                <button type="submit" name="action" value="cancel" class="btn btn-dark">Cancel</button>
+                            @else
+                                <a href="/books" class="btn btn-dark">Cancel</a>
+                            @endif
+                            <button type="submit" name="action" value="save" class="btn btn-light">Save</button>
                         </div>
                     </form>
                 </div>
@@ -157,6 +179,9 @@
             -webkit-box-shadow: 0 0 0 30px #121212 inset !important;
         }
     </style>
+
+    {{-- data range  --}}
+    <link rel="stylesheet" href="/adminlte/plugins/daterangepicker/daterangepicker.css">
 @endsection
 @section('script')
     <script src="/adminlte/plugins/select2/js/select2.full.min.js"></script>
@@ -209,11 +234,28 @@
                             );
                             $.each(data, function(index, room) {
                                 roomSelect.append('<option value="' + room.id +
-                                    '">' + 'Room Number: ' + room.number + ' (ID: ' + room.id +
+                                    '">' + 'Room Number: ' + room.number +
+                                    ' (ID: ' + room.id +
                                     ')</option>');
                             });
                         }
                     });
+                }
+            });
+        });
+    </script>
+
+    {{-- data range  --}}
+    <script src="/adminlte/plugins/moment/moment.min.js"></script>
+    <script src="/adminlte/plugins/daterangepicker/daterangepicker.js"></script>
+    <script>
+        //data range
+        $(function() {
+            // Initialize Date Range Picker
+            $('#reservation').daterangepicker({
+                // Optional: Customize the format
+                locale: {
+                    format: 'MMMM D, YYYY' // Example: June 17, 2024
                 }
             });
         });

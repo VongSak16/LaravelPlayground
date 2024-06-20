@@ -32,10 +32,17 @@
                                         <label>Hotel</label>
                                         <select id="hotel-select" class="form-control select2bs4" style="width: 100%;">
                                             <option selected="selected" disabled>Select a hotel</option>
-                                            @foreach ($hotels as $hotel)
-                                                <option value="{{ $hotel->id }}">{{ $hotel->name }} (ID:
-                                                    {{ $hotel->id }})</option>
-                                            @endforeach
+                                            @if (count($hotels) === 1)
+                                                @foreach ($hotels as $hotel)
+                                                    <option value="{{ $hotel->id }}" selected>{{ $hotel->name }} (ID:
+                                                        {{ $hotel->id }})</option>
+                                                @endforeach
+                                            @else
+                                                @foreach ($hotels as $hotel)
+                                                    <option value="{{ $hotel->id }}">{{ $hotel->name }} (ID:
+                                                        {{ $hotel->id }})</option>
+                                                @endforeach
+                                            @endif
                                         </select>
                                     </div>
 
@@ -45,6 +52,14 @@
                                             style="width: 100%;">
                                             <option selected="selected" disabled>Select a room type</option>
                                             <!-- Room types will be dynamically loaded here -->
+                                            @if (count($hotels) === 1)
+                                                @foreach ($roomtypes as $item)
+                                                    <option value="{{ $item->id }}"
+                                                        @if (isset($roomtype) && $roomtype->id === $item->id) selected @endif>
+                                                        {{ $item->name }} (ID: {{ $item->id }})
+                                                    </option>
+                                                @endforeach
+                                            @endif
                                         </select>
                                     </div>
                                     <div class="form-group col-sm-6">
@@ -58,7 +73,7 @@
                             </div>
                             <!-- /.card-body -->
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-light">Submit</button>
+                                <button type="submit" class="btn btn-light">Save</button>
                             </div>
                         </form>
                     </div>

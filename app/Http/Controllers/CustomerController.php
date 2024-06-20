@@ -39,7 +39,12 @@ class CustomerController extends Controller
 
         $customer->save();
 
-        return redirect('/customers');
+        if ($request->input('action') === 'book') {
+
+            return redirect('/books-create-by-customer/' . $customer->id);
+        } else {
+            return redirect('/customers');
+        }
     }
 
     /**

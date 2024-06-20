@@ -60,6 +60,11 @@
                                                     <th class="sorting" tabindex="0" aria-controls="example"
                                                         rowspan="1" colspan="1"
                                                         aria-label="Engine version: activate to sort column ascending">
+                                                        {{ 'Status' }}
+                                                    </th>
+                                                    <th class="sorting" tabindex="0" aria-controls="example"
+                                                        rowspan="1" colspan="1"
+                                                        aria-label="Engine version: activate to sort column ascending">
                                                         {{ 'Customer ID' }}
                                                     </th>
                                                     <th>
@@ -74,8 +79,29 @@
                                                         </td>
                                                         <td>{{ $item->checked_in }}</td>
                                                         <td>{{ $item->checked_out }}</td>
-                                                        <td>{{ $item->total_cost }}</td>
-                                                        <td>{{ $item->customer_id }}</td>
+                                                        <td>$ {{ $item->total_cost }}</td>
+                                                        <td>
+                                                            @if ($item->status == 'not paid yet')
+                                                                <button type="button"
+                                                                    class="btn btn-primary btn-info btn-sm"
+                                                                    data-toggle="modal" data-target="#modal-sm2"
+                                                                    data-id="{{ $item->id }}">
+                                                                    {{ $item->status }}
+                                                                </button>
+                                                            @elseif ($item->status == 'paid')
+                                                                <a href="#" class="btn btn-sm btn-warning">
+                                                                    {{ $item->status }}
+                                                                </a>
+                                                            @else
+                                                                <a href="#" class="btn btn-sm btn-danger">
+                                                                    {{ $item->status }}
+                                                                </a>
+                                                            @endif
+                                                        </td>
+                                                        <td>{{ $item->customer_name }}<br>
+                                                            <small style="opacity: 0.5">id:
+                                                                {{ $item->customer_id }}</small>
+                                                        </td>
                                                         <td class="project-actions text-right">
                                                             <a class="btn btn-info btn-sm" href="#">
                                                                 <i class="fas fa-pencil-alt">
@@ -117,6 +143,30 @@
                             @csrf
                             <input type="hidden" name="item_id" value="">
                             <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="modal-sm2" style="display: none;" aria-hidden="true">
+            <div class="modal-dialog modal-sm2">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Delete Report</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true"></span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Are you sure you want to delete this?</p>
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Back</button>
+                        <form class="form-horizontal" method="POST" action="">
+                            @csrf
+                            <input type="hidden" name="item_id" value="">
+                            <button type="submit" name="action" value="cancel" class="btn btn-light">Cancel</button>
+                            <button type="submit" name="action" value="pay" class="btn btn-warning">Pay</button>
                         </form>
                     </div>
                 </div>
@@ -349,6 +399,19 @@
 
             // Set the value of the hidden input
             modal.find('input[name="item_id"]').val(itemId);
+        });
+
+        //for status button
+        $('#modal-sm2').on('show.bs.modal', function(event) {
+            var button = $(event.relatedTarget); // Button that triggered the modal
+            var itemId = button.data('id'); // Extract info from data-* attributes
+            var modal = $(this);
+
+            // Update the form action with the item ID
+            modal.find('form').attr('action', '/books-update-status/' + itemId);
+
+            // Set the value of the hidden input
+            //modal.find('input[name="item_id"]').val(itemId);
         });
     </script>
 @endsection

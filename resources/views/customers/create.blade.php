@@ -43,7 +43,11 @@
                             </div>
                             <!-- /.card-body -->
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-light">Submit</button>
+                                <a href="/customers" class="btn btn-dark">Cancel</a>
+                                <button type="submit" name="action" value="save"
+                                    class="btn btn-secondary  ml-2">Save</button>
+                                <button type="submit" name="action" value="book"
+                                    class="btn btn-light ml-2">Book</button>
                             </div>
                         </form>
                     </div>

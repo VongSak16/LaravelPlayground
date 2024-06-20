@@ -16,6 +16,7 @@ return new class extends Migration
             $table->date('checked_in');
             $table->date('checked_out');
             $table->decimal('total_cost', 8, 2);
+            $table->integer('adults');
             $table->foreignId('customer_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });

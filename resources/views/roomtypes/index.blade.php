@@ -15,16 +15,60 @@
     <!-- Main content -->
     <div class="content">
         <div class="container-fluid">
-            {{-- @if (isset($hotel_id))
+            @if (isset($hotel))
                 <div class="row ml-1">
-                    <div class="card">
-                        <a class="btn btn-success" href="/roomtypes-create/{{ $hotel_id }}"><i class="fas fa-plus"></i></a>
+                    <div class="card mycard2 d-flex flex-fill">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    @php
+                                        $photo =
+                                            $hotel->photo != null
+                                                ? config('paths.image_hotels_path') . '/' . $hotel->photo
+                                                : config('paths.no_image');
+                                    @endphp
+                                    <img src="{{ $photo }}" alt="user-avatar" class="img-rounded img-fluid"
+                                        style="width: 200px; hieght: 200px; objecy-fit: cover;">
+                                </div>
+                                <div class="col-md-6">
+                                    <h2 class="lead"><b>{{ $hotel->name }}</b></h2>
+                                    <p class="text-sm"><b>City: </b>{{ $hotel->city }}</p>
+                                    <p class="text-sm">{{ $roomtypes->count() }} x Roomtypes</p>
+                                    <ul class="ml-4 mb-0 fa-ul ">
+                                        <li class="small"><span class="fa-li"><i
+                                                    class="fas fa-lg fa-location-arrow"></i></span>
+                                            Address :
+                                            {{ $hotel->address }}</li>
+                                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span>
+                                            Phone #:
+                                            {{ $hotel->phone }}</li>
+                                        <li class="small">
+                                            <span class="fa-li"><i class="fas fa-lg fa-envelope"></i>
+                                            </span>
+                                            Email : {{ $hotel->email }}
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            @endif --}}
+            @endif
             <div class="row ml-1">
                 <div class="card">
-                    <a class="btn btn-success" href="/roomtypes-create"><i class="fas fa-plus"></i></a>
+                    @if (isset($hotel) && $hotel->id != null)
+                        @php
+                            $hotel_id = '/' . $hotel->id;
+                        @endphp
+                    @else
+                        @php
+                            $hotel_id = '';
+                        @endphp
+                    @endif
+
+                    <a class="btn btn-success" href="/roomtypes-create{{ $hotel_id }}">
+                        <i class="fas fa-plus"></i>
+                    </a>
                 </div>
             </div>
             <div class="row">
@@ -60,12 +104,17 @@
                                                     <th class="sorting" tabindex="0" aria-controls="example"
                                                         rowspan="1" colspan="1"
                                                         aria-label="CSS grade: activate to sort column ascending">
-                                                        {{ 'Hotel_ID' }}
+                                                        {{ 'Max Adults' }}
                                                     </th>
                                                     <th class="sorting" tabindex="0" aria-controls="example"
                                                         rowspan="1" colspan="1"
                                                         aria-label="CSS grade: activate to sort column ascending">
                                                         {{ 'Details' }}
+                                                    </th>
+                                                    <th class="sorting" tabindex="0" aria-controls="example"
+                                                        rowspan="1" colspan="1"
+                                                        aria-label="CSS grade: activate to sort column ascending">
+                                                        {{ 'Hotel' }}
                                                     </th>
                                                     <th>
                                                         {{ 'Action' }}
@@ -84,25 +133,38 @@
                                                                 href="{{ route('rooms.indexId', $item->id) }}">{{ $item->name }}</a>
                                                         </td>
                                                         <td>
-                                                            <a
-                                                                href="{{ route('rooms.indexId', $item->id) }}">{{ $item->price }}</a>
+                                                            <a href="{{ route('rooms.indexId', $item->id) }}">$
+                                                                {{ $item->price }}</a>
                                                         </td>
                                                         <td>
-                                                            <a href="{{ route('rooms.indexId', $item->id) }}"><img
-                                                                    src="{{ config('paths.image_roomtypes_path') }}/{{ $item->photo }}"
-                                                                    height="50px">
+                                                            <a href="{{ route('rooms.indexId', $item->id) }}">
+                                                                @php
+                                                                    $photo =
+                                                                        $item->photo != null
+                                                                            ? config('paths.image_roomtypes_path') .
+                                                                                '/' .
+                                                                                $item->photo
+                                                                            : config('paths.no_image');
+                                                                @endphp
+                                                                <img src="{{ $photo }}" height="50px">
                                                         </td></a>
                                                         <td>
                                                             <a
-                                                                href="{{ route('rooms.indexId', $item->id) }}">{{ $item->hotel_id }}</a>
+                                                                href="{{ route('rooms.indexId', $item->id) }}">{{ $item->adults }}</a>
                                                         </td>
                                                         <td>
                                                             <a
                                                                 href="{{ route('rooms.indexId', $item->id) }}">{{ $item->details }}</a>
                                                         </td>
+                                                        <td>
+                                                            <a href="{{ route('rooms.indexId', $item->id) }}">
+                                                                {{ $item->hotel_name }}
+                                                                <br><small style="opacity: 0.5">id: {{ $item->hotel_id }}</small>
+                                                            </a>
+                                                        </td>
                                                         <td class="project-actions text-right">
                                                             <a class="btn btn-info btn-sm" href="#">
-                                                                <i class="fas fa-pencil-alt">
+                                                                <i class="fas fa-pencil-alt">   
                                                                 </i>
                                                                 Edit
                                                             </a>

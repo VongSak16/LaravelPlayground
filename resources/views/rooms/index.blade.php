@@ -15,16 +15,59 @@
     <!-- Main content -->
     <div class="content">
         <div class="container-fluid">
-            {{-- @if (isset($hotel_id))
+            @if (isset($roomtype))
                 <div class="row ml-1">
-                    <div class="card">
-                        <a class="btn btn-success" href="/roomtypes-create/{{ $hotel_id }}"><i class="fas fa-plus"></i></a>
+                    <div class="card mycard2 d-flex flex-fill">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    @php
+                                        $photo =
+                                            $roomtype->photo != null
+                                                ? config('paths.image_roomtypes_path') . '/' . $roomtype->photo
+                                                : config('paths.no_image');
+                                    @endphp
+                                    <img src="{{ $photo }}" alt="user-avatar" class="img-rounded img-fluid"
+                                        style="width: 200px; hieght: 200px; objecy-fit: cover;">
+                                </div>
+                                <div class="col-md-6">
+                                    <h2 class="lead"><b>{{ $roomtype->name }}</b></h2>
+                                    <p class="text-sm"><b>Price: </b>$ {{ $roomtype->price }}</p>
+                                    <ul class="ml-1 mb-0 fa-ul ">
+                                        <li class="small">
+                                            <a href="/roomtypes/{{ $hotel->id }}">Hotel: {{ $hotel->name }}</a>
+                                        </li>
+                                        <li class="small">
+                                            {{ $rooms->count() }} x Rooms
+                                        </li>
+                                        <li class="small">
+                                            Max Adults : {{ $roomtype->adults }}
+                                        </li>
+                                        <li class="small">
+                                            Details : {{ $roomtype->details }}
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            @endif --}}
+                @php
+                    $roomtype_id = '/' . $roomtype->id;
+                    $hotel_id = '/' . $hotel->id;
+                @endphp
+            @else
+                @php
+                    $roomtype_id = '';
+                    $hotel_id = '';
+                @endphp
+            @endif
             <div class="row ml-1">
-                <div class="card">
-                    <a class="btn btn-success" href="/rooms-create"><i class="fas fa-plus"></i></a>
+                <div class="card ml-1">
+                    <a class="btn btn-white" href="/roomtypes{{ $hotel_id }}"><i class="fas fa-chevron-left"></i></a>
+                </div>
+                <div class="card ml-2">
+                    <a class="btn btn-success" href="/rooms-create{{ $roomtype_id }}"><i class="fas fa-plus"></i></a>
                 </div>
             </div>
             <div class="row">
@@ -54,6 +97,11 @@
                                                     </th>
                                                     <th class="sorting" tabindex="0" aria-controls="example"
                                                         rowspan="1" colspan="1"
+                                                        aria-label="Platform(s): activate to sort column ascending">
+                                                        {{ 'Hotel' }}
+                                                    </th>
+                                                    <th class="sorting" tabindex="0" aria-controls="example"
+                                                        rowspan="1" colspan="1"
                                                         aria-label="Engine version: activate to sort column ascending">
                                                         {{ 'Status' }}
                                                     </th>
@@ -70,11 +118,29 @@
                                             <tbody>
                                                 @foreach ($rooms as $item)
                                                     <tr class="odd">
-                                                        <td class="dtr-control sorting_1" tabindex="0">{{ $item->id }}
+                                                        <td class="dtr-control sorting_1" tabindex="0">
+                                                            {{ $item->id }}
                                                         </td>
                                                         <td>{{ $item->number }}</td>
-                                                        <td>{{ $item->roomtype_id }}</td>
-                                                        <td>{{ $item->status }}</td>
+                                                        <td>{{ $item->roomtype_name }}
+                                                            <br><small style="opacity: 0.5">id:
+                                                                {{ $item->roomtype_id }}</small>
+                                                        </td>
+                                                        <td>{{ $item->hotel_name }}
+                                                            <br><small style="opacity: 0.5">id:
+                                                                {{ $item->hotel_id }}</small>
+                                                        </td>
+                                                        <td>
+                                                            @if ($item->status == 'available' || $item->status == 'under_maintenance')
+                                                                <a class="btn btn-sm btn-primary">
+                                                                    {{ $item->status }}
+                                                                </a>
+                                                            @else
+                                                                <a href="#" class="btn btn-sm btn-danger">
+                                                                    {{ $item->status }}
+                                                                </a>
+                                                            @endif
+                                                        </td>
                                                         <td>{{ $item->book_id }}</td>
                                                         <td class="project-actions text-right">
                                                             <a class="btn btn-info btn-sm" href="#">

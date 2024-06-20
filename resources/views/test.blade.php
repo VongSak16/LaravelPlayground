@@ -1,52 +1,79 @@
-@extends('layout.main')
-@section('content')
-    <section class="content-header">
-        <h1>
-            Pace page
-            <small>Loading example</small>
-        </h1>
-        <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li><a href="#">Examples</a></li>
-            <li class="active">Pace page</li>
-        </ol>
-    </section>
+<!DOCTYPE html>
+<html lang="en">
 
-    <section class="content">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AdminLTE 3 | Date Picker</title>
 
-        <div class="box">
-            <div class="box-header with-border">
-                <h3 class="box-title">Title</h3>
-                <div class="box-tools pull-right">
-                    <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
-                        title="" data-original-title="Collapse">
-                        <i class="fa fa-minus"></i></button>
-                    <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip"
-                        title="" data-original-title="Remove">
-                        <i class="fa fa-times"></i></button>
-                </div>
-            </div>
-            <div class="box-body">
-                Pace loading works automatically on page. You can still implement it with ajax requests by adding this
-                js:
-                <br><code>$(document).ajaxStart(function() { Pace.restart(); });</code>
-                <br>
-                <div class="row">
-                    <div class="col-xs-12 text-center">
-                        <button type="button" class="btn btn-default btn-lrg ajax" title="Ajax Request">
-                            <i class="fa fa-spin fa-refresh"></i>&nbsp; Get External Content
-                        </button>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet" href="/adminlte/plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="/adminlte/plugins/daterangepicker/daterangepicker.css">
+    <link rel="stylesheet" href="/adminlte/dist/css/adminlte.min.css?v=3.2.0">
+</head>
+
+<body class="sidebar-mini">
+    <div class="wrapper">
+        <div class="content-wrapper">
+            <section class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card card-primary">
+                                <div class="card-header">
+                                    <h3 class="card-title">Date picker</h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label>Date range:</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="far fa-calendar-alt"></i>
+                                                </span>
+                                            </div>
+                                            <input type="text" class="form-control float-right" id="reservation">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    Visit <a href="https://getdatepicker.com/5-4/">tempusdominus </a> for more
+                                    examples and information about
+                                    the plugin.
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="ajax-content">
-                    <hr>Ajax Request Completed !
-                </div>
+            </section>
+            <div id="selectedDateRange">
+                Data Range I selected:
             </div>
-
-            <div class="box-footer">
-                Footer
-            </div>
-
         </div>
-    </section>
-@endsection
+        <div id="sidebar-overlay"></div>
+    </div>
+
+    <script src="/adminlte/plugins/jquery/jquery.min.js"></script>
+    <script src="/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/adminlte/plugins/moment/moment.min.js"></script>
+    <script src="/adminlte/plugins/daterangepicker/daterangepicker.js"></script>
+    <script src="/adminlte/dist/js/adminlte.min.js?v=3.2.0"></script>
+    <script>
+        // $(function() {
+        //     // Initialize Date Range Picker
+        //     $('#reservation').daterangepicker();
+        // });
+        $(function() {
+            // Initialize Date Range Picker
+            $('#reservation').daterangepicker({
+                // Optional: Customize the format
+                locale: {
+                    format: 'MMMM D, YYYY' // Example: June 17, 2024
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

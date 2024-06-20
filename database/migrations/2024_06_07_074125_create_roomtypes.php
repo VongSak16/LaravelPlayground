@@ -17,6 +17,7 @@ return new class extends Migration
             $table->text('details');
             $table->decimal('price', 8, 2);
             $table->string('photo')->nullable();
+            $table->integer('adults');
             $table->foreignId('hotel_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });

@@ -7,8 +7,6 @@ use App\Models\RoomType;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Validator;
 
 class HotelsController extends Controller
 {
@@ -20,7 +18,8 @@ class HotelsController extends Controller
 
     public function create()
     {
-        return view('hotels.create');
+        $cities = config('cities');
+        return view('hotels.create', compact('cities'));
     }
 
     public function store(Request $request)
@@ -31,8 +30,11 @@ class HotelsController extends Controller
         $hotel->id = $id;
         $hotel->name = $request->name;
         $hotel->address = $request->address;
+        $hotel->phone = $request->phone;
+        $hotel->email = $request->email;
         $hotel->city = $request->city;
-        $hotel->user_id = Auth::user()->id;
+        $hotel->created_by_user_id = Auth::user()->id;
+        $hotel->updated_by_user_id = null;
         $hotel->created_at = date("Y-m-d H:i:s");
         $hotel->updated_at = null;
 
@@ -55,8 +57,9 @@ class HotelsController extends Controller
 
     public function edit($id)
     {
+        $cities = config('cities');
         $hotel = Hotel::find($id);
-        return view('hotels.edit', compact('hotel'));
+        return view('hotels.edit', compact('hotel','cities'));
     }
 
     public function update(Request $request, $id)
@@ -84,8 +87,10 @@ class HotelsController extends Controller
 
         $hotel->name = $request->name;
         $hotel->address = $request->address;
+        $hotel->phone = $request->phone;
+        $hotel->email = $request->email;
         $hotel->city = $request->city;
-        $hotel->user_id = Auth::user()->id;
+        $hotel->updated_by_user_id = Auth::user()->id;;
         $hotel->updated_at = date("Y-m-d H:i:s");
         $hotel->photo = $file;
         $hotel->save();

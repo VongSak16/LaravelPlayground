@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\HotelsController;
 use App\Http\Controllers\ProfileController;
@@ -10,17 +11,16 @@ use App\Http\Controllers\RoomTypesController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+Route::get('/', [HomepageController::class, 'index'])->name('home');
 
 Route::get('/test', function () {
     return view('test');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -43,6 +43,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/roomtypes/{hotel_id}', [RoomTypesController::class, 'indexId'])->name('roomtypes.indexId');
 
     Route::get('/roomtypes-create', [RoomTypesController::class, 'create'])->name('roomtypes.create');
+    Route::get('/roomtypes-create/{hotel_id}', [RoomTypesController::class, 'createId'])->name('roomtypes.createId');
     Route::post('/roomtypes-create', [RoomTypesController::class, 'store'])->name('roomtypes.store');
 
     // Route::get('/roomtypes-create/{hotel_id}', [RoomTypesController::class, 'create'])->name('roomtypes.create');
@@ -59,6 +60,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/rooms/{roomtype_id}', [RoomsController::class, 'indexId'])->name('rooms.indexId');
 
     Route::get('/rooms-create', [RoomsController::class, 'create'])->name('rooms.create');
+    Route::get('/rooms-create/{roomtype_id}', [RoomsController::class, 'createId'])->name('rooms.createId');
     Route::post('/rooms-create', [RoomsController::class, 'store'])->name('rooms.store');
 
     Route::post('/rooms-delete/{id}', [RoomsController::class, 'destroy'])->name('rooms.destroy');
@@ -77,9 +79,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/books', [BookController::class, 'index'])->name('books.index');
 
     Route::get('/books-create', [BookController::class, 'create'])->name('books.create');
+    Route::get('/books-create-by-customer/{customer_id}', [BookController::class, 'createCustomerId'])->name('books.createCustomerId');
     Route::post('/books-create', [BookController::class, 'store'])->name('books.store');
 
     Route::post('/books-delete/{id}', [BookController::class, 'destroy'])->name('books.destroy');
+
+    Route::post('/books-update-status/{id}', [BookController::class, 'updateStatus'])->name('books.updateStatus');
 
     //USERS
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
@@ -87,9 +92,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/users-create', [UserController::class, 'create'])->name('users.create');
     Route::post('/users-create', [UserController::class, 'store'])->name('users.store');
 
+    Route::get('/users-update/{id}', [UserController::class, 'edit'])->name('users.edit');
+    Route::post('/users-update/{id}', [UserController::class, 'update'])->name('users.update');
+
     Route::post('/users-delete/{id}', [UserController::class, 'destroy'])->name('users.destroy');
 });
 
 Route::get('/home', [HomepageController::class, 'index'])->name('home');
+
+Route::get('/searchresults', [HomepageController::class, 'searchresults'])->name('searchresults');
 
 require __DIR__ . '/auth.php';

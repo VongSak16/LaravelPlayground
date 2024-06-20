@@ -16,14 +16,21 @@ class RoomTypesController extends Controller
      */
     public function index()
     {
-        $roomtypes = RoomType::all();
+        $roomtypes = RoomType::select('roomtypes.*', 'hotels.name as hotel_name')
+            ->join('hotels', 'roomtypes.hotel_id', '=', 'hotels.id')
+            ->get();
         return view('roomtypes.index', compact('roomtypes'));
     }
 
     public function indexId($hotel_id)
     {
-        $roomtypes = RoomType::where('hotel_id', $hotel_id)->get();
-        return view('roomtypes.index', compact('roomtypes', 'hotel_id'));
+
+        $hotel = Hotel::find($hotel_id);
+        $roomtypes = RoomType::select('roomtypes.*', 'hotels.name as hotel_name')
+            ->join('hotels', 'roomtypes.hotel_id', '=', 'hotels.id')
+            ->where('roomtypes.hotel_id', $hotel_id)
+            ->get();
+        return view('roomtypes.index', compact('roomtypes', 'hotel'));
     }
     /**
      * Show the form for creating a new resource.
@@ -33,10 +40,12 @@ class RoomTypesController extends Controller
         $hotels = Hotel::select('id', 'name')->get();
         return view('roomtypes.create', compact('hotels'));
     }
-    // public function createId($hotel_id)
-    // {
-    //     return view('roomtypes.create', compact('hotel_id'));
-    // }
+    public function createId($hotel_id)
+    {
+        $hotel = Hotel::select('id', 'name')->where('id', $hotel_id)->first();
+        return view('roomtypes.create', compact('hotel'));
+    }
+
 
     public function store(Request $request)
     {
@@ -46,6 +55,7 @@ class RoomTypesController extends Controller
         $roomtype->id = $id;
         $roomtype->name = $request->name;
         $roomtype->price = $request->price;
+        $roomtype->adults = $request->adults;
         $roomtype->hotel_id = $request->hotel_id;
         $roomtype->details = $request->details;
         $roomtype->created_at = date("Y-m-d H:i:s");

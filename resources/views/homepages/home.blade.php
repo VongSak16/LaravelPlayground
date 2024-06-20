@@ -169,28 +169,222 @@
             /* Adjust border radius if needed */
         }
     </style>
+
+    <style type="text/css">
+        .pace .pace-progress {
+            background: #0166ff;
+        }
+
+        /* ..... */
+        .content-wrapper,
+        .brand-link {
+            background-color: #0f0f0f !important;
+        }
+
+        .custom-img-size {
+            width: 34px;
+            height: 34px;
+            object-fit: cover;
+            left: 10px;
+        }
+
+        /* .dark-mode .dropdown-menu {
+            background-color: #282828;
+            color: #fff;
+        } */
+
+        .dropdown-menu {
+            border-radius: .52rem;
+        }
+
+        ::-webkit-scrollbar {
+            width: 12px;
+            height: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgb(34, 34, 34);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .fas {
+            line-height: 1.4;
+        }
+
+        /* .nav-pills .nav-link {
+            border-radius: .52rem;
+        } */
+
+        /* .dark-mode .sidebar-dark-primary .nav-sidebar>.nav-item>.nav-link.active,
+        .dark-mode .sidebar-light-primary .nav-sidebar>.nav-item>.nav-link.active {
+            background-color: #3d3d3d;
+            color: #fff;
+        } */
+
+        .card {
+            background-color: #ffb700 !important;
+            /* border-radius: 10px !important; */
+            border-width: 3px;
+            border-style: solid;
+            border-color: #ffb700;
+            height: 56px;
+        }
+
+        .form-control {
+            background-color: #212121 !important;
+            /* border: 1px solid rgba(255, 255, 255, 0.3) !important;
+            border-radius: 5px !important; */
+            border: none !important;
+            border-top-right-radius: 5px !important;
+            border-bottom-right-radius: 5px !important;
+            color: white;
+        }
+
+        .input-group,
+        .form-control {
+            height: 50px !important;
+        }
+
+        #f1 {
+            padding-right: 1.5px;
+        }
+
+        #f2 {
+            padding-left: 1.5px;
+            padding-right: 1.5px;
+        }
+
+        #f3 {
+            padding-left: 1.5px;
+            padding-right: 1.5px;
+        }
+
+        #f4 {
+            padding-left: 1.5px;
+        }
+
+        input:-webkit-autofill,
+        input:-webkit-autofill:hover,
+        input:-webkit-autofill:focus,
+        input:-webkit-autofill:active {
+            -webkit-box-shadow: 0 0 0 30px #212121 inset !important;
+        }
+
+        .input-group-prepend {
+            background-color: #212121​​ !important;
+            color: #fff;
+        }
+
+        .dark-mode .input-group-text {
+            border-color: #212121;
+        }
+    </style>
+
+    {{-- combox --}}
+    <link rel="stylesheet" href="/adminlte/plugins/select2/css/select2.min.css">
+    <link rel="stylesheet" href="/adminlte/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+
+    <style>
+        /* Background color of the select box */
+        .select2-container--bootstrap4 .select2-selection--single,
+        .select2-dropdown,
+        .select2-search__field {
+            background-color: #212121 !important;
+            /* border: 1px solid rgba(255, 255, 255, 0.3) !important;
+            border-radius: 5px !important; */
+            border: none !important;
+            border-top-right-radius: 5px !important;
+            border-bottom-right-radius: 5px !important;
+            border-top-left-radius: 0px !important;
+            border-bottom-left-radius: 0px !important;
+            height: 100% !important;
+            /* Change to your desired color */
+        }
+
+        .select2-container--bootstrap4 .select2-search {
+            width: 100%;
+            height: 50px;
+        }
+
+        .select2-results__option--highlighted {
+            background-color: #272727 !important;
+        }
+
+        .dark-mode .select2-results__option[aria-selected=true] {
+            background-color: #353535 !important;
+            color: #ffffff !important;
+        }
+
+        .select2-container--bootstrap4 .select2-selection--single .select2-selection__rendered {
+            color: rgb(255, 255, 255);
+            /* Change to your desired text color */
+        }
+
+        .select2-container--bootstrap4 .select2-selection {
+            display: flex;
+            align-items: center;
+        }
+
+        .dark-mode .custom-control-label::before,
+        .dark-mode .custom-file-label,
+        .dark-mode .custom-file-label::after,
+        .dark-mode .custom-select,
+        .dark-mode .form-control:not(.form-control-navbar):not(.form-control-sidebar),
+        .dark-mode .input-group-text {
+            background-color: #212121;
+            color: #fff;
+        }
+    </style>
+
+    {{-- data range  --}}
+    <link rel="stylesheet" href="/adminlte/plugins/daterangepicker/daterangepicker.css">
+
+    {{-- dropdown --}}
+    <style>
+        .dark-mode .dropdown-menu {
+            background-color: #282828;
+            color: #fff;
+        }
+
+        .dropdown-menu {
+            border-radius: .52rem;
+        }
+    </style>
 </head>
 
 <body class="dark-mode layout-top-nav" style="height: auto;">
     <div class="wrapper">
-
         <nav class="brand-col main-header navbar navbar-expand-md navbar-light navbar-dark"
             style="border-bottom: none;">
-            <div class="container">
-                <a href="/home" class="navbar-brand">
-                    <img src="/assets/logobg.svg" alt="" class="brand-image"
-                        style="opacity: .8; border-radius: 10px;">
-                    <span class="brand-text font-weight-light"
-                        style="font-weight: 700 !important;">{{ config('appidentity.app_name') }}</span>
+            <div class="container ">
+                <ul class="navbar-nav">
+                    <li class="nav-item mr-2">
+                        <a href="/home"><img src="/assets/logobg.svg" alt="" class=""
+                                style="border-radius: 10px; witdh: 40px; height: 40px; opacity: 0.8;"></a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/home" style="color: #fff !important;"><span
+                                class="nav-item brand-text font-weight-light"
+                                style="font-weight: 600 !important; font-size: 30px;">{{ config('appidentity.app_name') }}</span></a>
+                    </li>
+                </ul>
                 </a>
                 <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
                     <li class="nav-item">
-                        <button type="button"
-                            class="btn btn-block btn-light btn-sm nav-link custom-btn ">Register</button>
+                        <a href="/register" class="btn btn-block btn-light btn-sm nav-link custom-btn ">Register</a>
                     </li>
                     <li class="nav-item">
-                        <button type="button" class="btn btn-block btn-light btn-sm nav-link custom-btn ml-2">Sign
-                            in</button>
+                        <a href="/login" class="btn btn-block btn-light btn-sm nav-link custom-btn ml-2">Sign
+                            in</a>
                     </li>
                 </ul>
             </div>
@@ -201,11 +395,19 @@
                 <div class="collapse navbar-collapse order-3" id="navbarCollapse">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-
-                            <a href="/home" class="nav-link">Home</a>
+                            <a href="/home" class="nav-link">Stays</a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">Contact</a>
+                            <a href="/home" class="nav-link">Bus</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/home" class="nav-link">Bus + Hotels</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/home" class="nav-link">Vehicle Rantals</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/home" class="nav-link">Attractions</a>
                         </li>
                     </ul>
                 </div>
@@ -216,9 +418,9 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-sm-12 mb-4 mt-4">
-                            <h1 class="ml-1" style="font-weight: 900; font-size: 3em; margin: 0 0 10px 0;">Find
+                            <h1 class="ml-1" style="font-weight: 900; font-size: 3.5em; margin: 20px 0 10px 0;">Find
                                 your next stay</h1>
-                            <h5 class="ml-1" style="font-size: 1.6em; margin: 0 0 10px 0;">Search deals on hotels,
+                            <h5 class="ml-1" style="font-size: 1.6em; margin: 0 0 35px 0;">Search deals on hotels,
                                 homes, and much more...</h5>
                         </div>
                     </div>
@@ -226,18 +428,70 @@
             </div>
             <div class="content">
                 <div class="container">
-                    <div class="row">
+                    <div class="row" id="myrow">
                         <div class="col-lg-12">
-                            <div class="card"
-                                style="background-color: #111111; bottom: 55px !important; border-width: 3px;  border-style: solid; border-color: #ffb700;">
-                                <div class="input-group col-lg-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">
-                                            <i class="far fa-calendar-alt"></i>
-                                        </span>
+                            <div class="card" style="background-color: #111111;  bottom: 52px !important;">
+                                <form class="form-horizontal" method="get" action="/searchresults"
+                                    enctype = "multipart/form-data">
+                                    <div class="row">
+                                        <div class="input-group col" id="f1">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="fas fa-bed"></i>
+                                                </span>
+                                            </div>
+                                            <div class="form-control float-right" style="padding: 0%; height: 100%;">
+                                                <select name="city" class="select2bs4 select2-hidden-accessible"
+                                                    style="width: 100%; height: 100%;" tabindex="-1"
+                                                    aria-hidden="true">
+                                                    <option selected="selected" disabled>Select a city</option>
+                                                    @foreach ($cities as $city)
+                                                        <option>
+                                                            <span>{{ $city['city'] }} </span>
+                                                            <span>( {{ $city['province'] }} )</span>
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="input-group col" id="f2">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="far fa-calendar-alt"></i>
+                                                </span>
+                                            </div>
+                                            <input type="text" class="form-control float-right" name="daterange"
+                                                id="reservation">
+                                        </div>
+                                        <div class="dropdown input-group col" id="f3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="far fa-user"></i>
+                                                </span>
+                                            </div>
+                                            <div class="form-control float-right" role="button" id="navbarDropdown"
+                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                                style="display: flex; align-items: center;">
+                                                {{ '0 Adults. 0 Rooms' }}
+                                            </div>
+                                            <div class="dropdown-menu" aria-labelledby="navbarDropdown"
+                                                style="left: inherit; right: 0px; padding: 5px;">
+                                                <input type="text" class="dropdown-item form-control"
+                                                    name="adults" placeholder="Adults">
+                                                <div class="dropdown-divider"></div>
+                                                <input type="text" class="dropdown-item form-control"
+                                                    name="rooms" placeholder="Rooms">
+                                            </div>
+                                        </div>
+                                        <div class="input-group col-1 d-flex align-items-center justify-content-center"
+                                            id="f4">
+                                            <button type="submit"
+                                                class="btn input-group-prepend d-flex align-items-center justify-content-center"
+                                                id="btn4"
+                                                style="background: #0057b8; color: white; width: 100%; height: 100%;">Search</button>
+                                        </div>
                                     </div>
-                                    <input type="text" class="form-control float-right" id="reservation">
-                                </div>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -258,41 +512,51 @@
 
 
     <script src="/adminlte/plugins/jquery/jquery.min.js"></script>
-
     <script src="/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-
     <script src="/adminlte/dist/js/adminlte.min.js?v=3.2.0"></script>
 
-    <div>
-        <div class="vtResetstyles">
-            <div id="vtoverlay" class="vtoverlay vthidden w3-animate-right
-        w3-container">
-                <div class="vtmain vthidden" id="vtmain">
-                    <div class="vtcontactus">
-                        <a id="linktest" href="https://www.virustotal.com">
-                            <img class="vtlogo-popup" style=" width: 32px;
-                height: 32px;"
-                                src="chrome-extension://efbjojhplkelaegfbieplglfidafgoka/icons/vt-logo.svg">
-                        </a>
-                        <a href="https://www.virustotal.com">VT4Browsers
-                        </a>
-                    </div>
-                    <span id="vtclose"><strong>X</strong></span>
-                    <div class="vttextpopup vthidden" id="statustext">
-                        <div class="vtscanstatus" id="vtscanstatus"></div>
-                        <div class="vtprogress vthidden" id="vtprogress"></div>
-                        <br id="brfile">
-                        <div class="vtscanstatus" id="vtscanfilelink"></div>
-                    </div>
-                    <div class="vttextpopup vthidden" id="widgettext">
-                        <div id="vtwidgetError"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div id="vt-augment-container" class="vtzindex vt-augment drawer" style="background: rgb(49, 61, 90);"></div>
-    </div><span class="vttooltiptext vthidden">&nbsp;Click to open VirusTotal report&nbsp;<br>with VT Augment</span>
-    <style></style>
+
+    {{-- combox --}}
+    <script src="/adminlte/plugins/select2/js/select2.full.min.js"></script>
+    <script>
+        $(function() {
+            //Initialize Select2 Elements
+            $('.select2').select2()
+
+            //Initialize Select2 Elements
+            $('.select2bs4').select2({
+                theme: 'bootstrap4'
+
+            })
+        });
+    </script>
+
+    {{-- data range  --}}
+    <script src="/adminlte/plugins/moment/moment.min.js"></script>
+    <script src="/adminlte/plugins/daterangepicker/daterangepicker.js"></script>
+    <script>
+        //data range
+        $(function() {
+            // Initialize Date Range Picker
+            $('#reservation').daterangepicker({
+                // Optional: Customize the format
+                locale: {
+                    format: 'MMMM D, YYYY' // Example: June 17, 2024
+                }
+            });
+        });
+    </script>
+
+    {{-- update adults and rooms --}}
+    <script>
+        $(document).ready(function() {
+            $('input[name="adults"], input[name="rooms"]').on('change', function() {
+                var adultsValue = $('input[name="adults"]').val();
+                var roomsValue = $('input[name="rooms"]').val();
+                $('#f3 .form-control').text(adultsValue + ' Adults. ' + roomsValue + ' Rooms');
+            });
+        });
+    </script>
 </body>
 
 </html>

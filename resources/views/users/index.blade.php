@@ -75,7 +75,17 @@
                                                         <td>{{ $item->name }}</td>
                                                         <td>{{ $item->username }}</td>
                                                         <td>{{ $item->email }}</td>
-                                                        <td>{{ $item->photo }}</td>
+                                                        @php
+                                                            $photo =
+                                                                $item->photo != null
+                                                                    ? config('paths.image_users_path') .
+                                                                        '/' .
+                                                                        $item->photo
+                                                                    : config('paths.no_image');
+                                                        @endphp
+                                                        <td><img src="{{ $photo }}"
+                                                                style="height: 75px !important; width: 75px !important;  object-fit: cover;"
+                                                                class="img-fluid img-circle"></td>
                                                         <td class="project-actions text-right">
                                                             <a class="btn btn-info btn-sm"
                                                                 href="/users-update/{{ $item->id }}">

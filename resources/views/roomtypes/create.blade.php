@@ -37,18 +37,34 @@
                                                 style="width: 100%;" data-select2-id="17" tabindex="-1" aria-hidden="true">
                                                 <option selected="selected" data-select2-id="19" disabled>Select a hotel
                                                 </option>
-                                                @foreach ($hotels as $hotel)
+                                                @if (isset($hotels))
+                                                    @foreach ($hotels as $hotel)
+                                                        <option data-select2-id="{{ $hotel->id }}"
+                                                            value="{{ $hotel->id }}">
+                                                            {{ $hotel->name }} ( ID: {{ $hotel->id }} )
+                                                        </option>
+                                                    @endforeach
+                                                @elseif (isset($hotel))
                                                     <option data-select2-id="{{ $hotel->id }}"
-                                                        value="{{ $hotel->id }}">
+                                                        value="{{ $hotel->id }}" selected>
                                                         {{ $hotel->name }} ( ID: {{ $hotel->id }} )
                                                     </option>
-                                                @endforeach
+                                                @else
+                                                    <option selected>
+                                                        No hotels available
+                                                    </option>
+                                                @endif
                                             </select>
                                         </div>
                                         <div class="form-group">
                                             <label>Details</label>
                                             <textarea class="form-control" rows="3" placeholder="Enter ..." data-gramm="false" wt-ignore-input="true"
                                                 id="details" name="details"></textarea>
+                                        </div>
+                                        <div class="form-group  ">
+                                            <label for="this">{{ 'Maximum Adults' }}</label>
+                                            <input type="text" id="adults" name="adults" class="form-control"
+                                                id="this">
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
@@ -79,7 +95,7 @@
                             </div>
                             <!-- /.card-body -->
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-light">Submit</button>
+                                <button type="submit" class="btn btn-light">Save</button>
                             </div>
                         </form>
                     </div>

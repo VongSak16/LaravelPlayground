@@ -24,6 +24,7 @@
     <style type="text/css">
         .pace .pace-progress {
             background: #0166ff;
+            height: 2px;
         }
 
         /* ..... */
@@ -113,8 +114,16 @@
                         role="button" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true"
                         aria-expanded="false">
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown"
-                        style="left: 0px; right: inherit; height: 100px;">
-                        <a class="dropdown-item" href="/profile">Profile</a>
+                        style="left: 0px; right: inherit; height: 120px;">
+                        <a class="dropdown-item" href="/profile">
+                            <div class="row">
+                                <img class="custom-img-size rounded-circle" src="{{ $photo }}"​​​>
+                                <div class="ml-2">
+                                    {{ Auth::user()->name }} <br>
+                                    <small style="opacity: 0.5">{{ '@' . Auth::user()->username }}</small>
+                                </div>
+                            </div>
+                        </a>
                         <div class="dropdown-divider"></div>
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
@@ -137,8 +146,7 @@
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
             <a href="/dashboard" class="brand-link ml-2">
-                <img src="/assets/logobg.svg" alt="" class="brand-image"
-                        style="border-radius: 10px;">
+                <img src="/assets/logobg.svg" alt="" class="brand-image" style="border-radius: 10px;">
                 <span class="brand-text font-weight-light">Hotel</span>
             </a>
 
@@ -166,52 +174,52 @@
                  with font-awesome or any other icon font library -->
                         <li class="nav-item">
                             <a href="../dashboard" class="nav-link">
-                                <i class="nav-icon far fa-calendar-alt"></i>
+                                <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>Dashboard</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('hotels.index') }}" class="nav-link">
-                                <i class="nav-icon far fa-calendar-alt"></i>
+                                <i class="nav-icon fas fa-hotel"></i>
                                 <p>Hotels</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('roomtypes.index') }}" class="nav-link">
-                                <i class="nav-icon far fa-calendar-alt"></i>
+                                <i class="nav-icon fas fa-th-list"></i>
                                 <p>RoomTypes</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('rooms.index') }}" class="nav-link">
-                                <i class="nav-icon far fa-calendar-alt"></i>
+                                <i class="nav-icon fas fa-bed"></i>
                                 <p>Rooms</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="../books" class="nav-link">
-                                <i class="nav-icon far fa-calendar-alt"></i>
+                                <i class="nav-icon fas fa-calendar"></i>
                                 <p>Books</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('customers.index') }}" class="nav-link">
-                                <i class="nav-icon far fa-calendar-alt"></i>
+                                <i class="nav-icon fas fa-users"></i>
                                 <p>Customers</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('users.index') }}" class="nav-link">
-                                <i class="nav-icon far fa-calendar-alt"></i>
+                                <i class="nav-icon fas fa-user"></i>
                                 <p>Users</p>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a href="/test" class="nav-link">
                                 <i class="nav-icon far fa-calendar-alt"></i>
                                 <p>Test</p>
                             </a>
-                        </li>
+                        </li> --}}
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->

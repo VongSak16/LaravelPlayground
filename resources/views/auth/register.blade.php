@@ -57,7 +57,7 @@
         <!-- Image Preview -->
         <div class="mt-4">
             {{-- <img id="image_preview" class="w-32 h-32 object-cover" /> --}}
-            <img class="rounded w-36 h-36" id="image_preview" src="/assets/no-img.jpg" alt="Extra large avatar"
+            <img class="rounded w-36 h-36" id="image_preview" src="/assets/no-image.webp" alt="Extra large avatar"
                 width="200px"​>
         </div>
 

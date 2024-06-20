@@ -37,62 +37,30 @@
                                                 class="form-control select2bs4 select2-hidden-accessible "
                                                 style="width: 100%;" data-select2-id="17" tabindex="-1" aria-hidden="true"
                                                 title="{{ $hotel->city }}">
-                                                <option selected="selected" data-select2-id="19">{{ $hotel->city }}
-                                                </option>
-                                                <option data-select2-id="37">Phnom Penh</option>
-                                                <option data-select2-id="38">Battambang</option>
-                                                <option data-select2-id="39">Siem Reap</option>
-                                                <option data-select2-id="40">Sihanoukville</option>
-                                                <option data-select2-id="41">Kampot</option>
-                                                <option data-select2-id="42">Preah Vihear</option>
-                                                <option data-select2-id="43">Kratie</option>
-                                                <option data-select2-id="44">Mondulkiri</option>
-                                                <option data-select2-id="45">Koh Rong - Sihanoukville</option>
-                                                <option data-select2-id="46">Koh Rong Samloem - Sihanoukville</option>
-                                                <option data-select2-id="47">Kep</option>
-                                                <option data-select2-id="48">Stung Treng</option>
-                                                <option data-select2-id="49">Ream National Park - Sihanoukville</option>
-                                                <option data-select2-id="50">Preah Vihear Temple - Preah Vihear</option>
-                                                <option data-select2-id="51">Banteay Srei - Siem Reap</option>
-                                                <option data-select2-id="52">Angkor Wat - Siem Reap</option>
-                                                <option data-select2-id="53">Angkor Thom - Siem Reap</option>
-                                                <option data-select2-id="54">Ta Prohm - Siem Reap</option>
-                                                <option data-select2-id="55">Bayon Temple - Siem Reap</option>
-                                                <option data-select2-id="56">Srei Temple - Siem Reap</option>
-                                                <option data-select2-id="57">Phnom Kulen - Siem Reap</option>
-                                                <option data-select2-id="58">Bokor National Park - Kampot</option>
-                                                <option data-select2-id="60">Kirirom National Park - Kampong Speu</option>
-                                                <option data-select2-id="61">Banteay Meanchey</option>
-                                                <option data-select2-id="62">Kampong Cham</option>
-                                                <option data-select2-id="63">Kampong Chhnang</option>
-                                                <option data-select2-id="64">Kampong Speu</option>
-                                                <option data-select2-id="65">Kampong Thom</option>
-                                                <option data-select2-id="66">Kandal</option>
-                                                <option data-select2-id="67">Oddar Meanchey</option>
-                                                <option data-select2-id="68">Pailin</option>
-                                                <option data-select2-id="69">Pursat</option>
-                                                <option data-select2-id="70">Ratanakiri</option>
-                                                <option data-select2-id="71">Takeo</option>
-                                                <option data-select2-id="72">Tboung Khmum</option>
-                                                <option data-select2-id="73">Banlung - Ratanakiri</option>
-                                                <option data-select2-id="74">Senmonorom - Mondulkiri</option>
-                                                <option data-select2-id="75">Svay Rieng - Svay Rieng</option>
-                                                <option data-select2-id="76">Samraong - Oddar Meanchey</option>
-                                                <option data-select2-id="77">Suong - Tboung Khmum</option>
-                                                <option data-select2-id="78">Tbong Khmum - Tboung Khmum</option>
-                                                <option data-select2-id="79">Sisophon - Banteay Meanchey</option>
-                                                <option data-select2-id="80">Serei Saophoan - Banteay Meanchey</option>
-                                                <option data-select2-id="81">Neak Leung - Prey Veng</option>
-                                                <option data-select2-id="82">Bavet - Svay Rieng</option>
-                                                <option data-select2-id="83">Koh Kong - Koh Kong</option>
-                                                <option data-select2-id="84">Sihanoukville - Sihanoukville</option>
-                                                <option data-select2-id="85">Pursat - Pursat</option>
+                                                <option selected="selected" disabled>Select a city</option>
+                                                @foreach ($cities as $cityItem)
+                                                    <option value="{{ $cityItem['city'] }}"
+                                                        @if (str_contains($hotel->city, $cityItem['city'])) selected @endif>
+                                                        <span>{{ $cityItem['city'] }} </span>
+                                                        <span>( {{ $cityItem['province'] }} )</span>
+                                                    </option>
+                                                @endforeach
                                             </select>
                                         </div>
                                         <div class="form-group col-sm-6">
                                             <label for="this">Address</label>
                                             <input type="text" id="address" name="address" class="form-control"
                                                 id="this" value="{{ $hotel->address }}">
+                                        </div>
+                                        <div class="form-group col-sm-6">
+                                            <label for="this">Phone</label>
+                                            <input type="text" id="phone" name="phone" class="form-control"
+                                                id="this" value="{{ $hotel->phone }}">
+                                        </div>
+                                        <div class="form-group col-sm-6">
+                                            <label for="this">Email</label>
+                                            <input type="text" id="email" name="email" class="form-control"
+                                                id="this" value="{{ $hotel->email }}">
                                         </div>
                                         <div class="fom-group col-sm-6">
                                             <label for="file">Photo</label>
@@ -121,7 +89,7 @@
                                 </div>
                                 <!-- /.card-body -->
                                 <div class="card-footer">
-                                    <button type="submit" class="btn btn-light">Submit</button>
+                                    <button type="submit" class="btn btn-light">Save</button>
                                 </div>
                             </form>
                         </div>
