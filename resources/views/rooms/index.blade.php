@@ -396,6 +396,10 @@
         a:hover {
             color: aliceblue !important;
         }
+
+        .content-wrapper {
+            min-height: 1300px !important;
+        }
     </style>
     <link rel="stylesheet" href="{{ config('paths.css') }}/card.css">
 @endsection
